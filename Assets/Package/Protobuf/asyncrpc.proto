@@ -1,0 +1,28 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+option go_package = "github.com/GameWorkStore/asyncengine/Assets/asyncnetworkengine";
+
+package asyncnetworkengine;
+
+enum CloudProvider
+{
+   AWS = 0;
+   GCP = 1;
+}
+
+enum Transmission
+{
+   NotSpecified = 0;
+   Ok = 200;
+   MarshalDecodeError = 290;
+   MarshalEncodeError = 291;
+   ResponseWrite = 292;
+   NotImplemented = 293;
+   InternalHandlerError = 294;
+   NotAllowed = 405;
+}
+
+message GenericErrorResponse
+{
+   string Error = 1;
+}
