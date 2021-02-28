@@ -41,11 +41,16 @@ jobs:
       - name: Cook Go Module
         run: |
           git checkout main
-          git subtree split -P Assets/GoModule -b go
-          git checkout go
-          ls
+
+      - name: Release
+        uses: xedi/action-subtree-sync@1.0.0
+        with:
+          subtree: 'GameWorkstore/async-network-engine-go'
+          subtree_deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
+          split_prefix: 'Assets/GoModule'
 
       - name: Push GO Module
+        if: false
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,4 @@
-module github.com/GameWorkstore/async-network-engine/tree/go
+module github.com/GameWorkstore/async-network-engine
 
 go 1.15
 
