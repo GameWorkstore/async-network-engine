@@ -41,7 +41,7 @@ jobs:
       - name: Cook Go Module
         run: |
           git checkout main
-          git subtree split -P Assets/gomodule -b go
+          git subtree split -P Assets/GoModule -b go
           git checkout go
           ls
 
