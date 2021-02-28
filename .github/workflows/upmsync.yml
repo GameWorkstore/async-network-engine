@@ -30,19 +30,30 @@ jobs:
           git checkout upm
           ls
 
-      - name: Push changes
+      - name: Push UPM
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: upm
+          force: true
+
+      - name: Cook Go Module
+          git checkout main
+          git subtree split -P Assets/asyncnetworkengine -b go
+          ls
+
+      - name: Push GO Module
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: go
           force: true
   upload:
     runs-on: ubuntu-latest
     steps:
       - name: Setup GCloud
         uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
           export_default_credentials: true
-      
-          
