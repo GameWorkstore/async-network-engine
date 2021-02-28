@@ -43,7 +43,7 @@ func SetupCORS(allowCredentials bool, allowOrigin string, allowHeaders string, a
 	allowedMaxAge = strconv.Itoa(maxAge)
 }
 
-// GCPDecode decodes and returns the protobuf of given connection. returns
+// GCPDecode decodes and returns the protobuf of given connection. returns true if break by OPTIONS or error.
 func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
 
 	if allowedCORS {
@@ -61,26 +61,26 @@ func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
 		} else {
 			w.WriteHeader(int(Transmission_NotAllowed))
 		}
-		return false
+		return true
 	}
 
 	if r.Method != http.MethodPost {
 		w.WriteHeader(int(Transmission_NotAllowed))
-		return false
+		return true
 	}
 
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		GCPError(w, Transmission_MarshalDecodeError, nil)
-		return false
+		return true
 	}
 
 	err = proto.Unmarshal(data, rqt)
 	if err != nil {
 		GCPError(w, Transmission_MarshalDecodeError, nil)
-		return false
+		return true
 	}
-	return true
+	return false
 }
 
 // GCPResponse writes response in given connection.
