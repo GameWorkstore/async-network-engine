@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Asyncnetworkengine {
+namespace Main {
 
   /// <summary>Holder for reflection information generated from asyncrpc.proto</summary>
   public static partial class AsyncrpcReflection {
@@ -24,22 +24,22 @@ namespace Asyncnetworkengine {
     static AsyncrpcReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5hc3luY3JwYy5wcm90bxISYXN5bmNuZXR3b3JrZW5naW5lIiEKDkdlbmVy",
-            "aWNSZXF1ZXN0Eg8KB01lc3NlZ2UYASABKAkiIgoPR2VuZXJpY1Jlc3BvbnNl",
-            "Eg8KB01lc3NlZ2UYAiABKAkiJQoUR2VuZXJpY0Vycm9yUmVzcG9uc2USDQoF",
-            "RXJyb3IYASABKAkqIQoNQ2xvdWRQcm92aWRlchIHCgNBV1MQABIHCgNHQ1AQ",
-            "ASqwAQoMVHJhbnNtaXNzaW9uEhAKDE5vdFNwZWNpZmllZBAAEgcKAk9rEMgB",
-            "EhcKEk1hcnNoYWxEZWNvZGVFcnJvchCiAhIXChJNYXJzaGFsRW5jb2RlRXJy",
-            "b3IQowISEgoNUmVzcG9uc2VXcml0ZRCkAhITCg5Ob3RJbXBsZW1lbnRlZBCl",
-            "AhIZChRJbnRlcm5hbEhhbmRsZXJFcnJvchCmAhIPCgpOb3RBbGxvd2VkEJUD",
-            "QjlIA1o1Z2l0aHViLmNvbS9HYW1lV29ya1N0b3JlL2FzeW5jLW5ldHdvcmst",
-            "ZW5naW5lL3RyZWUvZ29iBnByb3RvMw=="));
+            "Cg5hc3luY3JwYy5wcm90bxIEbWFpbiIhCg5HZW5lcmljUmVxdWVzdBIPCgdN",
+            "ZXNzZWdlGAEgASgJIiIKD0dlbmVyaWNSZXNwb25zZRIPCgdNZXNzZWdlGAIg",
+            "ASgJIiUKFEdlbmVyaWNFcnJvclJlc3BvbnNlEg0KBUVycm9yGAEgASgJKiEK",
+            "DUNsb3VkUHJvdmlkZXISBwoDQVdTEAASBwoDR0NQEAEqsAEKDFRyYW5zbWlz",
+            "c2lvbhIQCgxOb3RTcGVjaWZpZWQQABIHCgJPaxDIARIXChJNYXJzaGFsRGVj",
+            "b2RlRXJyb3IQogISFwoSTWFyc2hhbEVuY29kZUVycm9yEKMCEhIKDVJlc3Bv",
+            "bnNlV3JpdGUQpAISEwoOTm90SW1wbGVtZW50ZWQQpQISGQoUSW50ZXJuYWxI",
+            "YW5kbGVyRXJyb3IQpgISDwoKTm90QWxsb3dlZBCVA0I+SANaOmdpdGh1Yi5j",
+            "b20vR2FtZVdvcmtzdG9yZS9hc3luYy1uZXR3b3JrLWVuZ2luZS90cmVlL2dv",
+            "O21haW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Asyncnetworkengine.CloudProvider), typeof(global::Asyncnetworkengine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericRequest), global::Asyncnetworkengine.GenericRequest.Parser, new[]{ "Messege" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericResponse), global::Asyncnetworkengine.GenericResponse.Parser, new[]{ "Messege" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericErrorResponse), global::Asyncnetworkengine.GenericErrorResponse.Parser, new[]{ "Error" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Main.CloudProvider), typeof(global::Main.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Main.GenericRequest), global::Main.GenericRequest.Parser, new[]{ "Messege" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Main.GenericResponse), global::Main.GenericResponse.Parser, new[]{ "Messege" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Main.GenericErrorResponse), global::Main.GenericErrorResponse.Parser, new[]{ "Error" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,7 +77,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Main.AsyncrpcReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -249,7 +249,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Main.AsyncrpcReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -421,7 +421,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Main.AsyncrpcReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

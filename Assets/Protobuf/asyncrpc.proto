@@ -1,8 +1,8 @@
 syntax = "proto3";
 option optimize_for = LITE_RUNTIME;
-option go_package = "github.com/GameWorkStore/async-network-engine/tree/go";
+option go_package = "github.com/GameWorkstore/async-network-engine/tree/go;main";
 
-package asyncnetworkengine;
+package main;
 
 enum CloudProvider
 {

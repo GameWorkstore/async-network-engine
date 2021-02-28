@@ -1,4 +1,4 @@
-package asyncnetworkengine
+package main
 
 import (
 	"io/ioutil"
@@ -8,7 +8,7 @@ import (
 	"encoding/base64"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 var allowedCORS = false
