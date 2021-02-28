@@ -42,20 +42,15 @@ jobs:
         run: |
           git checkout main
 
-      - name: Release
-        uses: xedi/action-subtree-sync@1.0.0
+      - name: nxtlvlsoftware/git-subtree
+        uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
-          subtree: 'GameWorkstore/async-network-engine-go'
-          subtree_deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
-          split_prefix: 'Assets/GoModule'
-
-      - name: Push GO Module
-        if: false
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: go
+          repo: 'GameWorkstore/async-network-engine-go'
+          path: 'Assets/GoModule'
+          deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
           force: true
+          branch: main
+          
   upload:
     runs-on: ubuntu-latest
     steps:
