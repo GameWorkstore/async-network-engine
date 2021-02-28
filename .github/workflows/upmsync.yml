@@ -26,6 +26,7 @@ jobs:
 
       - name: Cook UPM
         run: |
+          git checkout main
           git subtree split -P Assets/Package/ -b upm
           git checkout upm
           ls
@@ -40,7 +41,8 @@ jobs:
       - name: Cook Go Module
         run: |
           git checkout main
-          git subtree split -P Assets/asyncnetworkengine -b go
+          git subtree split -P Assets/gomodule -b go
+          git checkout go
           ls
 
       - name: Push GO Module

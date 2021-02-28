@@ -32,8 +32,8 @@ namespace Asyncnetworkengine {
             "EhcKEk1hcnNoYWxEZWNvZGVFcnJvchCiAhIXChJNYXJzaGFsRW5jb2RlRXJy",
             "b3IQowISEgoNUmVzcG9uc2VXcml0ZRCkAhITCg5Ob3RJbXBsZW1lbnRlZBCl",
             "AhIZChRJbnRlcm5hbEhhbmRsZXJFcnJvchCmAhIPCgpOb3RBbGxvd2VkEJUD",
-            "QkJIA1o+Z2l0aHViLmNvbS9HYW1lV29ya1N0b3JlL2FzeW5jZW5naW5lL0Fz",
-            "c2V0cy9hc3luY25ldHdvcmtlbmdpbmViBnByb3RvMw=="));
+            "QjlIA1o1Z2l0aHViLmNvbS9HYW1lV29ya1N0b3JlL2FzeW5jLW5ldHdvcmst",
+            "ZW5naW5lL3RyZWUvZ29iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Asyncnetworkengine.CloudProvider), typeof(global::Asyncnetworkengine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {

@@ -1,6 +1,6 @@
 syntax = "proto3";
 option optimize_for = LITE_RUNTIME;
-option go_package = "github.com/GameWorkStore/asyncengine/Assets/asyncnetworkengine";
+option go_package = "github.com/GameWorkStore/async-network-engine/tree/go";
 
 package asyncnetworkengine;
 
