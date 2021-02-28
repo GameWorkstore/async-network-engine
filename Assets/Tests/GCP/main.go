@@ -9,5 +9,11 @@ import (
 // Process handler of this test
 func Process(w http.ResponseWriter, r *http.Request) {
 	rqt := ase.GenericRequest{}
-	ase.GCPDecode(r, w, &rqt)
+	if ase.GCPDecode(r, w, &rqt) {
+		return
+	}
+
+	resp := ase.GenericResponse{}
+	resp.Messege = "Received:" + rqt.Messege
+	ase.GCPResponse(w, &resp)
 }

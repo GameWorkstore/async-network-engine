@@ -60,3 +60,8 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
           export_default_credentials: true
+      
+      - name: Deploy GCP test function
+        run: |
+          cd Assets/Tests/GCP/
+          gcloud functions deploy gcptest --entry-point Process --runtime go113 --trigger-http
