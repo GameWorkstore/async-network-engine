@@ -42,7 +42,7 @@ jobs:
         run: |
           git checkout main
 
-      - name: nxtlvlsoftware/git-subtree
+      - name: Push downstream aws-network-engine-go package
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
           repo: 'GameWorkstore/async-network-engine-go'
@@ -50,7 +50,7 @@ jobs:
           deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
           force: true
           branch: main
-          
+
   upload:
     runs-on: ubuntu-latest
     steps:

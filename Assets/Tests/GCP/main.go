@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	ase "github.com/GameWorkstore/async-network-engine@go"
+	ase "github.com/GameWorkstore/async-network-engine-go"
 )
 
 // Process handler of this test
