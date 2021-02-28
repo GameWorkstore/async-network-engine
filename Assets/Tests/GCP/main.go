@@ -8,6 +8,6 @@ import (
 
 // Process handler of this test
 func Process(w http.ResponseWriter, r *http.Request) {
-	//var resp ase.GenericMessegeResponse
-	ase.GCPDecode(r, w, nil)
+	rqt := ase.GenericRequest{}
+	ase.GCPDecode(r, w, &rqt)
 }

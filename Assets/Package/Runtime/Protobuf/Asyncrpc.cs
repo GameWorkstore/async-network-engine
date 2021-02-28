@@ -31,9 +31,9 @@ namespace Main {
             "c2lvbhIQCgxOb3RTcGVjaWZpZWQQABIHCgJPaxDIARIXChJNYXJzaGFsRGVj",
             "b2RlRXJyb3IQogISFwoSTWFyc2hhbEVuY29kZUVycm9yEKMCEhIKDVJlc3Bv",
             "bnNlV3JpdGUQpAISEwoOTm90SW1wbGVtZW50ZWQQpQISGQoUSW50ZXJuYWxI",
-            "YW5kbGVyRXJyb3IQpgISDwoKTm90QWxsb3dlZBCVA0I2SANaMmdpdGh1Yi5j",
-            "b20vR2FtZVdvcmtzdG9yZS9hc3luYy1uZXR3b3JrLWVuZ2luZTttYWluYgZw",
-            "cm90bzM="));
+            "YW5kbGVyRXJyb3IQpgISDwoKTm90QWxsb3dlZBCVA0I5SANaNWdpdGh1Yi5j",
+            "b20vR2FtZVdvcmtzdG9yZS9hc3luYy1uZXR3b3JrLWVuZ2luZS1nbzttYWlu",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Main.CloudProvider), typeof(global::Main.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {

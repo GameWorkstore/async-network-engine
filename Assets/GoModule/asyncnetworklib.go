@@ -18,6 +18,10 @@ var allowedHeaders = "Accept, X-Access-Token, X-Application-Name, X-Request-Sent
 var allowedMethods = "POST"
 var allowedMaxAge = "3600"
 
+func main() {
+
+}
+
 // EnableCORS setup default CORS to enabled.
 func EnableCORS() {
 	allowedCORS = true
@@ -40,7 +44,7 @@ func SetupCORS(allowCredentials bool, allowOrigin string, allowHeaders string, a
 }
 
 // GCPDecode decodes and returns the protobuf of given connection. returns
-func GCPDecode(r http.Request, w http.ResponseWriter, rqt proto.Message) bool {
+func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
 
 	if allowedCORS {
 		w.Header().Set("Access-Control-Allow-Credentials", allowedCredentials)
