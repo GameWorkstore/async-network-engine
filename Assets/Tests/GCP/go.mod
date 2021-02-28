@@ -1,5 +1,5 @@
-go 1.16
+go 1.13
 
-module gcptest
+module com.gameworkstore/gcptest
 
 require github.com/GameWorkstore/async-network-engine-go v0.0.5

@@ -1,6 +1,6 @@
 module github.com/GameWorkstore/async-network-engine-go
 
-go 1.15
+go 1.13
 
 require (
 	github.com/aws/aws-lambda-go v1.22.0
