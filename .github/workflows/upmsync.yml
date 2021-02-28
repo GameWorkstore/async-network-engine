@@ -38,6 +38,7 @@ jobs:
           force: true
 
       - name: Cook Go Module
+        run: |
           git checkout main
           git subtree split -P Assets/asyncnetworkengine -b go
           ls
