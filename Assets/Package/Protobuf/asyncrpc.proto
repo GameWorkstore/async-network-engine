@@ -22,6 +22,16 @@ enum Transmission
    NotAllowed = 405;
 }
 
+message GenericRequest
+{
+   string Messege = 1;
+}
+
+message GenericResponse
+{
+   string Messege = 2;
+}
+
 message GenericErrorResponse
 {
    string Error = 1;
