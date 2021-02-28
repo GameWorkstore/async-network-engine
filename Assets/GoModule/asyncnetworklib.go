@@ -1,4 +1,4 @@
-package main
+package asyncnetworkengine
 
 import (
 	"io/ioutil"
@@ -17,10 +17,6 @@ var allowedOrigin = "*"
 var allowedHeaders = "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time, Content-Type"
 var allowedMethods = "POST"
 var allowedMaxAge = "3600"
-
-func main() {
-
-}
 
 // EnableCORS setup default CORS to enabled.
 func EnableCORS() {
