@@ -16,4 +16,4 @@ MonoBehaviour:
   CSharpCompilerEnabled: 1
   CSharpCustomPath: Package/Runtime/Protobuf/
   GoLangCompilerEnabled: 1
-  GoLangCustomPath: Package/GoModule/
+  GoLangCustomPath: GoModule/

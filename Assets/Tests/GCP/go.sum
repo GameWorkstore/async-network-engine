@@ -4,6 +4,8 @@ github.com/GameWorkstore/async-network-engine-go v0.0.4 h1:VxKy0EhEaIey21vtuHQcU
 github.com/GameWorkstore/async-network-engine-go v0.0.4/go.mod h1:RFnOlrs+dKN/f1+IdJojvuOyR5XC5UxeYITu3sW3Vpw=
 github.com/GameWorkstore/async-network-engine-go v0.0.5 h1:uxt+ORvGAmysZno8qq5zm8lD3Nm3VgsKyzT88x2nxz0=
 github.com/GameWorkstore/async-network-engine-go v0.0.5/go.mod h1:RFnOlrs+dKN/f1+IdJojvuOyR5XC5UxeYITu3sW3Vpw=
+github.com/GameWorkstore/async-network-engine-go v0.0.6 h1:KwSgP4yDFgMWieOQYFqZsUWOcDcQXCJjr5poBQX10FQ=
+github.com/GameWorkstore/async-network-engine-go v0.0.6/go.mod h1:hs2ir8qRsTALeBZb8BymLdKRnV+lRgF3IcPpdns8eJs=
 github.com/aws/aws-lambda-go v1.22.0 h1:X7BKqIdfoJcbsEIi+Lrt5YjX1HnZexIbNWOQgkYKgfE=
 github.com/aws/aws-lambda-go v1.22.0/go.mod h1:jJmlefzPfGnckuHdXX7/80O3BvUUi12XOkbv4w9SGLU=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
@@ -82,6 +84,7 @@ google.golang.org/protobuf v1.23.0/go.mod h1:EGpADcykh3NcUnDUJcl1+ZksZNG86OlYog2
 google.golang.org/protobuf v1.23.1-0.20200526195155-81db48ad09cc/go.mod h1:EGpADcykh3NcUnDUJcl1+ZksZNG86OlYog2l/sGQquU=
 google.golang.org/protobuf v1.25.0 h1:Ejskq+SyPohKW+1uil0JJMtmHCgJPJ/qWTxr8qp+R4c=
 google.golang.org/protobuf v1.25.0/go.mod h1:9JNX74DMeImyA3h4bdi1ymwjUzf21/xIlbajtzgsN7c=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=

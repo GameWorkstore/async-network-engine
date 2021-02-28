@@ -43,7 +43,7 @@ public static class AsyncNetworkEngine<T, TU, TV>
         _eventService.StartCoroutine(SendRequest(uri, request, result));
     }
 
-    private static IEnumerator SendRequest(string uri, T request, Action<AsyncNetworkResult, TU, TV> result)
+    public static IEnumerator SendRequest(string uri, T request, Action<AsyncNetworkResult, TU, TV> result)
     {
         //Notice: APIGateway automatically converts binary data into base64 strings
         using var rqt = new UnityWebRequest(uri, "POST")
@@ -63,9 +63,17 @@ public static class AsyncNetworkEngine<T, TU, TV>
             if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
             try
             {
-                var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
-                var error = _tvParser.ParseFrom(data);
-                Return(AsyncNetworkResult.E_HTTP, default, error, result);
+                if(Cloud == AsyncNetworkEngineCloud.AWS)
+                {
+                    var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                    var error = _tvParser.ParseFrom(data);
+                    Return(AsyncNetworkResult.E_HTTP, default, error, result);
+                }
+                else
+                {
+                    var error = _tvParser.ParseFrom(rqt.downloadHandler.data);
+                    Return(AsyncNetworkResult.E_HTTP, default, error, result);
+                }
             }
             catch
             {
@@ -76,9 +84,17 @@ public static class AsyncNetworkEngine<T, TU, TV>
         
         try
         {
-            var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
-            var packet = _tuParser.ParseFrom(data);
-            Return(AsyncNetworkResult.SUCCESS, packet, default, result);
+            if (Cloud == AsyncNetworkEngineCloud.AWS)
+            {
+                var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                var packet = _tuParser.ParseFrom(data);
+                Return(AsyncNetworkResult.SUCCESS, packet, default, result);
+            }
+            else
+            {
+                var packet = _tuParser.ParseFrom(rqt.downloadHandler.data);
+                Return(AsyncNetworkResult.SUCCESS, packet, default, result);
+            }
         }
         catch
         {

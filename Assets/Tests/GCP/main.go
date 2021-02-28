@@ -6,6 +6,10 @@ import (
 	ase "github.com/GameWorkstore/async-network-engine-go"
 )
 
+func init() {
+
+}
+
 // Process handler of this test
 func Process(w http.ResponseWriter, r *http.Request) {
 	rqt := ase.GenericRequest{}
