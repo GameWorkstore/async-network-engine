@@ -1,11 +1,21 @@
-# Patterns
-GameWorkstore basic pattern structures and project helpers
-Use it your own risk!
+# Async Network Engine
+
+Unity http requests made easy to interoperability with Go Lang + Google Protobuf functions!
+
+Supported Cloud Functions:
+- Google Cloud Functions
+- Amazon Web Services Lambdas
+
+Use at your own risk!
 
 # How to install
 
-At package.json, add these line of code:
-> "com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git"
+At package.json, add these 3 lines of code:
+```json
+"com.gameworkstore.asyncnetworkengine": "git://github.com/GameWorkstore/async-network-engine.git",
+"com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity.git",
+"com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git"
+```
 
 And wait for unity to download and compile the package.
 
