@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Asyncnetworkengine {
+namespace GameWorkstore.AsyncNetworkEngine {
 
   /// <summary>Holder for reflection information generated from asyncrpc.proto</summary>
   public static partial class AsyncrpcReflection {
@@ -24,22 +24,23 @@ namespace Asyncnetworkengine {
     static AsyncrpcReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5hc3luY3JwYy5wcm90bxISYXN5bmNuZXR3b3JrZW5naW5lIiEKDkdlbmVy",
-            "aWNSZXF1ZXN0Eg8KB01lc3NlZ2UYASABKAkiIgoPR2VuZXJpY1Jlc3BvbnNl",
-            "Eg8KB01lc3NlZ2UYAiABKAkiJQoUR2VuZXJpY0Vycm9yUmVzcG9uc2USDQoF",
-            "RXJyb3IYASABKAkqIQoNQ2xvdWRQcm92aWRlchIHCgNBV1MQABIHCgNHQ1AQ",
-            "ASqwAQoMVHJhbnNtaXNzaW9uEhAKDE5vdFNwZWNpZmllZBAAEgcKAk9rEMgB",
-            "EhcKEk1hcnNoYWxEZWNvZGVFcnJvchCiAhIXChJNYXJzaGFsRW5jb2RlRXJy",
-            "b3IQowISEgoNUmVzcG9uc2VXcml0ZRCkAhITCg5Ob3RJbXBsZW1lbnRlZBCl",
-            "AhIZChRJbnRlcm5hbEhhbmRsZXJFcnJvchCmAhIPCgpOb3RBbGxvd2VkEJUD",
-            "QkdIA1pDZ2l0aHViLmNvbS9HYW1lV29ya3N0b3JlL2FzeW5jLW5ldHdvcmst",
-            "ZW5naW5lLWdvO2FzeW5jbmV0d29ya2VuZ2luZWIGcHJvdG8z"));
+            "Cg5hc3luY3JwYy5wcm90bxIgR2FtZVdvcmtzdG9yZS5Bc3luY05ldHdvcmtF",
+            "bmdpbmUiIQoOR2VuZXJpY1JlcXVlc3QSDwoHTWVzc2VnZRgBIAEoCSIiCg9H",
+            "ZW5lcmljUmVzcG9uc2USDwoHTWVzc2VnZRgCIAEoCSIlChRHZW5lcmljRXJy",
+            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSohCg1DbG91ZFByb3ZpZGVyEgcK",
+            "A0FXUxAAEgcKA0dDUBABKrABCgxUcmFuc21pc3Npb24SEAoMTm90U3BlY2lm",
+            "aWVkEAASBwoCT2sQyAESFwoSTWFyc2hhbERlY29kZUVycm9yEKICEhcKEk1h",
+            "cnNoYWxFbmNvZGVFcnJvchCjAhISCg1SZXNwb25zZVdyaXRlEKQCEhMKDk5v",
+            "dEltcGxlbWVudGVkEKUCEhkKFEludGVybmFsSGFuZGxlckVycm9yEKYCEg8K",
+            "Ck5vdEFsbG93ZWQQlQNCR0gDWkNnaXRodWIuY29tL0dhbWVXb3Jrc3RvcmUv",
+            "YXN5bmMtbmV0d29yay1lbmdpbmUtZ287YXN5bmNuZXR3b3JrZW5naW5lYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Asyncnetworkengine.CloudProvider), typeof(global::Asyncnetworkengine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericRequest), global::Asyncnetworkengine.GenericRequest.Parser, new[]{ "Messege" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericResponse), global::Asyncnetworkengine.GenericResponse.Parser, new[]{ "Messege" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Asyncnetworkengine.GenericErrorResponse), global::Asyncnetworkengine.GenericErrorResponse.Parser, new[]{ "Error" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.CloudProvider), typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericRequest), global::GameWorkstore.AsyncNetworkEngine.GenericRequest.Parser, new[]{ "Messege" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericResponse), global::GameWorkstore.AsyncNetworkEngine.GenericResponse.Parser, new[]{ "Messege" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericErrorResponse), global::GameWorkstore.AsyncNetworkEngine.GenericErrorResponse.Parser, new[]{ "Error" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,7 +78,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[0]; }
+      get { return global::GameWorkstore.AsyncNetworkEngine.AsyncrpcReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -249,7 +250,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[1]; }
+      get { return global::GameWorkstore.AsyncNetworkEngine.AsyncrpcReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -421,7 +422,7 @@ namespace Asyncnetworkengine {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Asyncnetworkengine.AsyncrpcReflection.Descriptor.MessageTypes[2]; }
+      get { return global::GameWorkstore.AsyncNetworkEngine.AsyncrpcReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

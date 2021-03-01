@@ -1,7 +1,7 @@
 using System.Collections;
-using UnityEngine.TestTools;
-using Asyncnetworkengine;
+using GameWorkstore.AsyncNetworkEngine;
 using UnityEngine.Assertions;
+using UnityEngine.TestTools;
 
 public class TestScript
 {
@@ -11,13 +11,13 @@ public class TestScript
     public IEnumerator TestGCP()
     {
 
-        AsyncNetworkEngine<GenericRequest, GenericResponse, GenericErrorResponse>.Cloud = AsyncNetworkEngineCloud.GCP;
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.Cloud = AsyncNetworkEngineCloud.GCP;
         var rqt = new GenericRequest()
         {
             Messege = "Content12345678"
         };
         var result = false;
-        AsyncNetworkEngine<GenericRequest, GenericResponse, GenericErrorResponse>.SendRequest(gcptestendpoint, rqt,
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.SendRequest(gcptestendpoint, rqt,
             (asyncResult, resp, error) =>
             {
                 Assert.AreEqual(asyncResult, AsyncNetworkResult.SUCCESS);

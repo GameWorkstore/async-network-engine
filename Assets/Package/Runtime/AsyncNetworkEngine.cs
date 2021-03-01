@@ -5,111 +5,117 @@ using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
 
-public enum AsyncNetworkResult
+namespace GameWorkstore.AsyncNetworkEngine
 {
-    SUCCESS,
-    E_HTTP,
-    E_NETWORK,
-    E_DATA_NULL,
-    E_DATA_EMPTY,
-    E_PARSER
-}
-
-public enum AsyncNetworkEngineCloud
-{
-    GCP = 0,
-    AWS = 1
-}
-
-/// <summary>
-/// Implements a UnityRequest for google protobuf web functions.
-/// </summary>
-/// <typeparam name="T">Request</typeparam>
-/// <typeparam name="TU">Response</typeparam>
-/// <typeparam name="TV">GenericError</typeparam>
-public static class AsyncNetworkEngine<T, TU, TV>
-    where T : IMessage<T>, new()
-    where TU : IMessage<TU>, new()
-    where TV : IMessage<TV>, new()
-{
-    public static AsyncNetworkEngineCloud Cloud = AsyncNetworkEngineCloud.AWS;
-    private static readonly MessageParser<TU> _tuParser = new MessageParser<TU>(() => new TU());
-    private static readonly MessageParser<TV> _tvParser = new MessageParser<TV>(() => new TV());
-    private static EventService _eventService = null;
-
-    public static void Send(string uri, T request, Action<AsyncNetworkResult, TU, TV> result)
+    public enum AsyncNetworkResult
     {
-        if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
-        _eventService.StartCoroutine(SendRequest(uri, request, result));
+        SUCCESS,
+        E_NETWORK,
+        E_PROCESS,
+        E_DATA_NULL,
+        E_DATA_EMPTY,
+        E_PARSER
     }
 
-    public static IEnumerator SendRequest(string uri, T request, Action<AsyncNetworkResult, TU, TV> result)
+    public enum AsyncNetworkEngineCloud
     {
-        //Notice: APIGateway automatically converts binary data into base64 strings
-        using var rqt = new UnityWebRequest(uri, "POST")
-        {
-            uploadHandler = new UploadHandlerRaw(request.ToByteArray()),
-            downloadHandler = new DownloadHandlerBuffer()
-        };
-        yield return rqt.SendWebRequest();
-        if (rqt.result != UnityWebRequest.Result.Success) { Return(AsyncNetworkResult.E_NETWORK, result); yield break; }
-        
-        while (!rqt.downloadHandler.isDone) yield return null;
-        if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
-        if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
-        if (rqt.responseCode != 200)
-        {
-            if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
-            if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
-            try
-            {
-                if(Cloud == AsyncNetworkEngineCloud.AWS)
-                {
-                    var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
-                    var error = _tvParser.ParseFrom(data);
-                    Return(AsyncNetworkResult.E_HTTP, default, error, result);
-                }
-                else
-                {
-                    var error = _tvParser.ParseFrom(rqt.downloadHandler.data);
-                    Return(AsyncNetworkResult.E_HTTP, default, error, result);
-                }
-            }
-            catch
-            {
-                Return(AsyncNetworkResult.E_HTTP, result);
-            }
-            yield break;
-        }
-        
-        try
-        {
-            if (Cloud == AsyncNetworkEngineCloud.AWS)
-            {
-                var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
-                var packet = _tuParser.ParseFrom(data);
-                Return(AsyncNetworkResult.SUCCESS, packet, default, result);
-            }
-            else
-            {
-                var packet = _tuParser.ParseFrom(rqt.downloadHandler.data);
-                Return(AsyncNetworkResult.SUCCESS, packet, default, result);
-            }
-        }
-        catch
-        {
-            Return(AsyncNetworkResult.E_PARSER, result);
-        }
+        GCP = 0,
+        AWS = 1
     }
 
-    private static void Return(AsyncNetworkResult result, Action<AsyncNetworkResult, TU, TV> callback)
+    /// <summary>
+    /// Implements a UnityRequest for google protobuf web functions.
+    /// </summary>
+    /// <typeparam name="TR">Request</typeparam>
+    /// <typeparam name="TU">Response</typeparam>
+    public static class AsyncNetworkEngine<TR, TU>
+        where TR : IMessage<TR>, new()
+        where TU : IMessage<TU>, new()
     {
-        Return(result, default, default, callback);
-    }
+        public static AsyncNetworkEngineCloud Cloud = AsyncNetworkEngineCloud.AWS;
+        private static readonly MessageParser<TU> _tuParser = new MessageParser<TU>(() => new TU());
+        private static readonly MessageParser<GenericErrorResponse> _tvParser = new MessageParser<GenericErrorResponse>(() => new GenericErrorResponse());
+        private static EventService _eventService = null;
 
-    private static void Return(AsyncNetworkResult result, TU data, TV error, Action<AsyncNetworkResult, TU, TV> callback)
-    {
-        if (callback == null) return;
-        _eventService.QueueAction(() => callback.Invoke(result, data, error));
+        public static void Send(string uri, TR request, Action<AsyncNetworkResult, TU, GenericErrorResponse> result)
+        {
+            if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
+            _eventService.StartCoroutine(SendRequest(uri, request, result));
+        }
+
+        public static IEnumerator SendRequest(string uri, TR request, Action<AsyncNetworkResult, TU, GenericErrorResponse> result)
+        {
+            //Notice: APIGateway automatically converts binary data into base64 strings
+            using var rqt = new UnityWebRequest(uri, "POST")
+            {
+                uploadHandler = new UploadHandlerRaw(request.ToByteArray()),
+                downloadHandler = new DownloadHandlerBuffer()
+            };
+            yield return rqt.SendWebRequest();
+
+            switch (rqt.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                    Return(AsyncNetworkResult.E_NETWORK, result);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    while (!rqt.downloadHandler.isDone) yield return null;
+                    if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
+                    if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
+                    try
+                    {
+                        if (Cloud == AsyncNetworkEngineCloud.AWS)
+                        {
+                            var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                            var error = _tvParser.ParseFrom(data);
+                            Return(AsyncNetworkResult.E_PROCESS, default, error, result);
+                        }
+                        else
+                        {
+                            var error = _tvParser.ParseFrom(rqt.downloadHandler.data);
+                            Return(AsyncNetworkResult.E_PROCESS, default, error, result);
+                        }
+                    }
+                    catch
+                    {
+                        Return(AsyncNetworkResult.E_PROCESS, result);
+                    }
+                    break;
+                case UnityWebRequest.Result.Success:
+                    while (!rqt.downloadHandler.isDone) yield return null;
+                    if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
+                    if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
+                    try
+                    {
+                        if (Cloud == AsyncNetworkEngineCloud.AWS)
+                        {
+                            var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                            var packet = _tuParser.ParseFrom(data);
+                            Return(AsyncNetworkResult.SUCCESS, packet, default, result);
+                        }
+                        else
+                        {
+                            var packet = _tuParser.ParseFrom(rqt.downloadHandler.data);
+                            Return(AsyncNetworkResult.SUCCESS, packet, default, result);
+                        }
+                    }
+                    catch
+                    {
+                        Return(AsyncNetworkResult.E_PARSER, result);
+                    }
+                    break;
+            }
+        }
+
+        private static void Return(AsyncNetworkResult result, Action<AsyncNetworkResult, TU, GenericErrorResponse> callback)
+        {
+            Return(result, default, default, callback);
+        }
+
+        private static void Return(AsyncNetworkResult result, TU data, GenericErrorResponse error, Action<AsyncNetworkResult, TU, GenericErrorResponse> callback)
+        {
+            if (callback == null) return;
+            _eventService.QueueAction(() => callback.Invoke(result, data, error));
+        }
     }
 }
