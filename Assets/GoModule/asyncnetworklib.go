@@ -1,6 +1,7 @@
 package asyncnetworkengine
 
 import (
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -107,8 +108,9 @@ func GCPError(w http.ResponseWriter, status Transmission, err error) {
 	w.WriteHeader(int(status))
 }
 
-// AWSPreFlight should be called before AWSDecode. if method is OPTIONS, returns true. Return to gateway (response,nil) if true.
-func AWSPreFlight(r events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, bool) {
+// AWSDecode decodes and returns the protobuf of given connection. Return to gateway (response,nil) if err != nil.
+func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGatewayProxyResponse, error) {
+	// verify preflight
 	w := events.APIGatewayProxyResponse{}
 	switch r.HTTPMethod {
 	case "OPTIONS":
@@ -124,26 +126,23 @@ func AWSPreFlight(r events.APIGatewayProxyRequest) (events.APIGatewayProxyRespon
 		} else {
 			w.StatusCode = int(Transmission_NotAllowed)
 		}
-		return w, true
+		return w, errors.New("preflight")
 	case "POST":
+		data, err := base64.URLEncoding.DecodeString(r.Body)
+		if err != nil {
+			eg, _ := AWSError(Transmission_MarshalDecodeError, err)
+			return eg, err
+		}
+		err = proto.Unmarshal(data, rqt)
+		if err != nil {
+			eg, err := AWSError(Transmission_MarshalDecodeError, err)
+			return eg, err
+		}
 		//passthrough
-		return w, false
+		return w, nil
 	}
 	w.StatusCode = int(Transmission_NotAllowed)
-	return w, true
-}
-
-// AWSDecode decodes and returns the protobuf of given connection. If err != nil, return an AWSError.
-func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) error {
-	data, err := base64.URLEncoding.DecodeString(r.Body)
-	if err != nil {
-		return err
-	}
-	err = proto.Unmarshal(data, rqt)
-	if err != nil {
-		return err
-	}
-	return nil
+	return w, errors.New("method not allowed")
 }
 
 // AWSResponse writes response in given connection.
