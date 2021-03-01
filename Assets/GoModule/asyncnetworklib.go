@@ -42,7 +42,6 @@ func SetupCORS(allowCredentials bool, allowOrigin string, allowHeaders string, a
 
 // GCPDecode decodes and returns the protobuf of given connection. returns true if break by OPTIONS or error.
 func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
-
 	if allowedCORS {
 		w.Header().Set("Access-Control-Allow-Credentials", allowedCredentials)
 		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
