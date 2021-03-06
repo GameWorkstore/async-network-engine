@@ -65,4 +65,5 @@ jobs:
       - name: Deploy GCP test function
         run: |
           cd Assets/Tests/GCP/
-          gcloud functions deploy gcptest --entry-point Process --runtime go113 --trigger-http
+          gcloud functions deploy gcptest --entry-point Process --runtime go113 --trigger-http --allow-unauthenticated
+          

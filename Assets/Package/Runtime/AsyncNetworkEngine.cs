@@ -9,12 +9,13 @@ namespace GameWorkstore.AsyncNetworkEngine
 {
     public enum AsyncNetworkResult
     {
-        SUCCESS,
+        NONE = 0,
+        SUCCESS = 200,
         E_NETWORK,
         E_PROCESS,
         E_DATA_NULL,
         E_DATA_EMPTY,
-        E_PARSER
+        E_PARSER,
     }
 
     public enum AsyncNetworkEngineCloud
@@ -56,10 +57,10 @@ namespace GameWorkstore.AsyncNetworkEngine
             switch (rqt.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.ProtocolError:
                     Return(AsyncNetworkResult.E_NETWORK, result);
                     break;
-                case UnityWebRequest.Result.ProtocolError:
-                    while (!rqt.downloadHandler.isDone) yield return null;
+                    /*while (!rqt.downloadHandler.isDone) yield return null;
                     if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
                     if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
                     try
@@ -79,7 +80,7 @@ namespace GameWorkstore.AsyncNetworkEngine
                     catch
                     {
                         Return(AsyncNetworkResult.E_PROCESS, result);
-                    }
+                    }*/
                     break;
                 case UnityWebRequest.Result.Success:
                     while (!rqt.downloadHandler.isDone) yield return null;
