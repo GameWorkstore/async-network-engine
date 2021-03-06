@@ -7,9 +7,6 @@
 			"path": "Tests/GCP"
 		},
 		{
-			"path": "Protobuf"
-		},
-		{
 			"path": "../.github"
 		}
 	]
