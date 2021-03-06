@@ -1,4 +1,4 @@
-module gcptest
+module main
 
 go 1.13
 

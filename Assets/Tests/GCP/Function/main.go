@@ -1,4 +1,4 @@
-package gcptest
+package main
 
 import (
 	"errors"

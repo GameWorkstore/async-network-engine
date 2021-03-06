@@ -1,11 +1,5 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/GameWorkstore/async-network-engine-go v0.0.4 h1:VxKy0EhEaIey21vtuHQcU8KL0FjHn6hsbn2I7PPSXJg=
-github.com/GameWorkstore/async-network-engine-go v0.0.4/go.mod h1:RFnOlrs+dKN/f1+IdJojvuOyR5XC5UxeYITu3sW3Vpw=
-github.com/GameWorkstore/async-network-engine-go v0.0.5 h1:uxt+ORvGAmysZno8qq5zm8lD3Nm3VgsKyzT88x2nxz0=
-github.com/GameWorkstore/async-network-engine-go v0.0.5/go.mod h1:RFnOlrs+dKN/f1+IdJojvuOyR5XC5UxeYITu3sW3Vpw=
-github.com/GameWorkstore/async-network-engine-go v0.0.6 h1:KwSgP4yDFgMWieOQYFqZsUWOcDcQXCJjr5poBQX10FQ=
-github.com/GameWorkstore/async-network-engine-go v0.0.6/go.mod h1:hs2ir8qRsTALeBZb8BymLdKRnV+lRgF3IcPpdns8eJs=
 github.com/GameWorkstore/async-network-engine-go v0.1.1 h1:BYsk0AsNX/X8x/4BdLRsXLvHLTsvfLD6eGNOgKXCuoc=
 github.com/GameWorkstore/async-network-engine-go v0.1.1/go.mod h1:SYpDp1WqdFKKbl1sbqRg/oMcwA/N5mjiUd8mW4oFnnI=
 github.com/aws/aws-lambda-go v1.22.0 h1:X7BKqIdfoJcbsEIi+Lrt5YjX1HnZexIbNWOQgkYKgfE=
