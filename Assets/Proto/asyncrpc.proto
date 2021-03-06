@@ -4,12 +4,6 @@ option go_package = "github.com/GameWorkstore/async-network-engine-go;asyncnetwo
 
 package GameWorkstore.AsyncNetworkEngine;
 
-enum CloudProvider
-{
-   AWS = 0;
-   GCP = 1;
-}
-
 enum Transmission
 {
    NotSpecified = 0;

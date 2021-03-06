@@ -81,7 +81,6 @@ namespace GameWorkstore.AsyncNetworkEngine
                     {
                         Return(AsyncNetworkResult.E_PROCESS, result);
                     }*/
-                    break;
                 case UnityWebRequest.Result.Success:
                     while (!rqt.downloadHandler.isDone) yield return null;
                     if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }

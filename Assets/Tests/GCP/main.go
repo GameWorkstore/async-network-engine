@@ -2,6 +2,7 @@ package gcptesting
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	ase "github.com/GameWorkstore/async-network-engine-go"
@@ -13,10 +14,15 @@ func init() {
 
 // Process handler of this test
 func Process(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("T")
+
 	rqt := ase.GenericRequest{}
 	if ase.GCPDecode(r, w, &rqt) {
 		return
 	}
+
+	fmt.Println("M:" + rqt.Messege)
 
 	switch rqt.Messege {
 	case "decode-error":

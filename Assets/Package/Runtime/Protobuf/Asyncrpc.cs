@@ -27,17 +27,16 @@ namespace GameWorkstore.AsyncNetworkEngine {
             "Cg5hc3luY3JwYy5wcm90bxIgR2FtZVdvcmtzdG9yZS5Bc3luY05ldHdvcmtF",
             "bmdpbmUiIQoOR2VuZXJpY1JlcXVlc3QSDwoHTWVzc2VnZRgBIAEoCSIiCg9H",
             "ZW5lcmljUmVzcG9uc2USDwoHTWVzc2VnZRgCIAEoCSIlChRHZW5lcmljRXJy",
-            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSohCg1DbG91ZFByb3ZpZGVyEgcK",
-            "A0FXUxAAEgcKA0dDUBABKrABCgxUcmFuc21pc3Npb24SEAoMTm90U3BlY2lm",
-            "aWVkEAASBwoCT2sQyAESFwoSTWFyc2hhbERlY29kZUVycm9yEKICEhcKEk1h",
-            "cnNoYWxFbmNvZGVFcnJvchCjAhISCg1SZXNwb25zZVdyaXRlEKQCEhMKDk5v",
-            "dEltcGxlbWVudGVkEKUCEhkKFEludGVybmFsSGFuZGxlckVycm9yEKYCEg8K",
-            "Ck5vdEFsbG93ZWQQlQNCR0gDWkNnaXRodWIuY29tL0dhbWVXb3Jrc3RvcmUv",
-            "YXN5bmMtbmV0d29yay1lbmdpbmUtZ287YXN5bmNuZXR3b3JrZW5naW5lYgZw",
-            "cm90bzM="));
+            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqwAQoMVHJhbnNtaXNzaW9uEhAK",
+            "DE5vdFNwZWNpZmllZBAAEgcKAk9rEMgBEhcKEk1hcnNoYWxEZWNvZGVFcnJv",
+            "chCiAhIXChJNYXJzaGFsRW5jb2RlRXJyb3IQowISEgoNUmVzcG9uc2VXcml0",
+            "ZRCkAhITCg5Ob3RJbXBsZW1lbnRlZBClAhIZChRJbnRlcm5hbEhhbmRsZXJF",
+            "cnJvchCmAhIPCgpOb3RBbGxvd2VkEJUDQkdIA1pDZ2l0aHViLmNvbS9HYW1l",
+            "V29ya3N0b3JlL2FzeW5jLW5ldHdvcmstZW5naW5lLWdvO2FzeW5jbmV0d29y",
+            "a2VuZ2luZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.CloudProvider), typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericRequest), global::GameWorkstore.AsyncNetworkEngine.GenericRequest.Parser, new[]{ "Messege" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericResponse), global::GameWorkstore.AsyncNetworkEngine.GenericResponse.Parser, new[]{ "Messege" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameWorkstore.AsyncNetworkEngine.GenericErrorResponse), global::GameWorkstore.AsyncNetworkEngine.GenericErrorResponse.Parser, new[]{ "Error" }, null, null, null, null)
@@ -47,11 +46,6 @@ namespace GameWorkstore.AsyncNetworkEngine {
 
   }
   #region Enums
-  public enum CloudProvider {
-    [pbr::OriginalName("AWS")] Aws = 0,
-    [pbr::OriginalName("GCP")] Gcp = 1,
-  }
-
   public enum Transmission {
     [pbr::OriginalName("NotSpecified")] NotSpecified = 0,
     [pbr::OriginalName("Ok")] Ok = 200,

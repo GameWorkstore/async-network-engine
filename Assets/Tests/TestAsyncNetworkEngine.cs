@@ -10,6 +10,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
     private void Awake()
     {
         GCP_Success();
+        AWS_Success();
     }
 
     public void GCP_Success()
@@ -18,6 +19,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             Messege = "success"
         };
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.Cloud = AsyncNetworkEngineCloud.GCP;
         AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(url, rqt, OnGCP_Success);
     }
 
@@ -26,5 +28,8 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         Assert.AreEqual(AsyncNetworkResult.SUCCESS, result);
     }
 
-    
+    public void AWS_Success()
+    {
+
+    }
 }
