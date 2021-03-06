@@ -12,7 +12,7 @@
     "url": "https://gameworkstore.com"
   },
   "dependencies": {
-    "com.gameworkstore.googleprotobufunity": "3.15.2",
+    "com.gameworkstore.googleprotobufunity": "3.15.2004",
     "com.gameworkstore.patterns": "1.0.6"
   }
 }
