@@ -56,6 +56,3 @@ Resources:
         FunctionBuild: !Ref FunctionBuild
         FunctionHandler: main
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
-  
-  
-    
