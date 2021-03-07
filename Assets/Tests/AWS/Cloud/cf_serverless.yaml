@@ -43,10 +43,11 @@ Resources:
   Function:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
+      TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
       Parameters:
         Prefix: ase
         BackendBucket: !Ref BackendBucket
+        Gateway: !Ref Gateway
         FunctionBuild: !Ref FunctionBuild
         FunctionIAMArn: !GetAtt FunctionIAM.Arn
         FunctionName: awstest
