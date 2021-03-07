@@ -29,20 +29,6 @@ Resources:
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
                 Resource: '*'
-  Function:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
-      Parameters:
-        Prefix: 'ase'
-        BackendBucket: !Ref BackendBucket
-        FunctionBuild: !Ref FunctionBuild
-        #Gateway: !Ref LApiGateway
-        #BackendBucket: !Ref BackendBucket
-        #FunctionBuild: !Ref FunctionBuild
-        #FunctionName: 'awstest'
-        #FunctionIAMArn: !GetAtt LFunctionIAM.Arn
-        #FunctionHandler: 'main'
   Gateway:
     Type: AWS::ApiGatewayV2::Api
     Properties:
@@ -54,3 +40,14 @@ Resources:
       StageName: default
       AutoDeploy: true
       ApiId: !Ref Gateway
+  Function:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
+      Parameters:
+        Prefix: ase
+        BackendBucket: !Ref BackendBucket
+        FunctionBuild: !Ref FunctionBuild
+        FunctionIAMArn: !GetAtt FunctionIAM.Arn
+        FunctionName: awstest
+        FunctionHandler: main
