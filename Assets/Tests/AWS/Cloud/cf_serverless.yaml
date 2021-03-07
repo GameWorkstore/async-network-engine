@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  BackendBucket:
+    Type: String
+    Default: build
+  FunctionBuild:
+    Type: String
+    Default: build
+Resources:
+  FunctionIAM:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: ase-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
+  # Gateway Configurations
+  Gateway:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: ase-gateway-api
+      ProtocolType: HTTP
+  GatewayStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: default
+      AutoDeploy: true
+      ApiId: !Ref Gateway
+# -----------------
+# FUNCTIONS
+# -----------------
+  LVersion:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
+      Parameters:
+        Prefix: ase
+        Gateway: !Ref LApiGateway
+        BackendBucket: !Ref BackendBucket
+        FunctionName: awstest
+        FunctionBuild: !Ref FunctionBuild
+        FunctionHandler: main
+        FunctionIAMArn: !GetAtt LFunctionIAM.Arn
+  
+  
+    

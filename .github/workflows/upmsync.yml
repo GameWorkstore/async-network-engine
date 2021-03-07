@@ -118,7 +118,6 @@ jobs:
           zip ../../../../Staging/${{ steps.codeversion.outputs.zipname }} main
       
       - uses: shallwefootball/s3-upload-action@master
-        if: false
         name: Upload Lambda to S3
         with:
           aws_key_id: ${{ secrets.AWS_SERVICE_KEY_ID }}
@@ -128,10 +127,9 @@ jobs:
           destination_dir: ''
       
       - name: Deploy CloudFormation Stack
-        if: false
         uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
         with:
           name: aws-test-serverless
-          template: Assets/Test/AWS/CloudFormation/cf_serverless.yaml
-          parameter-overrides: "BackendName=${{ env.BACKEND_NAME }},Prefix=dev,FunctionBuild=${{ env.zipname }}"
+          template: Assets/Tests/AWS/Cloud/cf_serverless.yaml
+          parameter-overrides: 'BackendBucket=${{ env.BACKEND_BUCKET }},FunctionBuild=${{ steps.codeversion.outputs.zipname }}'
           

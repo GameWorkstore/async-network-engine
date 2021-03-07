@@ -3,18 +3,21 @@ Parameters:
   Prefix:
     Type: String
     Default: dev
-  BackendName:
-    Type: String
-    Default: lx
   Gateway: 
     Type: String
     Default: gateway
+  BackendBucket:
+    Type: String
+    Default: bucket
   FunctionName:
     Type: String
-    Default: functionname
+    Default: name
   FunctionBuild:
     Type: String
     Default: build
+  FunctionHandler:
+    Type: String
+    Default: main
   FunctionIAMArn:
     Type: String
     Default: iam
@@ -25,14 +28,14 @@ Resources:
   LFunction:
     Type: 'AWS::Lambda::Function'
     Properties:
-      FunctionName: !Join ['',[!Ref Prefix,!Ref BackendName,!Ref FunctionName]]
-      Handler: lkslambda
+      FunctionName: !Join ['',[!Ref Prefix,!Ref FunctionName]]
+      Handler: !Ref FunctionHandler
       Runtime: go1.x
       Timeout: 30
       MemorySize: 128
       Role: !Ref FunctionIAMArn
       Code:
-        S3Bucket: !Join ['',[!Ref BackendName,'buildbucket']]
+        S3Bucket: !Ref BackendBucket
         S3Key: !Ref FunctionBuild
   LFunctionPermission:
     Type: "AWS::Lambda::Permission"
@@ -40,9 +43,9 @@ Resources:
       - LFunction
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !Join ['',[!Ref Prefix,!Ref BackendName,!Ref FunctionName]]
+      FunctionName: !Join ['',[!Ref Prefix,!Ref FunctionName]]
       Principal: apigateway.amazonaws.com
-      SourceArn: !Join ['',['arn:aws:execute-api:',!Ref AWS::Region,':',!Ref AWS::AccountId,':',!Ref Gateway,'/*/*/',!Ref Prefix,!Ref BackendName,!Ref FunctionName]]
+      SourceArn: !Join ['',['arn:aws:execute-api:',!Ref AWS::Region,':',!Ref AWS::AccountId,':',!Ref Gateway,'/*/*/',!Ref Prefix,!Ref FunctionName]]
   LApi:
     Type: 'AWS::ApiGatewayV2::Integration'
     DependsOn:
@@ -66,6 +69,6 @@ Resources:
       - LApi
     Properties:
       ApiId: !Ref Gateway
-      RouteKey: !Join ['',['ANY /',!Ref Prefix,!Ref BackendName,!Ref FunctionName]]
+      RouteKey: !Join ['',['ANY /',!Ref Prefix,!Ref FunctionName]]
       AuthorizationType: NONE
       Target: !Join ['',['integrations/',!Ref LApi]]
