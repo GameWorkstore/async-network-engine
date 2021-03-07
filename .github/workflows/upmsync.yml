@@ -97,8 +97,8 @@ jobs:
       - uses: shallwefootball/s3-upload-action@master
         name: Upload Lambda to S3
         with:
-          aws_key_id: ${{ secrets.AWS_JENKINS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_JENKINS_SECRET_ACCESS_KEY }}
+          aws_key_id: ${{ secrets.AWS_SERVICE_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
           aws_bucket: ${{ env.BACKEND_BUCKET }}
           source_dir: Assets/Tests/AWS/Cloud/Templates
           destination_dir: ''
@@ -121,9 +121,9 @@ jobs:
         if: false
         name: Upload Lambda to S3
         with:
-          aws_key_id: ${{ secrets.AWS_JENKINS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_JENKINS_SECRET_ACCESS_KEY }}
-          aws_bucket: ${{ env.BACKEND_BUILD_BUCKET }}
+          aws_key_id: ${{ secrets.AWS_SERVICE_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
+          aws_bucket: ${{ env.BACKEND_BUCKET }}
           source_dir: 'Staging'
           destination_dir: ''
       
