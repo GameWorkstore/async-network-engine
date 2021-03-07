@@ -44,7 +44,7 @@ Resources:
   Function:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
+      TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
       Parameters:
         Prefix: ase
         Gateway: !Ref LApiGateway
