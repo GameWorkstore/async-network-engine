@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	ase "github.com/GameWorkstore/async-network-engine-go"
+	ase "main/asyncnetworkengine"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
@@ -44,6 +45,18 @@ func Process(ctx context.Context, request events.APIGatewayProxyRequest) (events
 	return ase.AWSResponse(&resp)
 }
 
+// BinaryConversion receives, decodes encodes and send to test if conversion are working properly.
+func BinaryConversion(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+
+	rqt := ase.GenericRequest{}
+	respOptions, shouldStop := ase.AWSDecode(request, &rqt)
+	if shouldStop != nil {
+		return respOptions, nil
+	}
+
+	return ase.AWSResponse(&rqt)
+}
+
 func init() {
 	ase.EnableCORS()
 }
@@ -54,6 +67,9 @@ func main() {
 	switch functionName {
 	case "aseawstest":
 		lambda.Start(Process)
+		return
+	case "asebinaryconversions":
+		lambda.Start(BinaryConversion)
 		return
 	default:
 		lambda.Start(NotImplemented)

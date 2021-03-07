@@ -53,7 +53,7 @@ Resources:
       IntegrationMethod: POST
       IntegrationUri: !Join ['',['arn:aws:apigateway:',!Ref AWS::Region,':lambda:path/2015-03-31/functions/',!GetAtt LFunction.Arn,'/invocations']]
       ConnectionType: INTERNET
-      PayloadFormatVersion: '1.0'
+      PayloadFormatVersion: 1.0
   LRoute:
     Type: AWS::ApiGatewayV2::Route
     DependsOn:

@@ -69,7 +69,7 @@ jobs:
           
   upload_aws:
     runs-on: ubuntu-latest
-    if: false
+    if: true
     env:
       BACKEND_BUCKET: ase-test-bucket
     steps:

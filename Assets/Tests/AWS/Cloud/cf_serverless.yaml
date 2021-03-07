@@ -52,3 +52,15 @@ Resources:
         FunctionIAMArn: !GetAtt FunctionIAM.Arn
         FunctionName: awstest
         FunctionHandler: main
+  Binary:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
+      Parameters:
+        Prefix: ase
+        BackendBucket: !Ref BackendBucket
+        Gateway: !Ref Gateway
+        FunctionBuild: !Ref FunctionBuild
+        FunctionIAMArn: !GetAtt FunctionIAM.Arn
+        FunctionName: binaryconversions
+        FunctionHandler: main

@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "Tests/AWS/Lambda"
+		},
+		{
+			"path": "Tests/AWS/Cloud"
 		}
 	],
 	"settings": {
