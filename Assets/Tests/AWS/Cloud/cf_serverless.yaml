@@ -49,10 +49,10 @@ Resources:
     Properties:
       TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
       Parameters:
+        FunctionBuild: !Ref FunctionBuild
+        BackendBucket: !Ref BackendBucket
         FunctionName: awstest
-        FunctionS3Key: !Ref FunctionBuild
         FunctionHandler: main
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
         Prefix: ase
         Gateway: !Ref LApiGateway
-        BuildBucket: !Ref BackendBucket
