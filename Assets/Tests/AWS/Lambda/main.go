@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	ase "main/asyncnetworkengine"
-
+	ase "github.com/GameWorkstore/async-network-engine-go"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
