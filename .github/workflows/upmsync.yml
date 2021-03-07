@@ -50,8 +50,7 @@ jobs:
           deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
           force: true
           branch: main
-
-  upload:
+  upload_gcp:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -65,6 +64,76 @@ jobs:
       - name: Deploy GCP test function
         run: |
           cd Assets/Tests/GCP/
-          gcloud functions deploy gcptest --entry-point Process --runtime go113 --trigger-http --allow-unauthenticated
-          gcloud functions deploy gcptest-notauthorized --entry-point Process --runtime go113 --trigger-http
+          gcloud functions deploy gcptest --memory=128 --entry-point Process --runtime go113 --trigger-http --allow-unauthenticated
+          gcloud functions deploy gcptest-notauthorized --memory=128 --entry-point Process --runtime go113 --trigger-http
+          
+  upload_aws:
+    runs-on: ubuntu-latest
+    if: false
+    env:
+      #BACKEND_NAME: ase-test
+      BACKEND_BUCKET: ase-test-bucket
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Code Version
+        id: codeversion
+        run: |
+          echo "::set-output name=zipname::main-${{ github.run_number }}.zip"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_SERVICE_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy S3 Stack
+        if: false
+        uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+        with:
+          name: aws-test-builds
+          template: Assets/Tests/AWS/Cloud/cf_builds.yaml
+          parameter-overrides: 'BackendBucket=${{ env.BACKEND_BUCKET }}'
+          no-fail-on-empty-changeset: "1"
+
+      - uses: shallwefootball/s3-upload-action@master
+        name: Upload Lambda to S3
+        with:
+          aws_key_id: ${{ secrets.AWS_JENKINS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_JENKINS_SECRET_ACCESS_KEY }}
+          aws_bucket: ${{ env.BACKEND_BUCKET }}
+          source_dir: Assets/Tests/AWS/Cloud/Templates
+          destination_dir: ''
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+          stable: true
+
+      - name: Build Lambda and Cook
+        run: |
+          mkdir Staging
+          cd Assets/Test/AWS/Lambda/
+          go get -d ./...
+          GOOS=linux GOARCH=amd64 go build -o main .
+          zip ../../../../Staging/${{ steps.codeversion.outputs.zipname }} main
+      
+      - uses: shallwefootball/s3-upload-action@master
+        if: false
+        name: Upload Lambda to S3
+        with:
+          aws_key_id: ${{ secrets.AWS_JENKINS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_JENKINS_SECRET_ACCESS_KEY }}
+          aws_bucket: ${{ env.BACKEND_BUILD_BUCKET }}
+          source_dir: 'Staging'
+          destination_dir: ''
+      
+      - name: Deploy CloudFormation Stack
+        if: false
+        uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+        with:
+          name: aws-test-serverless
+          template: Assets/Test/AWS/CloudFormation/cf_serverless.yaml
+          parameter-overrides: "BackendName=${{ env.BACKEND_NAME }},Prefix=dev,FunctionBuild=${{ env.zipname }}"
           

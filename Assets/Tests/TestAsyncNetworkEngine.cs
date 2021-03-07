@@ -17,27 +17,22 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             {"https://us-central1-game-workstore", CloudProvider.GCP }
         });
-        GCP_NonExisting();
+        GCP_NotAuthorized();
         GCP_Success();
         GCP_Decode_Error();
         AWS_Success();
     }
 
-    public void GCP_NonExisting()
+    public void GCP_NotAuthorized()
     {
-        return;
-        /*var rqt = new GenericRequest()
+        var rqt = new GenericRequest()
         {
             Messege = "success"
         };
         AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp_notauthorized, rqt, (result, response, error) =>
         {
-            DebugResult(nameof(GCP_NonExisting),result,response,error);
-            /*Assert.AreEqual(Transmission.Success, result);
-            Assert.IsNotNull(response);
-            Assert.AreEqual("received-success", response.Messege);
-            Debug.Log("GCP_Success:True");
-        });*/
+            DebugResult(nameof(GCP_NotAuthorized),result,response,error);
+        });
     }
 
     public void GCP_Success()
@@ -51,34 +46,47 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             Assert.AreEqual(Transmission.Success, result);
             Assert.IsNotNull(response);
             Assert.AreEqual("received-success", response.Messege);
-            Debug.Log("GCP_Success:True");
+            Debug.Log(nameof(GCP_Success));
         });
     }
 
     private void GCP_Decode_Error()
     {
-        var rqt = new GenericRequest()
+        var tuples = new Tuple<Transmission, string, string>[]
         {
-            Messege = "decode-error"
+            new Tuple<Transmission,string,string>(Transmission.ErrorDecode,"decode-error","decode error"),
+            new Tuple<Transmission,string,string>(Transmission.ErrorEncode,"encode-error","encode error"),
+            new Tuple<Transmission,string,string>(Transmission.ErrorInternalServer,"internal-error","internal error"),
+            new Tuple<Transmission,string,string>(Transmission.ErrorMethodNotAllowed,"not-allowed-error","not allowed error"),
+            new Tuple<Transmission,string,string>(Transmission.ErrorNotImplemented,"not-implemented","not implemented"),
         };
-        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp, rqt, (result, response, error) =>
+
+        foreach (var t in tuples)
         {
-            DebugResult(nameof(GCP_Decode_Error),result,response,error);
-            //Assert.AreEqual(AsyncNetworkResult.SUCCESS, result);
-            //Assert.IsNotNull(response);
-            //Assert.AreEqual("received-success", response.Messege);
-            //Debug.Log("GCP_Decode_Error:True");
-        });
+            var tuple = t;
+            var rqt = new GenericRequest()
+            {
+                Messege = tuple.Item2
+            };
+            AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp, rqt, (result, response, error) =>
+            {
+                //DebugResult(nameof(GCP_Decode_Error),result,response,error);
+                Assert.AreEqual(tuple.Item1, result);
+                Assert.IsNotNull(error);
+                Assert.AreEqual(tuple.Item3, error.Error);
+                Debug.Log(nameof(GCP_Decode_Error)+":"+tuple.Item1);
+            });
+        }
     }
 
     public void AWS_Success()
     {
-
+        
     }
 
-    private void DebugResult(string function,Transmission result, IMessage response, IMessage error)
+    private void DebugResult(string function, Transmission result, IMessage response, IMessage error)
     {
-        string debugged = 
+        string debugged =
             "Function:" + function + ":\n" +
             "Result:" + result + "\n" +
             "Response:" + (response != null ? response.ToString() : "null") + "\n" +

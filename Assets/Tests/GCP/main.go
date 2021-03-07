@@ -27,13 +27,13 @@ func Process(w http.ResponseWriter, r *http.Request) {
 		ase.GCPError(w, ase.Transmission_ErrorEncode, errors.New("encode error"))
 		return
 	case "internal-error":
-		ase.GCPError(w, ase.Transmission_ErrorInternalServerError, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorInternalServer, errors.New("internal error"))
 		return
 	case "not-allowed-error":
-		ase.GCPError(w, ase.Transmission_ErrorMethodNotAllowed, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorMethodNotAllowed, errors.New("not allowed error"))
 		return
 	case "not-implemented":
-		ase.GCPError(w, ase.Transmission_ErrorNotImplemented, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorNotImplemented, errors.New("not implemented"))
 		return
 	}
 

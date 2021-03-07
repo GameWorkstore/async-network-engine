@@ -76,69 +76,86 @@ namespace GameWorkstore.AsyncNetworkEngine
                     Return(Transmission.ErrorConnection, result);
                     break;
                 case UnityWebRequest.Result.ProtocolError:
-                    Return(Transmission.ErrorProtocol, result);
+                    HandleError(GetCloudProvider(ref uri), rqt, result);
                     break;
                 case UnityWebRequest.Result.Success:
                     while (!rqt.downloadHandler.isDone) yield return null;
-                    if (rqt.downloadHandler.data == null)
-                    {
-                        Return(Transmission.ErrorNoData, result);
-                        yield break;
-                    }
-                    /*if (rqt.downloadHandler.data.Length <= 0)
-                    {
-                        Return(AsyncNetworkResult.E_DATA_EMPTY, result);
-                        yield break;
-                    }*/
-                    HandleWebRequest(uri, rqt, result);
+                    HandleSuccess(GetCloudProvider(ref uri), rqt, result);
                     break;
             }
         }
 
-        private static void HandleWebRequest(string uri, UnityWebRequest rqt, Action<Transmission, TU, GenericErrorResponse> result)
+        private static CloudProvider GetCloudProvider(ref string url)
         {
-            var cloudProvider = AsyncNetworkEngineMap.SingleCloudProvider;
             if (!AsyncNetworkEngineMap.IsSingleCloud)
             {
                 foreach (var pair in AsyncNetworkEngineMap.MapCloudProvider)
                 {
-                    if (!uri.StartsWith(pair.Key)) continue;
-                    cloudProvider = pair.Value;
-                    break;
+                    if (!url.StartsWith(pair.Key)) continue;
+                    return pair.Value;
                 }
             }
-            
+            return AsyncNetworkEngineMap.SingleCloudProvider;
+        }
+
+        private static void HandleSuccess(CloudProvider provider, UnityWebRequest rqt, Action<Transmission, TU, GenericErrorResponse> result)
+        {
+            if (rqt.downloadHandler.data == null)
+            {
+                Return(Transmission.ErrorNoData, result);
+                return;
+            }
+            if (rqt.downloadHandler.data.Length <= 0)
+            {
+                Return(Transmission.ErrorNoData, result);
+                return;
+            }
+
             byte[] data = rqt.downloadHandler.data;
-            if(cloudProvider == CloudProvider.AWS)
+            if (provider == CloudProvider.AWS)
             {
                 data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
             }
-            
-            var transmission = (Transmission)rqt.responseCode;
-            switch (transmission)
+
+            try
             {
-                case Transmission.Success:
-                    try
-                    {
-                        var packet = _tuParser.ParseFrom(data);
-                        Return(transmission, packet, default, result);
-                    }
-                    catch
-                    {
-                        Return(Transmission.ErrorParser, result);
-                    }
-                    break;
-                default:
-                    try
-                    {
-                        var packet = _tvParser.ParseFrom(data);
-                        Return(transmission, default, packet, result);
-                    }
-                    catch
-                    {
-                        Return(Transmission.ErrorParser, result);
-                    }
-                    break;
+                var packet = _tuParser.ParseFrom(data);
+                Return(Transmission.Success, packet, default, result);
+            }
+            catch
+            {
+                Return(Transmission.ErrorParser, result);
+            }
+        }
+
+        private static void HandleError(CloudProvider provider, UnityWebRequest rqt, Action<Transmission, TU, GenericErrorResponse> result)
+        {
+            if (rqt.downloadHandler.data == null)
+            {
+                Return(Transmission.ErrorProtocol, result);
+                return;
+            }
+            if (rqt.downloadHandler.data.Length <= 0)
+            {
+                Return(Transmission.ErrorProtocol, result);
+                return;
+            }
+
+            byte[] data = rqt.downloadHandler.data;
+            if (provider == CloudProvider.AWS)
+            {
+                data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+            }
+
+            var transmission = (Transmission)rqt.responseCode;
+            try
+            {
+                var packet = _tvParser.ParseFrom(data);
+                Return(transmission, default, packet, result);
+            }
+            catch
+            {
+                Return(Transmission.ErrorParser, result);
             }
         }
 
@@ -150,7 +167,8 @@ namespace GameWorkstore.AsyncNetworkEngine
         private static void Return(Transmission result, TU data, GenericErrorResponse error, Action<Transmission, TU, GenericErrorResponse> callback)
         {
             if (callback == null) return;
-            _eventService.QueueAction(() => callback.Invoke(result, data, error));
+            //_eventService.QueueAction(() => callback.Invoke(result, data, error));
+            callback.Invoke(result, data, error);
         }
     }
 }

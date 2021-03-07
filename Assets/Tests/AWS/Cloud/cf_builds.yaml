@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  BackendBucket:
+    Type: String
+    Default: build
+Resources:
+  S3Builds:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BackendBucket
