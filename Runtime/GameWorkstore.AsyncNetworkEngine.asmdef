@@ -1,0 +1,17 @@
+{
+    "name": "GameWorkstore.AsyncNetworkEngine",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c32d36751e998d74999be5c29b033d6e",
+        "GUID:ea86e1e2f3573eb4192e1dd536f1057d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
