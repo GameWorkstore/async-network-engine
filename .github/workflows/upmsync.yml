@@ -112,7 +112,7 @@ jobs:
       - name: Build Lambda and Cook
         run: |
           mkdir Staging
-          cd Assets/Test/AWS/Lambda/
+          cd Assets/Tests/AWS/Lambda/
           go get -d ./...
           GOOS=linux GOARCH=amd64 go build -o main .
           zip ../../../../Staging/${{ steps.codeversion.outputs.zipname }} main
