@@ -70,7 +70,6 @@ jobs:
   upload_aws:
     runs-on: ubuntu-latest
     env:
-      #BACKEND_NAME: ase-test
       BACKEND_BUCKET: ase-test-bucket
     steps:
       - uses: actions/checkout@v2
@@ -84,7 +83,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_SERVICE_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: us-east-1
 
       - name: Deploy S3 Stack
         if: false
