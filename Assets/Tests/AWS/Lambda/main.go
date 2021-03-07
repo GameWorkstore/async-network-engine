@@ -3,6 +3,7 @@ package awstesting
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 
 	ase "github.com/GameWorkstore/async-network-engine-go"
@@ -49,8 +50,9 @@ func init() {
 
 func main() {
 	var functionName = os.Getenv("AWS_LAMBDA_FUNCTION_NAME")
+	fmt.Println(functionName)
 	switch functionName {
-	case "awstest":
+	case "aseawstest":
 		lambda.Start(Process)
 		return
 	default:
