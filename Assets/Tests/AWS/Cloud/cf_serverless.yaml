@@ -44,15 +44,15 @@ Resources:
 # -----------------
 # FUNCTIONS
 # -----------------
-  LVersion:
+  Function:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
       Parameters:
         Prefix: ase
         Gateway: !Ref LApiGateway
-        BackendBucket: !Ref BackendBucket
+        BuildBucket: !Ref BackendBucket
         FunctionName: awstest
-        FunctionBuild: !Ref FunctionBuild
+        FunctionS3Key: !Ref FunctionBuild
         FunctionHandler: main
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
