@@ -6,13 +6,13 @@ Parameters:
   Gateway: 
     Type: String
     Default: gateway
-  BuildBucket:
+  BackendBucket:
     Type: String
     Default: bucket
   FunctionName:
     Type: String
     Default: name
-  FunctionS3Key:
+  FunctionBuild:
     Type: String
     Default: build
   FunctionHandler:
@@ -35,8 +35,8 @@ Resources:
       MemorySize: 128
       Role: !Ref FunctionIAMArn
       Code:
-        S3Bucket: !Ref BuildBucket
-        S3Key: !Ref FunctionS3Key
+        S3Bucket: !Ref BackendBucket
+        S3Key: !Ref FunctionBuild
   LFunctionPermission:
     Type: "AWS::Lambda::Permission"
     DependsOn:
@@ -54,13 +54,7 @@ Resources:
       ApiId: !Ref Gateway
       IntegrationType: AWS_PROXY
       IntegrationMethod: POST
-      IntegrationUri: !Join 
-        - ''
-        - - 'arn:aws:apigateway:'
-          - !Ref 'AWS::Region'
-          - ':lambda:path/2015-03-31/functions/'
-          - !GetAtt LFunction.Arn
-          - /invocations
+      IntegrationUri: !Join ['',['arn:aws:apigateway:',!Ref AWS::Region,':lambda:path/2015-03-31/functions/',!GetAtt LFunction.Arn,'/invocations']]
       ConnectionType: INTERNET
       PayloadFormatVersion: '1.0'
   LRoute:
