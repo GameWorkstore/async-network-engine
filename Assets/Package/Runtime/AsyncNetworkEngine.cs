@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 namespace GameWorkstore.AsyncNetworkEngine
 {
@@ -18,10 +19,37 @@ namespace GameWorkstore.AsyncNetworkEngine
         E_PARSER,
     }
 
-    public enum AsyncNetworkEngineCloud
+    public enum CloudProvider
     {
         GCP = 0,
         AWS = 1
+    }
+
+    public static class AsyncNetworkEngineMap
+    {
+        internal static bool IsSingleCloud = true;
+        internal static CloudProvider SingleCloudProvider = CloudProvider.AWS;
+        internal static Dictionary<string,CloudProvider> MapCloudProvider = null;
+
+        /// <summary>
+        /// Setup a single cloud provider for all functions.
+        /// </summary>
+        /// <param name="cloudProvider">Target cloud provider implementation.</param>
+        public static void SetupCloud(CloudProvider cloudProvider)
+        {
+            IsSingleCloud = true;
+            SingleCloudProvider = cloudProvider;
+        }
+
+        /// <summary>
+        /// Setup a multi cloud provider for all functions.
+        /// </summary>
+        /// <param name="mapCloudProvider">Maps base url to cloud provider. Use the lowest possible string to differentiate clouds.</param>
+        public static void SetupCloudMap(Dictionary<string,CloudProvider> mapCloudProvider)
+        {
+            IsSingleCloud = false;
+            MapCloudProvider = mapCloudProvider;
+        }
     }
 
     /// <summary>
@@ -33,7 +61,6 @@ namespace GameWorkstore.AsyncNetworkEngine
         where TR : IMessage<TR>, new()
         where TU : IMessage<TU>, new()
     {
-        public static AsyncNetworkEngineCloud Cloud = AsyncNetworkEngineCloud.AWS;
         private static readonly MessageParser<TU> _tuParser = new MessageParser<TU>(() => new TU());
         private static readonly MessageParser<GenericErrorResponse> _tvParser = new MessageParser<GenericErrorResponse>(() => new GenericErrorResponse());
         private static EventService _eventService = null;
@@ -53,6 +80,17 @@ namespace GameWorkstore.AsyncNetworkEngine
                 downloadHandler = new DownloadHandlerBuffer()
             };
             yield return rqt.SendWebRequest();
+
+            var cloudProvider = AsyncNetworkEngineMap.SingleCloudProvider;
+            if(!AsyncNetworkEngineMap.IsSingleCloud)
+            {
+                foreach(var pair in AsyncNetworkEngineMap.MapCloudProvider)
+                {
+                    if(!uri.StartsWith(pair.Key)) continue;
+                    cloudProvider = pair.Value;
+                    break;
+                }
+            }
 
             switch (rqt.result)
             {
@@ -83,11 +121,19 @@ namespace GameWorkstore.AsyncNetworkEngine
                     }*/
                 case UnityWebRequest.Result.Success:
                     while (!rqt.downloadHandler.isDone) yield return null;
-                    if (rqt.downloadHandler.data == null) { Return(AsyncNetworkResult.E_DATA_NULL, result); yield break; }
-                    if (rqt.downloadHandler.data.Length <= 0) { Return(AsyncNetworkResult.E_DATA_EMPTY, result); yield break; }
+                    if (rqt.downloadHandler.data == null)
+                    {
+                        Return(AsyncNetworkResult.E_DATA_NULL, result);
+                        yield break;
+                    }
+                    if (rqt.downloadHandler.data.Length <= 0)
+                    {
+                        Return(AsyncNetworkResult.E_DATA_EMPTY, result);
+                        yield break;
+                    }
                     try
                     {
-                        if (Cloud == AsyncNetworkEngineCloud.AWS)
+                        if (cloudProvider == CloudProvider.AWS)
                         {
                             var data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
                             var packet = _tuParser.ParseFrom(data);
