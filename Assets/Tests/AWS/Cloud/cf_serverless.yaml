@@ -35,6 +35,8 @@ Resources:
       TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
       Parameters:
         Prefix: 'ase'
+        BackendBucket: !Ref BackendBucket
+        FunctionBuild: !Ref FunctionBuild
         #Gateway: !Ref LApiGateway
         #BackendBucket: !Ref BackendBucket
         #FunctionBuild: !Ref FunctionBuild
