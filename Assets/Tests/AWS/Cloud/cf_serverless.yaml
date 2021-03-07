@@ -29,18 +29,6 @@ Resources:
                   - 'logs:CreateLogStream'
                   - 'logs:PutLogEvents'
                 Resource: '*'
-  # Gateway Configurations
-  Gateway:
-    Type: AWS::ApiGatewayV2::Api
-    Properties:
-      Name: ase-gateway-api
-      ProtocolType: HTTP
-  GatewayStage:
-    Type: AWS::ApiGatewayV2::Stage
-    Properties:
-      StageName: default
-      AutoDeploy: true
-      ApiId: !Ref Gateway
   Function:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -53,3 +41,14 @@ Resources:
         FunctionName: awstest
         FunctionHandler: main
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
+  Gateway:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: ase-gateway-api
+      ProtocolType: HTTP
+  GatewayStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      StageName: default
+      AutoDeploy: true
+      ApiId: !Ref Gateway
