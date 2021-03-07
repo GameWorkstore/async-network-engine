@@ -21,11 +21,11 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             { "https://c9dil5kv2d", CloudProvider.AWS }
         });
 
-        //GCP_NotAuthorized();
-        //GCP_Success();
-        //GCP_Errors();
-        //AWS_Success();
-        //AWS_Errors();
+        GCP_NotAuthorized();
+        GCP_Success();
+        GCP_Errors();
+        AWS_Success();
+        AWS_Errors();
         AWS_Binary();
         AWS_BinaryLarge();
     }
