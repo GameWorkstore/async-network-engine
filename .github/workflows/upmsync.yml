@@ -52,6 +52,7 @@ jobs:
           branch: main
   upload_gcp:
     runs-on: ubuntu-latest
+    if: false
     steps:
       - uses: actions/checkout@v2
       - name: Setup GCloud
@@ -86,7 +87,6 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy S3 Stack
-        if: false
         uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
         with:
           name: aws-test-builds
