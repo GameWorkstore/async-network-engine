@@ -1,4 +1,4 @@
-package awstesting
+package main
 
 import (
 	"context"

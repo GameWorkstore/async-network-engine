@@ -1,4 +1,4 @@
-module gameworkstore.com/awstesting
+module main
 
 go 1.13
 
