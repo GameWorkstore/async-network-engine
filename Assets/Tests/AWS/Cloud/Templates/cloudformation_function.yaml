@@ -22,9 +22,6 @@ Parameters:
     Type: String
     Default: iam
 Resources:
-# -----------------------
-# Function
-# -----------------------
   LFunction:
     Type: 'AWS::Lambda::Function'
     Properties:

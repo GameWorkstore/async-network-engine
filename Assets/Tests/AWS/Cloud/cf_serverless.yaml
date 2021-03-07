@@ -41,15 +41,15 @@ Resources:
       StageName: default
       AutoDeploy: true
       ApiId: !Ref Gateway
-  Function:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
-      Parameters:
-        Prefix: ase
-        Gateway: !Ref LApiGateway
-        BackendBucket: !Ref BackendBucket
-        FunctionBuild: !Ref FunctionBuild
-        FunctionName: awstest
-        FunctionHandler: main
-        FunctionIAMArn: !GetAtt LFunctionIAM.Arn
+  #Function:
+    #Type: AWS::CloudFormation::Stack
+    #Properties:
+      #TemplateURL: !Join ['',['https://',!Ref BackendBucket,'.s3.amazonaws.com/cloudformation_function.yaml']]
+      #Parameters:
+        #Prefix: ase
+        #Gateway: !Ref LApiGateway
+        #BackendBucket: !Ref BackendBucket
+        #FunctionBuild: !Ref FunctionBuild
+        #FunctionName: awstest
+        #FunctionHandler: main
+        #FunctionIAMArn: !GetAtt LFunctionIAM.Arn
