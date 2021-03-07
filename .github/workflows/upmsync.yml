@@ -69,7 +69,6 @@ jobs:
           
   upload_aws:
     runs-on: ubuntu-latest
-    if: false
     env:
       #BACKEND_NAME: ase-test
       BACKEND_BUCKET: ase-test-bucket
