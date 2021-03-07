@@ -34,12 +34,12 @@ Resources:
     Properties:
       TemplateURL: https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml
       Parameters:
-        Prefix: ase
+        Prefix: 'ase'
         Gateway: !Ref LApiGateway
         BackendBucket: !Ref BackendBucket
         FunctionBuild: !Ref FunctionBuild
-        FunctionName: awstest
-        #FunctionHandler: main
+        FunctionName: 'awstest'
+        FunctionHandler: 'main'
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
   Gateway:
     Type: AWS::ApiGatewayV2::Api
