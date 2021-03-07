@@ -27,13 +27,15 @@ namespace GameWorkstore.AsyncNetworkEngine {
             "Cg5hc3luY3JwYy5wcm90bxIgR2FtZVdvcmtzdG9yZS5Bc3luY05ldHdvcmtF",
             "bmdpbmUiIQoOR2VuZXJpY1JlcXVlc3QSDwoHTWVzc2VnZRgBIAEoCSIiCg9H",
             "ZW5lcmljUmVzcG9uc2USDwoHTWVzc2VnZRgCIAEoCSIlChRHZW5lcmljRXJy",
-            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqwAQoMVHJhbnNtaXNzaW9uEhAK",
-            "DE5vdFNwZWNpZmllZBAAEgcKAk9rEMgBEhcKEk1hcnNoYWxEZWNvZGVFcnJv",
-            "chCiAhIXChJNYXJzaGFsRW5jb2RlRXJyb3IQowISEgoNUmVzcG9uc2VXcml0",
-            "ZRCkAhITCg5Ob3RJbXBsZW1lbnRlZBClAhIZChRJbnRlcm5hbEhhbmRsZXJF",
-            "cnJvchCmAhIPCgpOb3RBbGxvd2VkEJUDQkdIA1pDZ2l0aHViLmNvbS9HYW1l",
-            "V29ya3N0b3JlL2FzeW5jLW5ldHdvcmstZW5naW5lLWdvO2FzeW5jbmV0d29y",
-            "a2VuZ2luZWIGcHJvdG8z"));
+            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqMAgoMVHJhbnNtaXNzaW9uEhAK",
+            "DE5vdFNwZWNpZmllZBAAEhMKD0Vycm9yQ29ubmVjdGlvbhABEhEKDUVycm9y",
+            "UHJvdG9jb2wQAhIPCgtFcnJvclBhcnNlchADEgwKB1N1Y2Nlc3MQyAESEAoL",
+            "RXJyb3JOb0RhdGEQzAESEAoLRXJyb3JEZWNvZGUQkAMSGgoVRXJyb3JNZXRo",
+            "b2ROb3RBbGxvd2VkEJUDEhAKC0Vycm9yRW5jb2RlEKgDEh0KGEVycm9ySW50",
+            "ZXJuYWxTZXJ2ZXJFcnJvchD0AxIYChNFcnJvck5vdEltcGxlbWVudGVkEPUD",
+            "EhgKE0Vycm9yUmVxdWVzdFRpbWVvdXQQmANCR0gDWkNnaXRodWIuY29tL0dh",
+            "bWVXb3Jrc3RvcmUvYXN5bmMtbmV0d29yay1lbmdpbmUtZ287YXN5bmNuZXR3",
+            "b3JrZW5naW5lYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -48,13 +50,41 @@ namespace GameWorkstore.AsyncNetworkEngine {
   #region Enums
   public enum Transmission {
     [pbr::OriginalName("NotSpecified")] NotSpecified = 0,
-    [pbr::OriginalName("Ok")] Ok = 200,
-    [pbr::OriginalName("MarshalDecodeError")] MarshalDecodeError = 290,
-    [pbr::OriginalName("MarshalEncodeError")] MarshalEncodeError = 291,
-    [pbr::OriginalName("ResponseWrite")] ResponseWrite = 292,
-    [pbr::OriginalName("NotImplemented")] NotImplemented = 293,
-    [pbr::OriginalName("InternalHandlerError")] InternalHandlerError = 294,
-    [pbr::OriginalName("NotAllowed")] NotAllowed = 405,
+    [pbr::OriginalName("ErrorConnection")] ErrorConnection = 1,
+    [pbr::OriginalName("ErrorProtocol")] ErrorProtocol = 2,
+    [pbr::OriginalName("ErrorParser")] ErrorParser = 3,
+    /// <summary>
+    /// StatusOK
+    /// </summary>
+    [pbr::OriginalName("Success")] Success = 200,
+    /// <summary>
+    ///StatusNoContent
+    /// </summary>
+    [pbr::OriginalName("ErrorNoData")] ErrorNoData = 204,
+    /// <summary>
+    ///StatusBadRequest
+    /// </summary>
+    [pbr::OriginalName("ErrorDecode")] ErrorDecode = 400,
+    /// <summary>
+    ///StatusMethodNotAllowed
+    /// </summary>
+    [pbr::OriginalName("ErrorMethodNotAllowed")] ErrorMethodNotAllowed = 405,
+    /// <summary>
+    ///StatusFailedDependency
+    /// </summary>
+    [pbr::OriginalName("ErrorEncode")] ErrorEncode = 424,
+    /// <summary>
+    ///StatusInternalServerError
+    /// </summary>
+    [pbr::OriginalName("ErrorInternalServerError")] ErrorInternalServerError = 500,
+    /// <summary>
+    ///StatusNotImplemented
+    /// </summary>
+    [pbr::OriginalName("ErrorNotImplemented")] ErrorNotImplemented = 501,
+    /// <summary>
+    ///StatusRequestTimeout
+    /// </summary>
+    [pbr::OriginalName("ErrorRequestTimeout")] ErrorRequestTimeout = 408,
   }
 
   #endregion

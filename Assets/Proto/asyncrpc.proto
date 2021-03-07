@@ -7,13 +7,18 @@ package GameWorkstore.AsyncNetworkEngine;
 enum Transmission
 {
    NotSpecified = 0;
-   Ok = 200;
-   MarshalDecodeError = 290;
-   MarshalEncodeError = 291;
-   ResponseWrite = 292;
-   NotImplemented = 293;
-   InternalHandlerError = 294;
-   NotAllowed = 405;
+   ErrorConnection = 1;
+   ErrorProtocol = 2;
+   ErrorParser = 3;
+
+   Success = 200; // StatusOK
+   ErrorNoData = 204; //StatusNoContent
+   ErrorDecode = 400; //StatusBadRequest
+   ErrorMethodNotAllowed = 405; //StatusMethodNotAllowed
+   ErrorEncode = 424; //StatusFailedDependency
+   ErrorInternalServerError = 500; //StatusInternalServerError
+   ErrorNotImplemented = 501; //StatusNotImplemented
+   ErrorRequestTimeout = 408; //StatusRequestTimeout
 }
 
 message GenericRequest

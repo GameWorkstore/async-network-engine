@@ -50,30 +50,30 @@ func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
 		w.Header().Set("Access-Control-Max-Age", "3600")
 	}
 
-	//stops immediatelly at OPTIONS
+	//stops immediate at OPTIONS
 	if r.Method == http.MethodOptions {
 		if allowedCORS {
-			w.WriteHeader(int(Transmission_Ok))
+			w.WriteHeader(int(Transmission_Success))
 		} else {
-			w.WriteHeader(int(Transmission_NotAllowed))
+			w.WriteHeader(int(Transmission_ErrorMethodNotAllowed))
 		}
 		return true
 	}
 
 	if r.Method != http.MethodPost {
-		w.WriteHeader(int(Transmission_NotAllowed))
+		w.WriteHeader(int(Transmission_ErrorMethodNotAllowed))
 		return true
 	}
 
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		GCPError(w, Transmission_MarshalDecodeError, nil)
+		GCPError(w, Transmission_ErrorDecode, nil)
 		return true
 	}
 
 	err = proto.Unmarshal(data, rqt)
 	if err != nil {
-		GCPError(w, Transmission_MarshalDecodeError, nil)
+		GCPError(w, Transmission_ErrorDecode, nil)
 		return true
 	}
 	return false
@@ -83,28 +83,23 @@ func GCPDecode(r *http.Request, w http.ResponseWriter, rqt proto.Message) bool {
 func GCPResponse(w http.ResponseWriter, pb proto.Message) {
 	data, err := proto.Marshal(pb)
 	if err != nil {
-		GCPError(w, Transmission_MarshalEncodeError, err)
+		GCPError(w, Transmission_ErrorEncode, err)
 		return
 	}
 
-	_, errw := w.Write(data)
-	if errw != nil {
-		GCPError(w, Transmission_ResponseWrite, err)
-		return
-	}
-	// body before header success
-	w.WriteHeader(int(Transmission_Ok))
+	w.WriteHeader(int(Transmission_Success))
+	w.Write(data)
 }
 
 // GCPError writes an error response in given connection.
 func GCPError(w http.ResponseWriter, status Transmission, err error) {
 	if err != nil {
-		var gerr GenericErrorResponse
-		gerr.Error = err.Error()
-		data, _ := proto.Marshal(&gerr)
+		var gErr GenericErrorResponse
+		gErr.Error = err.Error()
+		data, _ := proto.Marshal(&gErr)
+		w.WriteHeader(int(status))
 		w.Write(data)
 	}
-	w.WriteHeader(int(status))
 }
 
 // AWSDecode decodes and returns the protobuf of given connection. Return to gateway (response,nil) if err != nil.
@@ -121,26 +116,26 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 			w.Headers["Access-Control-Allow-Headers"] = allowedHeaders
 			w.Headers["Access-Control-Allow-Methods"] = allowedMethods
 			w.Headers["Access-Control-Max-Age"] = allowedMaxAge
-			w.StatusCode = int(Transmission_Ok)
+			w.StatusCode = int(Transmission_Success)
 		} else {
-			w.StatusCode = int(Transmission_NotAllowed)
+			w.StatusCode = int(Transmission_ErrorMethodNotAllowed)
 		}
 		return w, errors.New("preflight")
 	case "POST":
 		data, err := base64.URLEncoding.DecodeString(r.Body)
 		if err != nil {
-			eg, _ := AWSError(Transmission_MarshalDecodeError, err)
+			eg, _ := AWSError(Transmission_ErrorDecode, err)
 			return eg, err
 		}
 		err = proto.Unmarshal(data, rqt)
 		if err != nil {
-			eg, err := AWSError(Transmission_MarshalDecodeError, err)
+			eg, err := AWSError(Transmission_ErrorDecode, err)
 			return eg, err
 		}
 		//passthrough
 		return w, nil
 	}
-	w.StatusCode = int(Transmission_NotAllowed)
+	w.StatusCode = int(Transmission_ErrorMethodNotAllowed)
 	return w, errors.New("method not allowed")
 }
 
@@ -148,23 +143,23 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 func AWSResponse(pb proto.Message) (events.APIGatewayProxyResponse, error) {
 	data, err := proto.Marshal(pb)
 	if err != nil {
-		return AWSError(Transmission_MarshalEncodeError, err)
+		return AWSError(Transmission_ErrorEncode, err)
 	}
 	w := events.APIGatewayProxyResponse{}
 	w.Body = base64.URLEncoding.EncodeToString(data)
-	w.StatusCode = int(Transmission_Ok)
+	w.StatusCode = int(Transmission_Success)
 	return w, nil
 }
 
 // AWSError writes an error response in given connection.
 func AWSError(status Transmission, err error) (events.APIGatewayProxyResponse, error) {
-	var gerr GenericErrorResponse
+	var gErr GenericErrorResponse
 	if err != nil {
-		gerr.Error = err.Error()
+		gErr.Error = err.Error()
 	} else {
-		gerr.Error = "null"
+		gErr.Error = "null"
 	}
-	data, _ := proto.Marshal(&gerr)
+	data, _ := proto.Marshal(&gErr)
 	w := events.APIGatewayProxyResponse{}
 	w.Body = base64.URLEncoding.EncodeToString(data)
 	w.StatusCode = int(status)

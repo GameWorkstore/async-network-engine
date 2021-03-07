@@ -8,7 +8,8 @@ using Google.Protobuf;
 
 public class TestAsyncNetworkEngine : MonoBehaviour
 {
-    private const string url = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
+    private const string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
+    private const string gcp = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
 
     private void Awake()
     {
@@ -16,9 +17,27 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             {"https://us-central1-game-workstore", CloudProvider.GCP }
         });
+        GCP_NonExisting();
         GCP_Success();
         GCP_Decode_Error();
         AWS_Success();
+    }
+
+    public void GCP_NonExisting()
+    {
+        return;
+        var rqt = new GenericRequest()
+        {
+            Messege = "success"
+        };
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp_notauthorized, rqt, (result, response, error) =>
+        {
+            DebugResult(nameof(GCP_NonExisting),result,response,error);
+            /*Assert.AreEqual(Transmission.Success, result);
+            Assert.IsNotNull(response);
+            Assert.AreEqual("received-success", response.Messege);
+            Debug.Log("GCP_Success:True");*/
+        });
     }
 
     public void GCP_Success()
@@ -27,9 +46,9 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             Messege = "success"
         };
-        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(url, rqt, (result, response, error) =>
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp, rqt, (result, response, error) =>
         {
-            Assert.AreEqual(AsyncNetworkResult.SUCCESS, result);
+            Assert.AreEqual(Transmission.Success, result);
             Assert.IsNotNull(response);
             Assert.AreEqual("received-success", response.Messege);
             Debug.Log("GCP_Success:True");
@@ -42,9 +61,9 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             Messege = "decode-error"
         };
-        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(url, rqt, (result, response, error) =>
+        AsyncNetworkEngine<GenericRequest, GenericResponse>.Send(gcp, rqt, (result, response, error) =>
         {
-            DebugResult(result,response,error);
+            DebugResult(nameof(GCP_Decode_Error),result,response,error);
             //Assert.AreEqual(AsyncNetworkResult.SUCCESS, result);
             //Assert.IsNotNull(response);
             //Assert.AreEqual("received-success", response.Messege);
@@ -57,10 +76,13 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     }
 
-    private void DebugResult(AsyncNetworkResult result, IMessage response, IMessage error)
+    private void DebugResult(string function,Transmission result, IMessage response, IMessage error)
     {
-        Debug.Log(result);
-        Debug.Log(response != null ? response.ToString() : "null");
-        Debug.Log(error != null ? error.ToString() : "null");
+        string debugged = 
+            "Function:" + function + ":\n" +
+            "Result:" + result + "\n" +
+            "Response:" + (response != null ? response.ToString() : "null") + "\n" +
+            "Error:" + (error != null ? error.ToString() : "null");
+        Debug.Log(debugged);
     }
 }
