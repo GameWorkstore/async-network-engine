@@ -94,7 +94,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             Assert.AreEqual(Transmission.Success, result);
             Assert.IsNotNull(response);
             Assert.AreEqual("received-success", response.Messege);
-            Debug.Log(nameof(GCP_Success));
+            Debug.Log(nameof(AWS_Success));
         });
     }
 
@@ -122,7 +122,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
                 Assert.AreEqual(tuple.Item1, result);
                 Assert.IsNotNull(error);
                 Assert.AreEqual(tuple.Item3, error.Error);
-                Debug.Log(nameof(GCP_Errors) + ":" + tuple.Item1);
+                Debug.Log(nameof(AWS_Errors) + ":" + tuple.Item1);
             });
         }
     }
