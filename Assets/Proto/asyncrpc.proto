@@ -16,7 +16,7 @@ enum Transmission
    ErrorDecode = 400; //StatusBadRequest
    ErrorMethodNotAllowed = 405; //StatusMethodNotAllowed
    ErrorEncode = 424; //StatusFailedDependency
-   ErrorInternalServerError = 500; //StatusInternalServerError
+   ErrorInternalServer = 500; //StatusInternalServerError
    ErrorNotImplemented = 501; //StatusNotImplemented
    ErrorRequestTimeout = 408; //StatusRequestTimeout
 }

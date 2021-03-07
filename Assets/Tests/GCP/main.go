@@ -21,19 +21,19 @@ func Process(w http.ResponseWriter, r *http.Request) {
 
 	switch rqt.Messege {
 	case "decode-error":
-		ase.GCPError(w, ase.Transmission_MarshalDecodeError, errors.New("decode error"))
+		ase.GCPError(w, ase.Transmission_ErrorDecode, errors.New("decode error"))
 		return
 	case "encode-error":
-		ase.GCPError(w, ase.Transmission_MarshalEncodeError, errors.New("encode error"))
+		ase.GCPError(w, ase.Transmission_ErrorEncode, errors.New("encode error"))
 		return
 	case "internal-error":
-		ase.GCPError(w, ase.Transmission_InternalHandlerError, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorInternalServerError, errors.New("internal error"))
 		return
 	case "not-allowed-error":
-		ase.GCPError(w, ase.Transmission_NotAllowed, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorMethodNotAllowed, errors.New("internal error"))
 		return
 	case "not-implemented":
-		ase.GCPError(w, ase.Transmission_NotImplemented, errors.New("internal error"))
+		ase.GCPError(w, ase.Transmission_ErrorNotImplemented, errors.New("internal error"))
 		return
 	}
 

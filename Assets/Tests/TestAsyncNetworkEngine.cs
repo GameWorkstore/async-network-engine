@@ -26,7 +26,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
     public void GCP_NonExisting()
     {
         return;
-        var rqt = new GenericRequest()
+        /*var rqt = new GenericRequest()
         {
             Messege = "success"
         };
@@ -36,8 +36,8 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             /*Assert.AreEqual(Transmission.Success, result);
             Assert.IsNotNull(response);
             Assert.AreEqual("received-success", response.Messege);
-            Debug.Log("GCP_Success:True");*/
-        });
+            Debug.Log("GCP_Success:True");
+        });*/
     }
 
     public void GCP_Success()

@@ -27,15 +27,15 @@ namespace GameWorkstore.AsyncNetworkEngine {
             "Cg5hc3luY3JwYy5wcm90bxIgR2FtZVdvcmtzdG9yZS5Bc3luY05ldHdvcmtF",
             "bmdpbmUiIQoOR2VuZXJpY1JlcXVlc3QSDwoHTWVzc2VnZRgBIAEoCSIiCg9H",
             "ZW5lcmljUmVzcG9uc2USDwoHTWVzc2VnZRgCIAEoCSIlChRHZW5lcmljRXJy",
-            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqMAgoMVHJhbnNtaXNzaW9uEhAK",
+            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqHAgoMVHJhbnNtaXNzaW9uEhAK",
             "DE5vdFNwZWNpZmllZBAAEhMKD0Vycm9yQ29ubmVjdGlvbhABEhEKDUVycm9y",
             "UHJvdG9jb2wQAhIPCgtFcnJvclBhcnNlchADEgwKB1N1Y2Nlc3MQyAESEAoL",
             "RXJyb3JOb0RhdGEQzAESEAoLRXJyb3JEZWNvZGUQkAMSGgoVRXJyb3JNZXRo",
-            "b2ROb3RBbGxvd2VkEJUDEhAKC0Vycm9yRW5jb2RlEKgDEh0KGEVycm9ySW50",
-            "ZXJuYWxTZXJ2ZXJFcnJvchD0AxIYChNFcnJvck5vdEltcGxlbWVudGVkEPUD",
-            "EhgKE0Vycm9yUmVxdWVzdFRpbWVvdXQQmANCR0gDWkNnaXRodWIuY29tL0dh",
-            "bWVXb3Jrc3RvcmUvYXN5bmMtbmV0d29yay1lbmdpbmUtZ287YXN5bmNuZXR3",
-            "b3JrZW5naW5lYgZwcm90bzM="));
+            "b2ROb3RBbGxvd2VkEJUDEhAKC0Vycm9yRW5jb2RlEKgDEhgKE0Vycm9ySW50",
+            "ZXJuYWxTZXJ2ZXIQ9AMSGAoTRXJyb3JOb3RJbXBsZW1lbnRlZBD1AxIYChNF",
+            "cnJvclJlcXVlc3RUaW1lb3V0EJgDQkdIA1pDZ2l0aHViLmNvbS9HYW1lV29y",
+            "a3N0b3JlL2FzeW5jLW5ldHdvcmstZW5naW5lLWdvO2FzeW5jbmV0d29ya2Vu",
+            "Z2luZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -76,7 +76,7 @@ namespace GameWorkstore.AsyncNetworkEngine {
     /// <summary>
     ///StatusInternalServerError
     /// </summary>
-    [pbr::OriginalName("ErrorInternalServerError")] ErrorInternalServerError = 500,
+    [pbr::OriginalName("ErrorInternalServer")] ErrorInternalServer = 500,
     /// <summary>
     ///StatusNotImplemented
     /// </summary>
