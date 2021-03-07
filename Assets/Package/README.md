@@ -37,6 +37,29 @@ on upmsync.yaml, the job 'upload_aws' illustrates a possible way to upload your 
 Requires a service account to enable it to upload.
 > You need to set the template 'cloudformation_function.yaml' public in your bucket repository to enable AWS::Stack to read from it.
 
+# Implementation
+
+## GCP Troubleshoot
+
+> My function is returning ErrorProtocol for any input.
+if you don't give access public for your function it might fail
+
+## AWS Troubleshoot
+> CloudFormation is returning errors
+
+Verify all variables, !Ref and links, you might be forgetting something. CloudFormations is very sensitive to linkage errors.
+
+> My lambda is returning error 500 Internal Server error.
+If you are receiving this and error object is returning null, it might be a bad configuration causing your lambda to not run.
+Verify if you function is running by adding a fmt.Println("test") at main() function to ensure the function is starting.
+Some issues that may prevent the start of function:
+- The functions ins't at correct path when extracted from the zip.
+- The function package name isn't main where main() function is declared.
+- lambda.Start() is never begin called to initialize the function.
+- The function is crashing upon initialization
+
+If the function is working normally, them you might receive error 500 - ErrorInternalServer with AWSError, when specified by the programmer.
+
 # Contributions
 
 If you are using this library and want to submit a change, go ahead! Overall, this project accepts contributions if:
