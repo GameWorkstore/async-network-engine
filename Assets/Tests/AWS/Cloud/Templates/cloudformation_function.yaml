@@ -17,7 +17,7 @@ Parameters:
     Default: build
   FunctionHandler:
     Type: String
-    Default: main
+    Default: handler
   FunctionIAMArn:
     Type: String
     Default: iam

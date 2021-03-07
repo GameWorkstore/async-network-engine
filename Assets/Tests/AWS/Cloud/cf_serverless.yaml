@@ -39,8 +39,8 @@ Resources:
         BackendBucket: !Ref BackendBucket
         FunctionBuild: !Ref FunctionBuild
         FunctionName: 'awstest'
-        FunctionHandler: 'main'
         FunctionIAMArn: !GetAtt LFunctionIAM.Arn
+        #FunctionHandler: 'main'
   Gateway:
     Type: AWS::ApiGatewayV2::Api
     Properties:
