@@ -11,53 +11,69 @@ public class TestAsyncNetworkEngine : MonoBehaviour
     private const string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
     private const string gcp = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
     private const string aws = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/aseawstest";
-    private const string aws_binary = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/aseawstest";
+    private const string aws_binary = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/asebinaryconversions";
 
     private void Awake()
     {
         AsyncNetworkEngineMap.SetupCloudMap(new Dictionary<string, CloudProvider>()
         {
             { "https://us-central1-game-workstore", CloudProvider.GCP },
-            { "https://c9dil5kv2d", CloudProvider.GCP }
+            { "https://c9dil5kv2d", CloudProvider.AWS }
         });
 
-        GCP_NotAuthorized();
-        GCP_Success();
-        GCP_Errors();
+        //GCP_NotAuthorized();
+        //GCP_Success();
+        //GCP_Errors();
         //AWS_Success();
         //AWS_Errors();
         AWS_Binary();
-        //AWS_BinaryLarge();
+        AWS_BinaryLarge();
     }
 
     private void AWS_Binary()
     {
+        const string msg = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum arcu in sem lacinia, nec fermentum ligula porttitor. Morbi egestas sem non odio convallis volutpat. In arcu diam, finibus elementum eleifend semper, porta vitae ex. Pellentesque accumsan lobortis interdum. Vivamus mi eros, ultricies vitae varius id, maximus vel velit. Nam condimentum nibh eu tortor ultricies suscipit. Fusce quis nulla ante. Aenean sodales neque ac nulla vehicula tempus. Sed non elit nec nisi scelerisque mollis. Pellentesque tristique tellus eros, sed tincidunt nibh cursus at.";
         var rqt = new GenericRequest()
         {
-            Messege =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum arcu in sem lacinia, nec fermentum ligula porttitor. Morbi egestas sem non odio convallis volutpat. In arcu diam, finibus elementum eleifend semper, porta vitae ex. Pellentesque accumsan lobortis interdum. Vivamus mi eros, ultricies vitae varius id, maximus vel velit. Nam condimentum nibh eu tortor ultricies suscipit. Fusce quis nulla ante. Aenean sodales neque ac nulla vehicula tempus. Sed non elit nec nisi scelerisque mollis. Pellentesque tristique tellus eros, sed tincidunt nibh cursus at."
+            Messege = msg
         };
 
         var binary = rqt.ToByteArray();
 
-        AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws,rqt,(result,response,error) =>
+        AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws_binary,rqt,(result,response,error) =>
         {
-            DebugResult(nameof(AWS_Binary),result,response,error);
+            Assert.AreEqual(Transmission.Success, result);
+            Assert.IsNotNull(response);
+            Assert.AreEqual(msg, response.Messege);
+            Debug.Log(nameof(AWS_Binary));
         });
     }
 
     private void AWS_BinaryLarge()
     {
-        /*var rqt = new GenericRequest()
+        const string msg = 
+            "Lorem ipsum dolor sit amet, consectetur adipiscing eli()t. Aenean fermentum arcu in sem lacinia, nec fermentum ligula porttitor. Morbi egestas sem non odio convallis volutpat. In arcu diam, finibus elementum eleifend semper, porta vitae ex. Pellentesque accumsan lobortis interdum. Vivamus mi eros, ultricies vitae varius id, maximus vel velit. Nam condimentum nibh eu tortor ultricies suscipit. Fusce quis nulla ante. Aenean sodales neque ac nulla vehicula tempus. Sed non elit nec nisi scelerisque mollis. Pellentesque tristique tellus eros, sed tincidunt nibh cursus at.\n"+
+            "Duis at aliquet lectus, non s**tempus erat. Ut sagittis diam- porta pellentesque luctus. Quisque sit amet erat vitae est feugiat posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum at sodales metus, nec fringilla ipsum. Sed magna risus, facilisis sit amet viverra sed, mattis laoreet risus. Morbi malesuada ligula et rhoncus volutpat.\n"+
+            "Proin ullamcorper lectus23// nec venenatis dapibus. Etiam porttitor m-agna ut mi pellentesque efficitur. Suspendisse non neque eu elit malesuada ultricies. Sed vel tellus purus. Fusce eu ante felis. Quisque eu imperdiet risus, ut accumsan augue. In hac habitasse platea dictumst. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum at libero congue, convallis sapien id, hendrerit augue. Donec dignissim dignissim mauris at efficitur. Phasellus sit amet ipsum id elit mollis consequat.\n"+
+            "Donec dui augue, ultrices eget commodo sed, iaculis id erat.\n"+
+            "Donec aliquet ipsum ut diam accumsan mollis.\n"+
+            "Praesent eget% massa sed velit condimentum molestie. Nullam lectu+=s t))orto&&r, pretium sit amet congue vitae, mollis ut tortor. Nullam ultricies risus urna. In varius congue nulla a dignissim. Pellentesque eu dolor vel dui congue tincidunt. In malesuada tincidunt nunc id fermentum. Etiam rutrum, mi lacinia finibus tincidunt, erat erat ultrices felis, non tempor eros ligula vitae ligula. Proin aliquet, neque a placerat dignissim, nisi nulla pharetra ipsum, id interdum urna urna eu elit. Mauris velit neque, dictum ac vulputate id, mattis eget velit.\n"+
+            "Nam ut feugiat diam. Nunc non !sapien @#auctor, #elementum magna non, plac6$$erat lorem. In at est ac lorem consequat dignissim ac nec tellus. Duis vitae semper metus, quis ornare orci. Praesent nec leo sollicitudin, porttitor risus vitae, vestibulum ex. Fusce a lobortis arcu, eu imperdiet metus. Aliquam ornare orci at accumsan aliquam. Aenean feugiat bibendum tortor, ut interdum augue ultrices in. Proin quis placerat eros. Integer tempus iaculis condimentum. Vivamus euismod arcu ac lacus commodo, a scelerisque lectus venenatis. Mauris non massa tortor. Cras id nulla ac orci lobortis ullamcorper eu at quam.\n"+
+            "Donec nibh elit, placerat a consequat vitae, porta accumsan metus.";
+        var rqt = new GenericRequest()
         {
-            Messege = 
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum arcu in sem lacinia, nec fermentum ligula porttitor. Morbi egestas sem non odio convallis volutpat. In arcu diam, finibus elementum eleifend semper, porta vitae ex. Pellentesque accumsan lobortis interdum. Vivamus mi eros, ultricies vitae varius id, maximus vel velit. Nam condimentum nibh eu tortor ultricies suscipit. Fusce quis nulla ante. Aenean sodales neque ac nulla vehicula tempus. Sed non elit nec nisi scelerisque mollis. Pellentesque tristique tellus eros, sed tincidunt nibh cursus at.\n"+
-                "Duis at aliquet lectus, non tempus erat. Ut sagittis diam porta pellentesque luctus. Quisque sit amet erat vitae est feugiat posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum at sodales metus, nec fringilla ipsum. Sed magna risus, facilisis sit amet viverra sed, mattis laoreet risus. Morbi malesuada ligula et rhoncus volutpat.\n"+
-                "Proin ullamcorper lectus nec venenatis dapibus. Etiam porttitor magna ut mi pellentesque efficitur. Suspendisse non neque eu elit malesuada ultricies. Sed vel tellus purus. Fusce eu ante felis. Quisque eu imperdiet risus, ut accumsan augue. In hac habitasse platea dictumst. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum at libero congue, convallis sapien id, hendrerit augue. Donec dignissim dignissim mauris at efficitur. Phasellus sit amet ipsum id elit mollis consequat. Donec dui augue, ultrices eget commodo sed, iaculis id erat. Donec aliquet ipsum ut diam accumsan mollis.\n"+
-                "Praesent eget massa sed velit condimentum molestie. Nullam lectus tortor, pretium sit amet congue vitae, mollis ut tortor. Nullam ultricies risus urna. In varius congue nulla a dignissim. Pellentesque eu dolor vel dui congue tincidunt. In malesuada tincidunt nunc id fermentum. Etiam rutrum, mi lacinia finibus tincidunt, erat erat ultrices felis, non tempor eros ligula vitae ligula. Proin aliquet, neque a placerat dignissim, nisi nulla pharetra ipsum, id interdum urna urna eu elit. Mauris velit neque, dictum ac vulputate id, mattis eget velit.\n"+
-                "Nam ut feugiat diam. Nunc non sapien auctor, elementum magna non, placerat lorem. In at est ac lorem consequat dignissim ac nec tellus. Duis vitae semper metus, quis ornare orci. Praesent nec leo sollicitudin, porttitor risus vitae, vestibulum ex. Fusce a lobortis arcu, eu imperdiet metus. Aliquam ornare orci at accumsan aliquam. Aenean feugiat bibendum tortor, ut interdum augue ultrices in. Proin quis placerat eros. Integer tempus iaculis condimentum. Vivamus euismod arcu ac lacus commodo, a scelerisque lectus venenatis. Mauris non massa tortor. Cras id nulla ac orci lobortis ullamcorper eu at quam. Donec nibh elit, placerat a consequat vitae, porta accumsan metus."
+            Messege = msg
         };
 
-        AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws)*/
+        var binary = rqt.ToByteArray();
+
+        AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws_binary,rqt,(result,response,error) =>
+        {
+            Assert.AreEqual(Transmission.Success, result);
+            Assert.IsNotNull(response);
+            Assert.AreEqual(msg, response.Messege);
+            Debug.Log(nameof(AWS_BinaryLarge));
+        });
     }
 
     public void GCP_NotAuthorized()

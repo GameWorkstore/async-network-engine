@@ -114,18 +114,19 @@ namespace GameWorkstore.AsyncNetworkEngine
             byte[] data = rqt.downloadHandler.data;
             if (provider == CloudProvider.AWS)
             {
-                data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                data = Base64StdEncoding.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
             }
 
+            TU packet;
             try
             {
-                var packet = _tuParser.ParseFrom(data);
-                Return(Transmission.Success, packet, default, result);
+                packet = _tuParser.ParseFrom(data);
             }
             catch
             {
-                Return(Transmission.ErrorParser, result);
+                packet = default;
             }
+            Return(packet != null ? Transmission.Success : Transmission.ErrorParser, packet, default, result);
         }
 
         private static void HandleError(CloudProvider provider, UnityWebRequest rqt, Action<Transmission, TU, GenericErrorResponse> result)
@@ -144,19 +145,20 @@ namespace GameWorkstore.AsyncNetworkEngine
             byte[] data = rqt.downloadHandler.data;
             if (provider == CloudProvider.AWS)
             {
-                data = Base64Url.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                data = Base64StdEncoding.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
             }
 
             var transmission = (Transmission)rqt.responseCode;
+            GenericErrorResponse packet;
             try
             {
-                var packet = _tvParser.ParseFrom(data);
-                Return(transmission, default, packet, result);
+                packet = _tvParser.ParseFrom(data);
             }
             catch
             {
-                Return(Transmission.ErrorParser, result);
+                packet = default;
             }
+            Return(packet != null ? transmission : Transmission.ErrorParser, default, packet, result);
         }
 
         private static void Return(Transmission result, Action<Transmission, TU, GenericErrorResponse> callback)
@@ -167,8 +169,8 @@ namespace GameWorkstore.AsyncNetworkEngine
         private static void Return(Transmission result, TU data, GenericErrorResponse error, Action<Transmission, TU, GenericErrorResponse> callback)
         {
             if (callback == null) return;
-            //_eventService.QueueAction(() => callback.Invoke(result, data, error));
-            callback.Invoke(result, data, error);
+            _eventService.QueueAction(() => callback.Invoke(result, data, error));
+            //callback.Invoke(result, data, error);
         }
     }
 }

@@ -122,7 +122,7 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 		}
 		return w, errors.New("preflight")
 	case "POST":
-		data, err := base64.URLEncoding.DecodeString(r.Body)
+		data, err := base64.StdEncoding.DecodeString(r.Body)
 		if err != nil {
 			eg, _ := AWSError(Transmission_ErrorDecode, err)
 			return eg, err
@@ -146,7 +146,7 @@ func AWSResponse(pb proto.Message) (events.APIGatewayProxyResponse, error) {
 		return AWSError(Transmission_ErrorEncode, err)
 	}
 	w := events.APIGatewayProxyResponse{}
-	w.Body = base64.URLEncoding.EncodeToString(data)
+	w.Body = base64.StdEncoding.EncodeToString(data)
 	w.StatusCode = int(Transmission_Success)
 	return w, nil
 }
@@ -161,7 +161,7 @@ func AWSError(status Transmission, err error) (events.APIGatewayProxyResponse, e
 	}
 	data, _ := proto.Marshal(&gErr)
 	w := events.APIGatewayProxyResponse{}
-	w.Body = base64.URLEncoding.EncodeToString(data)
+	w.Body = base64.StdEncoding.EncodeToString(data)
 	w.StatusCode = int(status)
 	return w, nil
 }
