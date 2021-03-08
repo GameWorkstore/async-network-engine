@@ -27,15 +27,17 @@ namespace GameWorkstore.AsyncNetworkEngine {
             "Cg5hc3luY3JwYy5wcm90bxIgR2FtZVdvcmtzdG9yZS5Bc3luY05ldHdvcmtF",
             "bmdpbmUiIQoOR2VuZXJpY1JlcXVlc3QSDwoHTWVzc2VnZRgBIAEoCSIiCg9H",
             "ZW5lcmljUmVzcG9uc2USDwoHTWVzc2VnZRgCIAEoCSIlChRHZW5lcmljRXJy",
-            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSqHAgoMVHJhbnNtaXNzaW9uEhAK",
+            "b3JSZXNwb25zZRINCgVFcnJvchgBIAEoCSrdAgoMVHJhbnNtaXNzaW9uEhAK",
             "DE5vdFNwZWNpZmllZBAAEhMKD0Vycm9yQ29ubmVjdGlvbhABEhEKDUVycm9y",
             "UHJvdG9jb2wQAhIPCgtFcnJvclBhcnNlchADEgwKB1N1Y2Nlc3MQyAESEAoL",
-            "RXJyb3JOb0RhdGEQzAESEAoLRXJyb3JEZWNvZGUQkAMSGgoVRXJyb3JNZXRo",
-            "b2ROb3RBbGxvd2VkEJUDEhAKC0Vycm9yRW5jb2RlEKgDEhgKE0Vycm9ySW50",
-            "ZXJuYWxTZXJ2ZXIQ9AMSGAoTRXJyb3JOb3RJbXBsZW1lbnRlZBD1AxIYChNF",
-            "cnJvclJlcXVlc3RUaW1lb3V0EJgDQkdIA1pDZ2l0aHViLmNvbS9HYW1lV29y",
-            "a3N0b3JlL2FzeW5jLW5ldHdvcmstZW5naW5lLWdvO2FzeW5jbmV0d29ya2Vu",
-            "Z2luZWIGcHJvdG8z"));
+            "RXJyb3JOb0RhdGEQzAESEAoLRXJyb3JEZWNvZGUQkAMSFgoRRXJyb3JVbmF1",
+            "dGhvcml6ZWQQkQMSEwoORXJyb3JGb3JiaWRkZW4QkwMSGgoVRXJyb3JNZXRo",
+            "b2ROb3RBbGxvd2VkEJUDEhgKE0Vycm9yUmVxdWVzdFRpbWVvdXQQmAMSEAoL",
+            "RXJyb3JFbmNvZGUQpQMSGAoTRXJyb3JJbnRlcm5hbFNlcnZlchD0AxIYChNF",
+            "cnJvck5vdEltcGxlbWVudGVkEPUDEicKIkVycm9yTmV0d29ya0F1dGhlbnRp",
+            "Y2F0aW9uUmVxdWlyZWQQ/wNCR0gDWkNnaXRodWIuY29tL0dhbWVXb3Jrc3Rv",
+            "cmUvYXN5bmMtbmV0d29yay1lbmdpbmUtZ287YXN5bmNuZXR3b3JrZW5naW5l",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameWorkstore.AsyncNetworkEngine.Transmission), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -66,13 +68,25 @@ namespace GameWorkstore.AsyncNetworkEngine {
     /// </summary>
     [pbr::OriginalName("ErrorDecode")] ErrorDecode = 400,
     /// <summary>
+    ///Unauthorized
+    /// </summary>
+    [pbr::OriginalName("ErrorUnauthorized")] ErrorUnauthorized = 401,
+    /// <summary>
+    ///Forbidden
+    /// </summary>
+    [pbr::OriginalName("ErrorForbidden")] ErrorForbidden = 403,
+    /// <summary>
     ///StatusMethodNotAllowed
     /// </summary>
     [pbr::OriginalName("ErrorMethodNotAllowed")] ErrorMethodNotAllowed = 405,
     /// <summary>
-    ///StatusFailedDependency
+    ///StatusRequestTimeout
     /// </summary>
-    [pbr::OriginalName("ErrorEncode")] ErrorEncode = 424,
+    [pbr::OriginalName("ErrorRequestTimeout")] ErrorRequestTimeout = 408,
+    /// <summary>
+    ///Misdirected Request
+    /// </summary>
+    [pbr::OriginalName("ErrorEncode")] ErrorEncode = 421,
     /// <summary>
     ///StatusInternalServerError
     /// </summary>
@@ -82,9 +96,9 @@ namespace GameWorkstore.AsyncNetworkEngine {
     /// </summary>
     [pbr::OriginalName("ErrorNotImplemented")] ErrorNotImplemented = 501,
     /// <summary>
-    ///StatusRequestTimeout
+    ///NetworkAuthenticationRequired
     /// </summary>
-    [pbr::OriginalName("ErrorRequestTimeout")] ErrorRequestTimeout = 408,
+    [pbr::OriginalName("ErrorNetworkAuthenticationRequired")] ErrorNetworkAuthenticationRequired = 511,
   }
 
   #endregion

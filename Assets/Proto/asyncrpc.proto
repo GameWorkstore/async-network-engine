@@ -14,11 +14,14 @@ enum Transmission
    Success = 200; // StatusOK
    ErrorNoData = 204; //StatusNoContent
    ErrorDecode = 400; //StatusBadRequest
+   ErrorUnauthorized = 401; //Unauthorized
+   ErrorForbidden = 403; //Forbidden
    ErrorMethodNotAllowed = 405; //StatusMethodNotAllowed
-   ErrorEncode = 424; //StatusFailedDependency
+   ErrorRequestTimeout = 408; //StatusRequestTimeout
+   ErrorEncode = 421; //Misdirected Request
    ErrorInternalServer = 500; //StatusInternalServerError
    ErrorNotImplemented = 501; //StatusNotImplemented
-   ErrorRequestTimeout = 408; //StatusRequestTimeout
+   ErrorNetworkAuthenticationRequired = 511; //NetworkAuthenticationRequired
 }
 
 message GenericRequest
