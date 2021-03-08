@@ -109,7 +109,6 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 	switch r.HTTPMethod {
 	case "OPTIONS":
 		if allowedCORS {
-			w := events.APIGatewayProxyResponse{}
 			w.Headers = make(map[string]string)
 			w.Headers["Access-Control-Allow-Credentials"] = allowedCredentials
 			w.Headers["Access-Control-Allow-Origin"] = allowedOrigin
@@ -129,7 +128,7 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 		}
 		err = proto.Unmarshal(data, rqt)
 		if err != nil {
-			eg, err := AWSError(Transmission_ErrorDecode, err)
+			eg, _ := AWSError(Transmission_ErrorDecode, err)
 			return eg, err
 		}
 		//passthrough
