@@ -107,7 +107,7 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 	// verify preflight
 	w := events.APIGatewayProxyResponse{}
 	switch r.HTTPMethod {
-	case "OPTIONS":
+	case http.MethodOptions:
 		if allowedCORS {
 			w.Headers = make(map[string]string)
 			w.Headers["Access-Control-Allow-Credentials"] = allowedCredentials
@@ -120,7 +120,7 @@ func AWSDecode(r events.APIGatewayProxyRequest, rqt proto.Message) (events.APIGa
 			w.StatusCode = int(Transmission_ErrorMethodNotAllowed)
 		}
 		return w, errors.New("preflight")
-	case "POST":
+	case http.MethodPost:
 		data, err := base64.StdEncoding.DecodeString(r.Body)
 		if err != nil {
 			eg, _ := AWSError(Transmission_ErrorDecode, err)
