@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using Google.Protobuf;
+using System.IO;
+using System.Linq;
 
 public class TestAsyncNetworkEngine : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class TestAsyncNetworkEngine : MonoBehaviour
     private const string gcp = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
     private const string aws = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/aseawstest";
     private const string aws_binary = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/asebinaryconversions";
+    private const string aws_remote_file = "https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml";
+    private static string aws_local_file { get { return Path.Combine(Application.dataPath,"Tests/AWS/Cloud/Templates/cloudformation_function.yaml"); } }
+    private static string aws_cache_file { get { return Path.Combine(Application.dataPath,"../Cache/"); } }
 
     private void Awake()
     {
@@ -21,14 +26,37 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             { "https://c9dil5kv2d", CloudProvider.AWS }
         });
 
-        GCP_NotAuthorized();
-        GCP_Success();
-        GCP_Errors();
+        AWS_Download();
+        //AWS_DownloadFileToCache();
         AWS_Success();
         AWS_Errors();
         AWS_Binary();
         AWS_BinaryLarge();
+        GCP_NotAuthorized();
+        GCP_Success();
+        GCP_Errors();
     }
+
+    private void AWS_Download()
+    {
+        AsyncNetworkEngine.Download(aws_remote_file, (result,data) =>
+        {
+            Assert.AreEqual(Transmission.Success,result);
+            Assert.IsNotNull(data);
+
+            var comparing = File.ReadAllBytes(aws_local_file);
+            Assert.IsTrue(comparing.SequenceEqual(data));
+            Debug.Log(nameof(AWS_Download));
+        });
+    }
+
+    /* Future Work:
+    private void AWS_DownloadFileToCache()
+    {
+        AsyncNetworkEngine.DownloadToCache(aws_remote_file,aws_cache_file,(result) => {
+
+        });
+    }*/
 
     private void AWS_Binary()
     {

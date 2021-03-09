@@ -41,6 +41,52 @@ namespace GameWorkstore.AsyncNetworkEngine
         }
     }
 
+    public static class AsyncNetworkEngine
+    {
+        private static EventService _eventService = null;
+
+        public static void Download(string uri,Action<Transmission,byte[]> result)
+        {
+            if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
+            _eventService.StartCoroutine(SendRequest(uri, result));
+        }
+
+        public static IEnumerator SendRequest(string uri, Action<Transmission, byte[]> result)
+        {
+            using var rqt = UnityWebRequest.Get(uri);
+            yield return rqt.SendWebRequest();
+
+            switch(rqt.result){
+                case UnityWebRequest.Result.ConnectionError:
+                    Return(Transmission.ErrorConnection, null, result);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    HandleSuccess(rqt,result);
+                    break;
+            }
+        }
+
+        private static void HandleSuccess(UnityWebRequest rqt, Action<Transmission, byte[]> result)
+        {
+            if (rqt.downloadHandler.data == null)
+            {
+                Return(Transmission.ErrorNoData, null, result);
+                return;
+            }
+            if (rqt.downloadHandler.data.Length <= 0)
+            {
+                Return(Transmission.ErrorNoData, null, result);
+                return;
+            }
+            Return(Transmission.Success, rqt.downloadHandler.data, result);
+        }
+
+        private static void Return(Transmission result, byte[] data, Action<Transmission, byte[]> callback)
+        {
+            callback?.Invoke(result,data);
+        }
+    }
+
     /// <summary>
     /// Implements a UnityRequest for google protobuf web functions.
     /// </summary>
