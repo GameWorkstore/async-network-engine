@@ -68,6 +68,7 @@ jobs:
           gcloud functions deploy gcptest-notauthorized --memory=128 --entry-point Process --runtime go113 --trigger-http
   upload_aws:
     runs-on: ubuntu-latest
+    if: false
     env:
       BACKEND_BUCKET: ase-test-bucket
     steps:

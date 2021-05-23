@@ -172,7 +172,12 @@ namespace GameWorkstore.AsyncNetworkEngine
             var data = rqt.downloadHandler.data;
             if (provider == CloudProvider.Aws)
             {
-                data = Base64StdEncoding.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                var s = Encoding.ASCII.GetString(rqt.downloadHandler.data);
+                if (!Base64StdEncoding.Decode(s, out data))
+                {
+                    Return(Transmission.ErrorParser, default, new GenericErrorResponse(){ Error = "base64 string is invalid:" + s }, callback);
+                    return;
+                }
             }
 
             TResp packet;
@@ -182,23 +187,29 @@ namespace GameWorkstore.AsyncNetworkEngine
             }
             catch
             {
-                packet = default;
+                Return(Transmission.ErrorParser, callback);
+                return;
             }
-            Return(packet != null ? Transmission.Success : Transmission.ErrorParser, packet, default, callback);
+            Return(Transmission.Success, packet, default, callback);
         }
 
-        private static void HandleError(CloudProvider provider, UnityWebRequest rqt, Action<Transmission, TResp, GenericErrorResponse> result)
+        private static void HandleError(CloudProvider provider, UnityWebRequest rqt, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
             if (rqt.downloadHandler.data == null)
             {
-                Return(Transmission.ErrorProtocol, result);
+                Return(Transmission.ErrorProtocol, callback);
                 return;
             }
 
             var data = rqt.downloadHandler.data;
             if (provider == CloudProvider.Aws)
             {
-                data = Base64StdEncoding.Decode(Encoding.ASCII.GetString(rqt.downloadHandler.data));
+                var s = Encoding.ASCII.GetString(rqt.downloadHandler.data);
+                if (!Base64StdEncoding.Decode(s, out data))
+                {
+                    Return(Transmission.ErrorParser, default, new GenericErrorResponse(){ Error = "base64 string is invalid:" + s }, callback);
+                    return;
+                }
             }
 
             var transmission = (Transmission)rqt.responseCode;
@@ -209,9 +220,10 @@ namespace GameWorkstore.AsyncNetworkEngine
             }
             catch
             {
-                packet = default;
+                Return(Transmission.ErrorParser, callback);
+                return;
             }
-            Return(packet != null ? transmission : Transmission.ErrorParser, default, packet, result);
+            Return(transmission, default, packet, callback);
         }
 
         private static void Return(Transmission result, Action<Transmission, TResp, GenericErrorResponse> callback)

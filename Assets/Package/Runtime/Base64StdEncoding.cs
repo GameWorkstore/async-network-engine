@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace GameWorkstore.AsyncNetworkEngine
 {
@@ -14,13 +15,10 @@ namespace GameWorkstore.AsyncNetworkEngine
 
             return output;
         }
-
-        public static byte[] Decode(string input)
+        
+        public static bool Decode(string input, out byte[] data)
         {
-            //var output = input;
-            //output = output.Replace('-', '+'); // 62nd char of encoding
-            //output = output.Replace('_', '/'); // 63rd char of encoding
-
+            data = null;
             switch (input.Length % 4) // Pad with trailing '='s
             {
                 case 0:
@@ -32,10 +30,17 @@ namespace GameWorkstore.AsyncNetworkEngine
                     input += "=";
                     break; // One pad char
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(input), "Illegal base64url string!");
+                    return false;
             }
-
-            return Convert.FromBase64String(input);
+            try
+            {
+                data = Convert.FromBase64String(input);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
