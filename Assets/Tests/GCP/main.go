@@ -18,7 +18,6 @@ func Process(w http.ResponseWriter, r *http.Request) {
 	if ase.GCPDecode(r, w, &rqt) {
 		return
 	}
-
 	switch rqt.Messege {
 	case "decode-error":
 		ase.GCPError(w, ase.Transmission_ErrorDecode, errors.New("decode error"))
