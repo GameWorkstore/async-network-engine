@@ -15,18 +15,19 @@ public class TestAsyncNetworkEngine : MonoBehaviour
     private const string aws = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/aseawstest";
     private const string aws_binary = "https://c9dil5kv2d.execute-api.us-east-1.amazonaws.com/default/asebinaryconversions";
     private const string aws_remote_file = "https://ase-test-bucket.s3.amazonaws.com/cloudformation_function.yaml";
-    private static string aws_local_file { get { return Path.Combine(Application.dataPath,"Tests/AWS/Cloud/Templates/cloudformation_function.yaml"); } }
-    private static string aws_cache_file { get { return Path.Combine(Application.dataPath,"../Cache/"); } }
+    private static string aws_local_file { get { return Path.Combine(Application.streamingAssetsPath,"cloudformation_function.yaml"); } }
+    private static string aws_cache_file { get { return Path.Combine(Application.persistentDataPath,"../Cache/"); } }
 
     private void Awake()
     {
         AsyncNetworkEngineMap.SetupCloudMap(new Dictionary<string, CloudProvider>()
         {
-            { "https://us-central1-game-workstore", CloudProvider.GCP },
-            { "https://c9dil5kv2d", CloudProvider.AWS }
+            { "https://us-central1-game-workstore", CloudProvider.Gcp },
+            { "https://c9dil5kv2d", CloudProvider.Aws }
         });
 
         AWS_Download();
+        AWS_DownloadAll();
         //AWS_DownloadFileToCache();
         AWS_Success();
         AWS_Errors();
@@ -39,14 +40,38 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     private void AWS_Download()
     {
-        AsyncNetworkEngine.Download(aws_remote_file, (result,data) =>
+        AsyncNetworkEngine.Download(aws_remote_file, (result,fileData) =>
         {
             Assert.AreEqual(Transmission.Success,result);
-            Assert.IsNotNull(data);
+            Assert.IsNotNull(fileData.Data);
 
             var comparing = File.ReadAllBytes(aws_local_file);
-            Assert.IsTrue(comparing.SequenceEqual(data));
+            Assert.IsTrue(comparing.SequenceEqual(fileData.Data));
             Debug.Log(nameof(AWS_Download));
+        });
+    }
+
+    private void AWS_DownloadAll()
+    {
+        var files = new[]{
+            aws_remote_file,
+            aws_remote_file,
+            aws_remote_file
+        };
+
+        AsyncNetworkEngine.Download(files, (result,fileDataArray) =>
+        {
+            Assert.IsNotNull(fileDataArray);
+            Assert.AreNotEqual(0,fileDataArray.Count);
+            foreach (FileData fileData in fileDataArray)
+            {
+                Assert.AreEqual(Transmission.Success,result);
+                Assert.IsNotNull(fileData.Data);
+
+                var comparing = File.ReadAllBytes(aws_local_file);
+                Assert.IsTrue(comparing.SequenceEqual(fileData.Data));
+                Debug.Log(nameof(AWS_Download));
+            }
         });
     }
 
@@ -65,8 +90,6 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             Messege = msg
         };
-
-        var binary = rqt.ToByteArray();
 
         AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws_binary,rqt,(result,response,error) =>
         {
@@ -92,8 +115,6 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         {
             Messege = msg
         };
-
-        var binary = rqt.ToByteArray();
 
         AsyncNetworkEngine<GenericRequest,GenericRequest>.Send(aws_binary,rqt,(result,response,error) =>
         {
@@ -133,7 +154,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     private void GCP_Errors()
     {
-        var tuples = new Tuple<Transmission, string, string>[]
+        var tuples = new[]
         {
             new Tuple<Transmission,string,string>(Transmission.ErrorDecode,"decode-error","decode error"),
             new Tuple<Transmission,string,string>(Transmission.ErrorEncode,"encode-error","encode error"),
@@ -177,7 +198,7 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     public void AWS_Errors()
     {
-        var tuples = new Tuple<Transmission, string, string>[]
+        var tuples = new[]
         {
             new Tuple<Transmission,string,string>(Transmission.ErrorDecode,"decode-error","decode error"),
             new Tuple<Transmission,string,string>(Transmission.ErrorEncode,"encode-error","encode error"),
@@ -204,9 +225,9 @@ public class TestAsyncNetworkEngine : MonoBehaviour
         }
     }
 
-    private void DebugResult(string function, Transmission result, IMessage response, IMessage error)
+    private static void DebugResult(string function, Transmission result, IMessage response, IMessage error)
     {
-        string debugged =
+        var debugged =
             "Function:" + function + ":\n" +
             "Result:" + result + "\n" +
             "Response:" + (response != null ? response.ToString() : "null") + "\n" +
