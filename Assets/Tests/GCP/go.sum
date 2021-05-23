@@ -1,7 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/GameWorkstore/async-network-engine-go v0.1.3 h1:pzl8KtsVak6wxqHWN3moLqeR+wrkFjZkzY4jRg19oSY=
-github.com/GameWorkstore/async-network-engine-go v0.1.3/go.mod h1:SYpDp1WqdFKKbl1sbqRg/oMcwA/N5mjiUd8mW4oFnnI=
+github.com/GameWorkstore/async-network-engine-go v0.2.0 h1:qr0zcibsiJ96BEuRCBFS5o60Z1CY9xeWmFo9FSgNmOU=
+github.com/GameWorkstore/async-network-engine-go v0.2.0/go.mod h1:SYpDp1WqdFKKbl1sbqRg/oMcwA/N5mjiUd8mW4oFnnI=
 github.com/aws/aws-lambda-go v1.22.0 h1:X7BKqIdfoJcbsEIi+Lrt5YjX1HnZexIbNWOQgkYKgfE=
 github.com/aws/aws-lambda-go v1.22.0/go.mod h1:jJmlefzPfGnckuHdXX7/80O3BvUUi12XOkbv4w9SGLU=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

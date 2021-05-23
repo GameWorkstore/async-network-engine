@@ -2,7 +2,7 @@ name: UPM Sync
 on:
   push:
     branches:
-      - 'main'
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,14 +44,13 @@ jobs:
       - name: Push downstream aws-network-engine-go package
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
-          repo: 'GameWorkstore/async-network-engine-go'
-          path: 'Assets/GoModule'
+          repo: GameWorkstore/async-network-engine-go
+          path: Assets/GoModule
           deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
           force: true
           branch: main
   upload_gcp:
     runs-on: ubuntu-latest
-    if: false
     steps:
       - uses: actions/checkout@v2
       - name: Setup GCloud
@@ -66,10 +65,8 @@ jobs:
           cd Assets/Tests/GCP/
           gcloud functions deploy gcptest --memory=128 --entry-point Process --runtime go113 --trigger-http --allow-unauthenticated
           gcloud functions deploy gcptest-notauthorized --memory=128 --entry-point Process --runtime go113 --trigger-http
-          
   upload_aws:
     runs-on: ubuntu-latest
-    if: false
     env:
       BACKEND_BUCKET: ase-test-bucket
     steps:
