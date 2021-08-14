@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build-unity:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,9 +15,9 @@ jobs:
       
       - name: Update README
         run: |
-          if ! cmp --silent "README.md" "Assets/Package/README.md"; then
+          if ! cmp --silent "README.md" "UnitySDK/Assets/Package/README.md"; then
               echo "different"
-              cp -f README.md Assets/Package/README.md
+              cp -f README.md UnitySDK/Assets/Package/README.md
               git add --a
               git commit -m "Updated README.md"
               git push origin
@@ -26,7 +26,7 @@ jobs:
       - name: Cook UPM
         run: |
           git checkout main
-          git subtree split -P Assets/Package/ -b upm
+          git subtree split -P UnitySDK/Assets/Package/ -b upm
           git checkout upm
           ls
 
@@ -36,19 +36,18 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: upm
           force: true
-
-      - name: Cook Go Module
-        run: |
-          git checkout main
-
+  
+  build-golang:
+    runs-on: ubuntu-latest
       - name: Push downstream aws-network-engine-go package
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
           repo: GameWorkstore/async-network-engine-go
-          path: Assets/GoModule
+          path: UnitySDK/Assets/GoModule
           deploy_key: ${{ secrets.ASYNC_ENGINE_GO_DEPLOY_KEY }}
           force: true
           branch: main
+
   upload_gcp:
     runs-on: ubuntu-latest
     if: false
