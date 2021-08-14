@@ -8,3 +8,6 @@ obj/*
 *.sln
 .vs/
 Build/*
+*.sln.DotSettings.user
+.vsconfig
+.vscode/
