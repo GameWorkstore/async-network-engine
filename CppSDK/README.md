@@ -25,7 +25,7 @@ include(FetchContent)
 FetchContent_Declare(
     asyncnetworkengine
     GIT_REPOSITORY git@github.com:GameWorkstore/async-network-engine-cpp.git
-    GIT_TAG 0.2.0)
+    GIT_TAG 0.0.1)
 FetchContent_MakeAvailable(asyncnetworkengine)
 ```
 
@@ -38,7 +38,7 @@ target_link_libraries(MyExecutable asyncnetworkengine)
 
 Save and generate the CMake project.
 
-or update package for a newer version, update GIT_TAG from 0.2.0 to any released version on Releases.
+To update package for a newer version, update GIT_TAG from 0.0.1 to any released version on Releases.
 
 ## Usage examples
 
