@@ -13,3 +13,6 @@ UnitySDK/Build/*
 UnitySDK/*.sln.DotSettings.user
 UnitySDK/.vsconfig
 UnitySDK/.vscode/
+
+# CppSDK
+CppSDK/build/
