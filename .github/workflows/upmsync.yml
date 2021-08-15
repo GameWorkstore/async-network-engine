@@ -40,6 +40,11 @@ jobs:
   build-golang:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Config
+        run: |
+          git config --local user.email "contact@gameworkstore.com"
+          git config --local user.name "game-workstore-bot"
       - name: Push downstream aws-network-engine-go package
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
