@@ -39,6 +39,7 @@ jobs:
   
   build-golang:
     runs-on: ubuntu-latest
+    steps:
       - name: Push downstream aws-network-engine-go package
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
