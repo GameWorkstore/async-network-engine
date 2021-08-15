@@ -54,6 +54,23 @@ jobs:
           force: true
           branch: main
 
+  build-cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Config
+        run: |
+          git config --local user.email "contact@gameworkstore.com"
+          git config --local user.name "game-workstore-bot"
+      - name: Push downstream aws-network-engine-go package
+        uses: NxtLvLSoftware/git-subtree-action@1.1
+        with:
+          repo: GameWorkstore/async-network-engine-cpp
+          path: CppSDK/
+          deploy_key: ${{ secrets.ASYNC_ENGINE_CPP_DEPLOY_KEY }}
+          force: true
+          branch: main
+
   upload_gcp:
     runs-on: ubuntu-latest
     if: false
