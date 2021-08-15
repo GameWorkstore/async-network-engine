@@ -11,6 +11,10 @@ Use at your own risk!
 ## Supported Platforms
 
 * MacOS
+* Windows (pending testing)
+* Linux (pending testing)
+* iOS (pending testing)
+* Android (pending testing)
 
 ## How to install
 
