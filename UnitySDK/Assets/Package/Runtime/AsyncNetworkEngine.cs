@@ -100,7 +100,14 @@ namespace GameWorkstore.AsyncNetworkEngine
 
         private static void Return(Transmission result, HighSpeedArray<FileData> data, Action<Transmission, HighSpeedArray<FileData>> callback)
         {
-            callback?.Invoke(result,data);
+            if (_eventService != null)
+            {
+                _eventService.QueueAction(() => callback.Invoke(result, data));
+            }
+            else
+            {
+                callback?.Invoke(result, data);
+            }
         }
     }
 
@@ -234,8 +241,14 @@ namespace GameWorkstore.AsyncNetworkEngine
         private static void Return(Transmission result, TResp data, GenericErrorResponse error, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
             if (callback == null) return;
-            _eventService.QueueAction(() => callback.Invoke(result, data, error));
-            //callback.Invoke(result, data, error);
+            if(_eventService != null)
+            {
+                _eventService.QueueAction(() => callback.Invoke(result, data, error));
+            }
+            else
+            {
+                callback.Invoke(result, data, error);
+            }
         }
     }
 }

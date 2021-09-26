@@ -17,11 +17,11 @@
       "hash": "e0613846b99e7a4877f531c749178ae646bfde5a"
     },
     "com.gameworkstore.patterns": {
-      "version": "git://github.com/GameWorkstore/patterns.git#1.1.2",
+      "version": "git://github.com/GameWorkstore/patterns.git#1.1.6",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "acec284154b11e5fa7193b0adfb4c52f682b49f0"
+      "hash": "43967113956713522160c7e87b2c2cd7c0f734d5"
     },
     "com.unity.collab-proxy": {
       "version": "1.5.7",

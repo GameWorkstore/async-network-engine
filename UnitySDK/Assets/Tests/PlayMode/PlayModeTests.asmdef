@@ -4,7 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "GameWorkstore.AsyncNetworkEngine"
+        "GameWorkstore.AsyncNetworkEngine",
+        "GameWorkstore.Google.Protobuf",
+        "GameWorkstore.Patterns"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

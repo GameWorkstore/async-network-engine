@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GameWorkstore.AsyncNetworkEngine;
+using GameWorkstore.Patterns;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 public class PlayModeTests
 {
-    // A Test behaves as an ordinary method
+
+    private const string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
+
     [Test]
     public void ConvertBase64OnlyIfValid()
     {
@@ -26,5 +29,20 @@ public class PlayModeTests
         
         result = Base64StdEncoding.Decode(base64, out data);
         Assert.False(result);
+    }
+
+    [UnityTest]
+    public IEnumerator SendRequest_CallSendRequestExecutesUntilTheEnd_IsCalled()
+    {
+        var rqt = new GenericRequest()
+        {
+            Messege = "success"
+        };
+        var gate = new Gate();
+        yield return AsyncNetworkEngine<GenericRequest, GenericResponse>.SendRequest(gcp_notauthorized, rqt, (result, response, error) =>
+        {
+            gate.Release();
+        });
+
     }
 }
