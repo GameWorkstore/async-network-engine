@@ -40,9 +40,9 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     private void AWS_Download()
     {
-        AsyncNetworkEngine.Download(aws_remote_file, (result,fileData) =>
+        AsyncNetworkEngine.Download(aws_remote_file, (result, fileData) =>
         {
-            Assert.AreEqual(Transmission.Success,result);
+            Assert.AreEqual(Transmission.Success, result);
             Assert.IsNotNull(fileData.Data);
 
             var comparing = File.ReadAllBytes(aws_local_file);

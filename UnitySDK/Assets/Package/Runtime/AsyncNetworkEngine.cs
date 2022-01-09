@@ -78,7 +78,13 @@ namespace GameWorkstore.AsyncNetworkEngine
                 switch(rqt.result)
                 {
                     case UnityWebRequest.Result.ConnectionError:
-                        Return(Transmission.ErrorConnection, null, callback);
+                        Return(Transmission.ErrorConnection, data, callback);
+                        break;
+                    case UnityWebRequest.Result.ProtocolError:
+                        Return(Transmission.ErrorProtocol, data, callback);
+                        break;
+                    case UnityWebRequest.Result.DataProcessingError:
+                        Return(Transmission.ErrorDecode, data, callback);
                         break;
                     case UnityWebRequest.Result.Success:
                         data.Add(new FileData()
@@ -86,12 +92,6 @@ namespace GameWorkstore.AsyncNetworkEngine
                             URL = url,
                             Data = rqt.downloadHandler.data
                         });
-                        break;
-                    case UnityWebRequest.Result.ProtocolError:
-                        Return(Transmission.ErrorProtocol, null, callback);
-                        break;
-                    case UnityWebRequest.Result.DataProcessingError:
-                        Return(Transmission.ErrorDecode, null, callback);
                         break;
                 }
             }
