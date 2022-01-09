@@ -10,18 +10,18 @@
       "hash": "5823a7ba4ac0ff95f0465910f3a0c502132757de"
     },
     "com.gameworkstore.googleprotobufunity": {
-      "version": "git://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2004",
+      "version": "git://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2007",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "e0613846b99e7a4877f531c749178ae646bfde5a"
+      "hash": "3d971be600a27bddba10d7b9538a238060997f97"
     },
     "com.gameworkstore.patterns": {
-      "version": "git://github.com/GameWorkstore/patterns.git#1.1.6",
+      "version": "git://github.com/GameWorkstore/patterns.git#1.1.7",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "43967113956713522160c7e87b2c2cd7c0f734d5"
+      "hash": "97b6122b11e5188d4b6bc0206313f99e9ae9ccc2"
     },
     "com.unity.collab-proxy": {
       "version": "1.13.5",
@@ -40,17 +40,8 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.rider": {
-      "version": "3.0.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ext.nunit": "1.0.6"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.11",
+      "version": "2.0.12",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -82,23 +73,23 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.sysroot": {
-      "version": "0.1.19-preview",
+      "version": "1.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.sysroot.linux-x86_64": {
-      "version": "0.1.14-preview",
+      "version": "1.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.sysroot": "0.1.18-preview"
+        "com.unity.sysroot": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.29",
+      "version": "1.1.30",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -109,12 +100,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.toolchain.macos-x86_64-linux-x86_64": {
-      "version": "0.1.20-preview",
+      "version": "1.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.sysroot": "0.1.19-preview",
-        "com.unity.sysroot.linux-x86_64": "0.1.14-preview"
+        "com.unity.sysroot": "1.0.0",
+        "com.unity.sysroot.linux-x86_64": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
