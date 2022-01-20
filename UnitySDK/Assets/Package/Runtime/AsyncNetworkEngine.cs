@@ -72,27 +72,29 @@ namespace GameWorkstore.AsyncNetworkEngine
             var data = new HighSpeedArray<FileData>(urls.Length);
             foreach(var url in urls)
             {
-                using var rqt = UnityWebRequest.Get(url);
-                yield return rqt.SendWebRequest();
+                using (var rqt = UnityWebRequest.Get(url))
+				{
+                    yield return rqt.SendWebRequest();
 
-                switch(rqt.result)
-                {
-                    case UnityWebRequest.Result.ConnectionError:
-                        Return(Transmission.ErrorConnection, data, callback);
-                        break;
-                    case UnityWebRequest.Result.ProtocolError:
-                        Return(Transmission.ErrorProtocol, data, callback);
-                        break;
-                    case UnityWebRequest.Result.DataProcessingError:
-                        Return(Transmission.ErrorDecode, data, callback);
-                        break;
-                    case UnityWebRequest.Result.Success:
-                        data.Add(new FileData()
-                        {
-                            URL = url,
-                            Data = rqt.downloadHandler.data
-                        });
-                        break;
+                    switch (rqt.result)
+                    {
+                        case UnityWebRequest.Result.ConnectionError:
+                            Return(Transmission.ErrorConnection, data, callback);
+                            break;
+                        case UnityWebRequest.Result.ProtocolError:
+                            Return(Transmission.ErrorProtocol, data, callback);
+                            break;
+                        case UnityWebRequest.Result.DataProcessingError:
+                            Return(Transmission.ErrorDecode, data, callback);
+                            break;
+                        case UnityWebRequest.Result.Success:
+                            data.Add(new FileData()
+                            {
+                                URL = url,
+                                Data = rqt.downloadHandler.data
+                            });
+                            break;
+                    }
                 }
             }
             Return(Transmission.Success, data, callback);
@@ -133,25 +135,27 @@ namespace GameWorkstore.AsyncNetworkEngine
         public static IEnumerator SendRequest(string url, TRqt request, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
             //Notice: APIGateway automatically converts binary data into base64 strings
-            using var rqt = new UnityWebRequest(url, "POST")
+            using (var rqt = new UnityWebRequest(url, "POST")
             {
                 uploadHandler = new UploadHandlerRaw(request.ToByteArray()),
                 downloadHandler = new DownloadHandlerBuffer()
-            };
-            yield return rqt.SendWebRequest();
-
-            switch (rqt.result)
+            })
             {
-                case UnityWebRequest.Result.ConnectionError:
-                    Return(Transmission.ErrorConnection, callback);
-                    break;
-                case UnityWebRequest.Result.ProtocolError:
-                    HandleError(GetCloudProvider(ref url), rqt, callback);
-                    break;
-                case UnityWebRequest.Result.Success:
-                    while (!rqt.downloadHandler.isDone) yield return null;
-                    HandleSuccess(GetCloudProvider(ref url), rqt, callback);
-                    break;
+                yield return rqt.SendWebRequest();
+
+                switch (rqt.result)
+                {
+                    case UnityWebRequest.Result.ConnectionError:
+                        Return(Transmission.ErrorConnection, callback);
+                        break;
+                    case UnityWebRequest.Result.ProtocolError:
+                        HandleError(GetCloudProvider(ref url), rqt, callback);
+                        break;
+                    case UnityWebRequest.Result.Success:
+                        while (!rqt.downloadHandler.isDone) yield return null;
+                        HandleSuccess(GetCloudProvider(ref url), rqt, callback);
+                        break;
+                }
             }
         }
 
