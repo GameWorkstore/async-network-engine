@@ -16,3 +16,14 @@ UnitySDK/.vscode/
 
 # CppSDK
 CppSDK/build/
+
+# UnrealSDK
+UnrealSDK/.vs/
+UnrealSDK/Binaries/
+UnrealSDK/Intermediate/
+UnrealSDK/Plugins/*/Binaries/*
+UnrealSDK/Build/
+UnrealSDK/Saved/*
+UnrealSDK/DerivedDataCache/
+
+UnrealSDK/Plugins/GoogleProtobuf/Intermediate/
