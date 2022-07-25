@@ -1,34 +1,33 @@
 {
   "dependencies": {
     "com.gameworkstore.automation": {
-      "version": "git://github.com/GameWorkstore/automation.git",
+      "version": "https://github.com/GameWorkstore/automation.git#1.1.2",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.gameworkstore.patterns": "1.1.0"
+        "com.gameworkstore.patterns": "1.2.0"
       },
-      "hash": "5823a7ba4ac0ff95f0465910f3a0c502132757de"
+      "hash": "9de5252976187ac70274c91fbfc3be25699891cc"
     },
     "com.gameworkstore.googleprotobufunity": {
-      "version": "git://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2007",
+      "version": "https://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2010",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "3d971be600a27bddba10d7b9538a238060997f97"
+      "hash": "dfdf2b8ccc6b6077f0f5e90058ce98e027ac1ad5"
     },
     "com.gameworkstore.patterns": {
-      "version": "git://github.com/GameWorkstore/patterns.git#1.1.7",
+      "version": "https://github.com/GameWorkstore/patterns.git#1.2.0",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "97b6122b11e5188d4b6bc0206313f99e9ae9ccc2"
+      "hash": "4f9913b0b110322be6d17a57a20ae434e8dd834c"
     },
     "com.unity.collab-proxy": {
-      "version": "1.13.5",
+      "version": "1.15.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "2.0.0",
         "com.unity.services.core": "1.0.1"
       },
       "url": "https://packages.unity.com"
@@ -41,7 +40,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.12",
+      "version": "2.0.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -50,25 +49,27 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
-      "version": "2.0.0",
-      "depth": 1,
+      "version": "3.0.2",
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.0.1",
+      "version": "1.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0"
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -89,7 +90,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.30",
+      "version": "1.1.31",
       "depth": 0,
       "source": "registry",
       "dependencies": {

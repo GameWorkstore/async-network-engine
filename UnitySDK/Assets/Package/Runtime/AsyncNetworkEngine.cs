@@ -1,12 +1,10 @@
 ﻿using Google.Protobuf;
-using GameWorkstore.Patterns;
 using System;
 using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Linq;
-// ReSharper disable StaticMemberInGenericType
 
 namespace GameWorkstore.AsyncNetworkEngine
 {
@@ -51,25 +49,25 @@ namespace GameWorkstore.AsyncNetworkEngine
 
     public static class AsyncNetworkEngine
     {
-        private static EventService _eventService;
+        private static Patterns.EventService _eventService;
 
         public static void Download(string url,Action<Transmission,FileData> callback)
         {
-            if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
+            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
             _eventService.StartCoroutine(SendRequest(new[] { url }, (result,files) => {
                 callback?.Invoke(result,files.FirstOrDefault());
             }));
         }
 
-        public static void Download(string[] urls, Action<Transmission,HighSpeedArray<FileData>> callback)
+        public static void Download(string[] urls, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
         {
-            if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
+            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
             _eventService.StartCoroutine(SendRequest(urls, callback));
         }
 
-        public static IEnumerator SendRequest(string[] urls, Action<Transmission, HighSpeedArray<FileData>> callback)
+        public static IEnumerator SendRequest(string[] urls, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
         {
-            var data = new HighSpeedArray<FileData>(urls.Length);
+            var data = new Patterns.HighSpeedArray<FileData>(urls.Length);
             foreach(var url in urls)
             {
                 using (var rqt = UnityWebRequest.Get(url))
@@ -100,7 +98,7 @@ namespace GameWorkstore.AsyncNetworkEngine
             Return(Transmission.Success, data, callback);
         }
 
-        private static void Return(Transmission result, HighSpeedArray<FileData> data, Action<Transmission, HighSpeedArray<FileData>> callback)
+        private static void Return(Transmission result, Patterns.HighSpeedArray<FileData> data, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
         {
             if (_eventService != null)
             {
@@ -124,11 +122,11 @@ namespace GameWorkstore.AsyncNetworkEngine
     {
         private static readonly MessageParser<TResp> _tuParser = new MessageParser<TResp>(() => new TResp());
         private static readonly MessageParser<GenericErrorResponse> _tvParser = new MessageParser<GenericErrorResponse>(() => new GenericErrorResponse());
-        private static EventService _eventService;
+        private static Patterns.EventService _eventService;
 
         public static void Send(string url, TRqt request, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
-            if (_eventService == null) _eventService = ServiceProvider.GetService<EventService>();
+            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
             _eventService.StartCoroutine(SendRequest(url, request, callback));
         }
 
