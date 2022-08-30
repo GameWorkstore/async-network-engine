@@ -1,6 +1,6 @@
 {
   "name": "com.gameworkstore.asyncnetworkengine",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "displayName": "GameWorkstore Async Network Engine",
   "description": "Unity http requests made easy to interoperability with Go Lang + Google Protobuf functions!",
   "unity": "2020.3",

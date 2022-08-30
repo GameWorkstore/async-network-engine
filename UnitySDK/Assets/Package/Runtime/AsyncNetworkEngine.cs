@@ -43,7 +43,7 @@ namespace GameWorkstore.AsyncNetworkEngine
 
         public override string ToString()
         {
-            return $"ProgressData: Progress{Progress} Downloaded[{Downloaded} Failed {Failed} Total {Length}";
+            return $"ProgressData: Progress {Progress} Downloaded {Downloaded} Failed {Failed} Total {Length}";
         }
     }
 
@@ -158,14 +158,15 @@ namespace GameWorkstore.AsyncNetworkEngine
 
         private static void Return(ProgressData progressData, Action<ProgressData> callback)
         {
+            if (callback == null) return;
+
             if (_eventService != null)
             {
                 _eventService.QueueAction(() => callback.Invoke(progressData));
+                return;
             }
-            else
-            {
-                callback?.Invoke(progressData);
-            }
+
+            callback?.Invoke(progressData);
         }
     }
 
