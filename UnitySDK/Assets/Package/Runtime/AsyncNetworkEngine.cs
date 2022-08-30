@@ -16,8 +16,35 @@ namespace GameWorkstore.AsyncNetworkEngine
 
     public class FileData
     {
+        public Transmission Result;
         public string URL;
         public byte[] Data;
+    }
+
+    public class ProgressData
+    {
+        public FileData[] Files;
+        public float Progress => Length > 0 ? (float)Downloaded / Length : 0;
+        private int Downloaded => Files.Count(IsDownloaded);
+
+        private int Failed => Files.Count(IsFailed);
+
+        public int Length => Files.Length;
+
+        private bool IsDownloaded(FileData file)
+        {
+            return file.Result == Transmission.Success;
+        }
+
+        private bool IsFailed(FileData file)
+        {
+            return file.Result != Transmission.Success && file.Result != Transmission.NotSpecified;
+        }
+
+        public override string ToString()
+        {
+            return $"ProgressData: Progress{Progress} Downloaded[{Downloaded} Failed {Failed} Total {Length}";
+        }
     }
 
     public static class AsyncNetworkEngineMap
@@ -51,62 +78,93 @@ namespace GameWorkstore.AsyncNetworkEngine
     {
         private static Patterns.EventService _eventService;
 
-        public static void Download(string url,Action<Transmission,FileData> callback)
+        public static void Download(
+            string url,
+            Action<FileData> callback
+        )
         {
             if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
-            _eventService.StartCoroutine(SendRequest(new[] { url }, (result,files) => {
-                callback?.Invoke(result,files.FirstOrDefault());
-            }));
+            _eventService.StartCoroutine(SendRequest(new[] { url },
+                (files) =>
+                {
+                    callback?.Invoke(files.Files.FirstOrDefault());
+                },
+                null)
+            );
         }
 
-        public static void Download(string[] urls, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
+        public static void Download(
+            string[] urls,
+            Action<ProgressData> onDownloadFinished
+        )
+        {
+            Download(urls, onDownloadFinished, null);
+        }
+
+        public static void Download(
+            string[] urls,
+            Action<ProgressData> onDownloadFinished,
+            Action<ProgressData> onDownloadInProgress)
         {
             if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
-            _eventService.StartCoroutine(SendRequest(urls, callback));
+            _eventService.StartCoroutine(SendRequest(urls, onDownloadFinished, onDownloadInProgress));
         }
 
-        public static IEnumerator SendRequest(string[] urls, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
+        public static IEnumerator SendRequest(
+            string[] urls,
+            Action<ProgressData> onDownloadFinished,
+            Action<ProgressData> onDownloadInProgress
+        )
         {
-            var data = new Patterns.HighSpeedArray<FileData>(urls.Length);
-            foreach(var url in urls)
+            var progress = new ProgressData()
             {
-                using (var rqt = UnityWebRequest.Get(url))
-				{
+                Files = new FileData[urls.Length]
+            };
+            for (int i = 0; i < urls.Length; i++)
+            {
+                progress.Files[i] = new FileData()
+                {
+                    Result = Transmission.NotSpecified,
+                    URL = urls[i]
+                };
+            }
+            for (int i = 0; i < progress.Length; i++)
+            {
+                var file = progress.Files[i];
+                using (var rqt = UnityWebRequest.Get(file.URL))
+                {
                     yield return rqt.SendWebRequest();
-
                     switch (rqt.result)
                     {
                         case UnityWebRequest.Result.ConnectionError:
-                            Return(Transmission.ErrorConnection, data, callback);
+                            file.Result = Transmission.ErrorConnection;
                             break;
                         case UnityWebRequest.Result.ProtocolError:
-                            Return(Transmission.ErrorProtocol, data, callback);
+                            file.Result = Transmission.ErrorProtocol;
                             break;
                         case UnityWebRequest.Result.DataProcessingError:
-                            Return(Transmission.ErrorDecode, data, callback);
+                            file.Result = Transmission.ErrorDecode;
                             break;
                         case UnityWebRequest.Result.Success:
-                            data.Add(new FileData()
-                            {
-                                URL = url,
-                                Data = rqt.downloadHandler.data
-                            });
+                            file.Result = Transmission.Success;
+                            file.Data = rqt.downloadHandler.data;
                             break;
                     }
                 }
+                Return(progress, onDownloadInProgress);
             }
-            Return(Transmission.Success, data, callback);
+            Return(progress, onDownloadFinished);
         }
 
-        private static void Return(Transmission result, Patterns.HighSpeedArray<FileData> data, Action<Transmission, Patterns.HighSpeedArray<FileData>> callback)
+        private static void Return(ProgressData progressData, Action<ProgressData> callback)
         {
             if (_eventService != null)
             {
-                _eventService.QueueAction(() => callback.Invoke(result, data));
+                _eventService.QueueAction(() => callback.Invoke(progressData));
             }
             else
             {
-                callback?.Invoke(result, data);
+                callback?.Invoke(progressData);
             }
         }
     }
@@ -116,7 +174,7 @@ namespace GameWorkstore.AsyncNetworkEngine
     /// </summary>
     /// <typeparam name="TRqt">Request</typeparam>
     /// <typeparam name="TResp">Response</typeparam>
-    public static class AsyncNetworkEngine<TRqt,TResp>
+    public static class AsyncNetworkEngine<TRqt, TResp>
         where TRqt : IMessage<TRqt>, new()
         where TResp : IMessage<TResp>, new()
     {
@@ -184,7 +242,7 @@ namespace GameWorkstore.AsyncNetworkEngine
                 var s = Encoding.ASCII.GetString(rqt.downloadHandler.data);
                 if (!Base64StdEncoding.Decode(s, out data))
                 {
-                    Return(Transmission.ErrorParser, default, new GenericErrorResponse(){ Error = "base64 string is invalid:" + s }, callback);
+                    Return(Transmission.ErrorParser, default, new GenericErrorResponse() { Error = "base64 string is invalid:" + s }, callback);
                     return;
                 }
             }
@@ -216,7 +274,7 @@ namespace GameWorkstore.AsyncNetworkEngine
                 var s = Encoding.ASCII.GetString(rqt.downloadHandler.data);
                 if (!Base64StdEncoding.Decode(s, out data))
                 {
-                    Return(Transmission.ErrorParser, default, new GenericErrorResponse(){ Error = "base64 string is invalid:" + s }, callback);
+                    Return(Transmission.ErrorParser, default, new GenericErrorResponse() { Error = "base64 string is invalid:" + s }, callback);
                     return;
                 }
             }
@@ -243,7 +301,7 @@ namespace GameWorkstore.AsyncNetworkEngine
         private static void Return(Transmission result, TResp data, GenericErrorResponse error, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
             if (callback == null) return;
-            if(_eventService != null)
+            if (_eventService != null)
             {
                 _eventService.QueueAction(() => callback.Invoke(result, data, error));
             }

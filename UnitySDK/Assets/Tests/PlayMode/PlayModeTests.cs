@@ -43,6 +43,39 @@ public class PlayModeTests
         {
             gate.Release();
         });
-
     }
+
+    [UnityTest]
+    public IEnumerator DownloadManyFiles()
+    {
+        var files = new string[]
+        {
+            "https://phyengine.com/content/base/logomark.png",
+            "https://phyengine.com/content/favicon/android-chrome-192x192.png",
+            "https://phyengine.com/content/favicon/android-chrome-512x512.png",
+            "https://phyengine.com/content/favicon/apple-touch-icon.png",
+            "https://phyengine.com/content/favicon/favicon-16x16.png",
+            "https://phyengine.com/content/favicon/favicon-32x32.png",
+            "https://phyengine.com/content/favicon/favicon.ico",
+            "https://phyengine.com/content/footer/icon_sm_phyengine.png",
+            "https://phyengine.com/content/footer/icon_sm_phyrexi.png",
+            "https://phyengine.com/content/header/header_gradient.png",
+            "https://phyengine.com/content/header/header_icon.png",
+            "https://phyengine.com/content/home/video-loop.png",
+            "https://phyengine.com/content/home/video-loop.png"
+        };
+
+        var result = false;
+        yield return AsyncNetworkEngine.SendRequest(files,
+        (progression) =>
+        {
+            result = progression.Progress >= 1;
+        },
+        (progression) =>
+        {
+            Debug.Log(progression.ToString());
+        });
+        Assert.AreEqual(true, result);
+    }
+
 }

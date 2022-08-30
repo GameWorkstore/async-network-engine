@@ -40,13 +40,13 @@ public class TestAsyncNetworkEngine : MonoBehaviour
 
     private void AWS_Download()
     {
-        AsyncNetworkEngine.Download(aws_remote_file, (result, fileData) =>
+        AsyncNetworkEngine.Download(aws_remote_file, (file) =>
         {
-            Assert.AreEqual(Transmission.Success, result);
-            Assert.IsNotNull(fileData.Data);
+            Assert.AreEqual(Transmission.Success, file.Result);
+            Assert.IsNotNull(file.Data);
 
             var comparing = File.ReadAllBytes(aws_local_file);
-            Assert.IsTrue(comparing.SequenceEqual(fileData.Data));
+            Assert.IsTrue(comparing.SequenceEqual(file.Data));
             Debug.Log(nameof(AWS_Download));
         });
     }
@@ -59,17 +59,17 @@ public class TestAsyncNetworkEngine : MonoBehaviour
             aws_remote_file
         };
 
-        AsyncNetworkEngine.Download(files, (result,fileDataArray) =>
+        AsyncNetworkEngine.Download(files, (progress) =>
         {
-            Assert.IsNotNull(fileDataArray);
-            Assert.AreNotEqual(0,fileDataArray.Count);
-            foreach (FileData fileData in fileDataArray)
+            Assert.IsNotNull(progress.Files);
+            Assert.AreNotEqual(0, progress.Files.Length);
+            foreach (FileData file in progress.Files)
             {
-                Assert.AreEqual(Transmission.Success,result);
-                Assert.IsNotNull(fileData.Data);
+                Assert.AreEqual(Transmission.Success, file.Result);
+                Assert.IsNotNull(file.Data);
 
                 var comparing = File.ReadAllBytes(aws_local_file);
-                Assert.IsTrue(comparing.SequenceEqual(fileData.Data));
+                Assert.IsTrue(comparing.SequenceEqual(file.Data));
                 Debug.Log(nameof(AWS_Download));
             }
         });
