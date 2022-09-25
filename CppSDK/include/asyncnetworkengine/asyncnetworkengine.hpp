@@ -4,10 +4,8 @@
 #include <vector>
 #include <mutex>
 
-using namespace std;
-
 class AsyncNetworkEngine {
 public:
-    static void Download(string url, function<void(bool,vector<char>)> callback);
-    static void Download(vector<string> urls, function<void(bool,vector<vector<char>>)> callback);
+    static void Download(std::string url, std::function<void(bool,std::vector<char>)> callback);
+    static void Download(std::vector<std::string> urls, std::function<void(bool,std::vector<std::vector<char>>)> callback);
 };
