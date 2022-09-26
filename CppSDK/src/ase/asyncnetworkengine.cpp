@@ -1,11 +1,14 @@
-#include <asyncnetworkengine/asyncnetworkengine.hpp>
-#include <curl/curl.h>
+#include <ase/asyncnetworkengine.hpp>
+//temporary for debug
 #include <iostream>
+
+using namespace GameWorkstore::AsyncNetworkEngine;
 
 //static variables
 std::mutex globalMutex;
+bool isInitialized = false;
 
-size_t curlWriteMemory(void *contents, size_t size, size_t nmemb, void *userp)
+size_t AsyncNetworkStatic::CurlWriteMemory(void *contents, size_t size, size_t nmemb, void *userp)
 {
     auto wSize = size * nmemb;
     auto* memory = static_cast<std::vector<char>*>(userp);
@@ -17,7 +20,20 @@ size_t curlWriteMemory(void *contents, size_t size, size_t nmemb, void *userp)
     return wSize;
 }
 
-void AsyncNetworkEngine::Download(std::string url, std::function<void(bool,std::vector<char>)> callback)
+bool AsyncNetworkStatic::Init()
+{
+    globalMutex.lock();
+    if(isInitialized)
+    {
+        globalMutex.unlock();
+        return isInitialized;
+    }
+    isInitialized = curl_global_init(CURL_GLOBAL_DEFAULT) == CURLE_OK;
+    globalMutex.unlock();
+    return isInitialized;
+}
+
+void AsyncNetworkStatic::Download(std::string url, std::function<void(bool,std::vector<char>)> callback)
 {
     std::vector<std::string> files = { url };
     Download(files, [callback](bool result,std::vector<std::vector<char>> files)
@@ -32,17 +48,13 @@ void AsyncNetworkEngine::Download(std::string url, std::function<void(bool,std::
     });
 }
 
-void AsyncNetworkEngine::Download(std::vector<std::string> urls, std::function<void(bool,std::vector<std::vector<char>>)> callback)
+void AsyncNetworkStatic::Download(std::vector<std::string> urls, std::function<void(bool,std::vector<std::vector<char>>)> callback)
 {
-    globalMutex.lock();
-
     std::vector<std::vector<char>> files;
 
-    if(curl_global_init(CURL_GLOBAL_DEFAULT) != CURLE_OK)
+    if(!Init())
     {
         std::cout << "curl_global_init" << std::endl;
-        curl_global_cleanup();
-        globalMutex.unlock();
         callback(false, files);
         return;
     }
@@ -56,14 +68,12 @@ void AsyncNetworkEngine::Download(std::vector<std::string> urls, std::function<v
         {
             std::cout << "curl_easy_init" << std::endl;
             curl_easy_cleanup(curl);
-            curl_global_cleanup();
-            globalMutex.unlock();
             callback(false, files);
             return;
         }
 
-        curl_easy_setopt(curl, CURLOPT_URL, "https://ase-test-bucket.s3.amazonaws.com/file.txt\0");
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curlWriteMemory);
+        curl_easy_setopt(curl, CURLOPT_URL, urls[0].c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlWriteMemory);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &memory);
 
         auto result = curl_easy_perform(curl);
@@ -71,8 +81,6 @@ void AsyncNetworkEngine::Download(std::vector<std::string> urls, std::function<v
         {
             std::cout << "curl_easy_perform::" << result << std::endl;
             curl_easy_cleanup(curl);
-            curl_global_cleanup();
-            globalMutex.unlock();
             callback(false, files);
             return;
         }
@@ -80,7 +88,5 @@ void AsyncNetworkEngine::Download(std::vector<std::string> urls, std::function<v
         curl_easy_cleanup(curl);
     }
 
-    curl_global_cleanup();
-    globalMutex.unlock();
     callback(true, files);
 }

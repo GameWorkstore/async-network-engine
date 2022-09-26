@@ -17,3 +17,8 @@ MonoBehaviour:
   CSharpCustomPath: Package/Runtime/Protobuf/
   GoLangCompilerEnabled: 1
   GoLangCustomPath: GoModule/
+  PythonCompilerEnabled: 0
+  PythonLocalLibrary: 0
+  PythonCustomPath: 
+  CppCompilerEnabled: 1
+  CppCustomPath: ../../CppSDK/src/ase/

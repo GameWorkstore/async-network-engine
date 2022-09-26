@@ -1,20 +1,20 @@
 {
   "dependencies": {
     "com.gameworkstore.automation": {
-      "version": "https://github.com/GameWorkstore/automation.git#1.1.2",
+      "version": "https://github.com/GameWorkstore/automation.git#1.1.5",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.gameworkstore.patterns": "1.2.0"
       },
-      "hash": "9de5252976187ac70274c91fbfc3be25699891cc"
+      "hash": "05014a354fe4a9ba14ea37389d347bbe71196172"
     },
     "com.gameworkstore.googleprotobufunity": {
-      "version": "https://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2010",
+      "version": "https://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2012",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "dfdf2b8ccc6b6077f0f5e90058ce98e027ac1ad5"
+      "hash": "655ece78bda22e0aa28593d8dddccbca6de719bb"
     },
     "com.gameworkstore.patterns": {
       "version": "https://github.com/GameWorkstore/patterns.git#1.2.0",
@@ -24,7 +24,7 @@
       "hash": "4f9913b0b110322be6d17a57a20ae434e8dd834c"
     },
     "com.unity.collab-proxy": {
-      "version": "1.17.1",
+      "version": "1.17.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -90,7 +90,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.31",
+      "version": "1.1.33",
       "depth": 0,
       "source": "registry",
       "dependencies": {
