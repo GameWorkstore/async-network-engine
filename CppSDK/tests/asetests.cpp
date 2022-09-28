@@ -7,8 +7,6 @@ using namespace GameWorkstore::AsyncNetworkEngine;
 
 const std::string aws_remote_file = "https://ase-test-bucket.s3.amazonaws.com/file.txt";
 const std::string aws_remote_file_content = "testing_receiver_file_1423as7816847813s48asd8s4a5dad48*71263254%%#snl;@as";
-const std::string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
-const std::string gcp_success = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
 
 TEST(AseTest, downloadFile)
 {
@@ -24,20 +22,35 @@ TEST(AseTest, downloadFile)
 TEST(AseTest, downloadFiles)
 {
     const std::vector<std::string> files = {
-        aws_remote_file,
-        aws_remote_file,
-        aws_remote_file
+        "https://phyengine.com/content/base/logomark.png",
+        "https://phyengine.com/content/favicon/android-chrome-192x192.png",
+        "https://phyengine.com/content/favicon/android-chrome-512x512.png",
+        "https://phyengine.com/content/favicon/apple-touch-icon.png",
+        "https://phyengine.com/content/favicon/favicon-16x16.png"
     };
 
     AsyncNetworkStatic::Download(files,[](bool result, std::vector<std::vector<char>> files)
     {
         ASSERT_TRUE(result);
+        ASSERT_EQ(files.size(),5);
         for(auto file : files)
         {
-            std::string fileContent(file.begin(),file.end());
-            ASSERT_GE(file.size(),1);
-            ASSERT_EQ(aws_remote_file_content,fileContent);
+            std::cout << "File Size: " << file.size() << std::endl;
         }
+    });
+}
+
+const std::string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
+const std::string gcp_success = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
+
+TEST(AseTest, GCP_NotAuthorized)
+{
+    GenericRequest rqt;
+    rqt.set_messege("anything");
+
+    AsyncNetworkEngine<GenericRequest,GenericResponse>::Send(gcp_notauthorized,rqt,[](Transmission result,GenericResponse resp,GenericErrorResponse error)
+    {
+        ASSERT_EQ(result, Transmission::ErrorParser);
     });
 }
 
