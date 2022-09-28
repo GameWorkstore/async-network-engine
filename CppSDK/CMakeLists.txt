@@ -13,6 +13,7 @@ else()
 endif()
 set(HTTP_ONLY ON)
 set(BUILD_CURL_EXE OFF)
+set(BUILD_SHARED_LIBS OFF)
 # PROTOBUF dependency config
 set(protobuf_INSTALL OFF)
 set(protobuf_BUILD_TESTS OFF)

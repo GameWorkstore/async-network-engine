@@ -99,7 +99,8 @@ namespace GameWorkstore
                     callback(Transmission::Success, resp, error);
                     return;
                 default:
-                    
+                    callback(Transmission::ErrorConnection, resp, error);
+                    break;
                 }
             }
         };
