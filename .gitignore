@@ -15,6 +15,7 @@ UnitySDK/.vsconfig
 UnitySDK/.vscode/
 
 # CppSDK
+CppSDK/.vs/
 CppSDK/build/
 
 # UnrealSDK
