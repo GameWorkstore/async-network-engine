@@ -22,9 +22,9 @@ Visit this repo for more info: https://github.com/GameWorkstore/async-network-en
 
 At package.json, add these 3 lines of code:
 ```json
-"com.gameworkstore.asyncnetworkengine": "git://github.com/GameWorkstore/async-network-engine.git#0.2.1",
-"com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2006",
-"com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git#1.1.2"
+"com.gameworkstore.asyncnetworkengine": "https://github.com/GameWorkstore/async-network-engine.git#0.2.4",
+"com.gameworkstore.googleprotobufunity": "https://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2012",
+"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git#1.2.0"
 ```
 
 And wait for unity to download and compile the package.
