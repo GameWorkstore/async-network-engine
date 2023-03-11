@@ -145,17 +145,21 @@ public class EditorModeTest
         {
             Messege = msg
         };
-        
+
+        Transmission result = Transmission.NotSpecified;
+        GenericRequest response = null;
         var gate = new Gate();
-        AsyncNetworkEngine<GenericRequest, GenericRequest>.Send(aws_binary, rqt, (result, response, error) =>
+        AsyncNetworkEngine<GenericRequest, GenericRequest>.Send(aws_binary, rqt, (transmission, resp, error) =>
         {
-            Assert.AreEqual(Transmission.Success, result);
-            Assert.IsNotNull(response);
-            Assert.AreEqual(msg, response.Messege);
+            result = transmission;
+            response = resp;
             Debug.Log(nameof(AWS_Binary));
             gate.Release();
         });
         yield return gate;
+        Assert.AreEqual(Transmission.Success, result);
+        Assert.IsNotNull(response);
+        Assert.AreEqual(msg, response.Messege);
     }
 
     [UnityTest]
@@ -174,17 +178,21 @@ public class EditorModeTest
         {
             Messege = msg
         };
-        
+
+        Transmission result = Transmission.NotSpecified;
+        GenericRequest response = null;
         var gate = new Gate();
-        AsyncNetworkEngine<GenericRequest, GenericRequest>.Send(aws_binary, rqt, (result, response, error) =>
+        AsyncNetworkEngine<GenericRequest, GenericRequest>.Send(aws_binary, rqt, (transmission, resp, error) =>
         {
-            Assert.AreEqual(Transmission.Success, result);
-            Assert.IsNotNull(response);
-            Assert.AreEqual(msg, response.Messege);
+            result = transmission;
+            response = resp;
             Debug.Log(nameof(AWS_BinaryLarge));
             gate.Release();
         });
         yield return gate;
+        Assert.AreEqual(Transmission.Success, result);
+        Assert.IsNotNull(response);
+        Assert.AreEqual(msg, response.Messege);
     }
 
     [UnityTest]
