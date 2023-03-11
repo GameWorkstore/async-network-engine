@@ -13,51 +13,44 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-
-namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
 namespace GameWorkstore {
 namespace AsyncNetworkEngine {
-PROTOBUF_CONSTEXPR GenericRequest::GenericRequest(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.messege_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+constexpr GenericRequest::GenericRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : messege_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct GenericRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GenericRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr GenericRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~GenericRequestDefaultTypeInternal() {}
   union {
     GenericRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GenericRequestDefaultTypeInternal _GenericRequest_default_instance_;
-PROTOBUF_CONSTEXPR GenericResponse::GenericResponse(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.messege_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericRequestDefaultTypeInternal _GenericRequest_default_instance_;
+constexpr GenericResponse::GenericResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : messege_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct GenericResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GenericResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr GenericResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~GenericResponseDefaultTypeInternal() {}
   union {
     GenericResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GenericResponseDefaultTypeInternal _GenericResponse_default_instance_;
-PROTOBUF_CONSTEXPR GenericErrorResponse::GenericErrorResponse(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.error_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericResponseDefaultTypeInternal _GenericResponse_default_instance_;
+constexpr GenericErrorResponse::GenericErrorResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : error_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct GenericErrorResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GenericErrorResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
+  constexpr GenericErrorResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
   ~GenericErrorResponseDefaultTypeInternal() {}
   union {
     GenericErrorResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GenericErrorResponseDefaultTypeInternal _GenericErrorResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericErrorResponseDefaultTypeInternal _GenericErrorResponse_default_instance_;
 }  // namespace AsyncNetworkEngine
 }  // namespace GameWorkstore
 namespace GameWorkstore {
@@ -172,120 +165,104 @@ class GenericRequest::_Internal {
  public:
 };
 
-GenericRequest::GenericRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GenericRequest::GenericRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
 }
 GenericRequest::GenericRequest(const GenericRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GenericRequest* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.messege_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.messege_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.messege_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_messege().empty()) {
-    _this->_impl_.messege_.Set(from._internal_messege(), 
-      _this->GetArenaForAllocation());
+    messege_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_messege(), 
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
 }
 
-inline void GenericRequest::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.messege_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-  _impl_.messege_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.messege_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+void GenericRequest::SharedCtor() {
+messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 GenericRequest::~GenericRequest() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-inline void GenericRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.messege_.Destroy();
+void GenericRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  messege_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void GenericRequest::ArenaDtor(void* object) {
+  GenericRequest* _this = reinterpret_cast< GenericRequest* >(object);
+  (void)_this;
+}
+void GenericRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void GenericRequest::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void GenericRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.messege_.ClearToEmpty();
+  messege_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GenericRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GenericRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string Messege = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_messege();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
+        } else goto handle_unusual;
         continue;
-      default:
-        goto handle_unusual;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<std::string>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
     }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
   }  // while
-message_done:
+success:
   return ptr;
 failure:
   ptr = nullptr;
-  goto message_done;
+  goto success;
 #undef CHK_
 }
 
-uint8_t* GenericRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* GenericRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Messege = 1;
-  if (!this->_internal_messege().empty()) {
+  if (this->messege().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_messege().data(), static_cast<int>(this->_internal_messege().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -306,12 +283,12 @@ size_t GenericRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
   size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string Messege = 1;
-  if (!this->_internal_messege().empty()) {
+  if (this->messege().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_messege());
@@ -320,28 +297,27 @@ size_t GenericRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GenericRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const GenericRequest*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericRequest*>(
       &from));
 }
 
 void GenericRequest::MergeFrom(const GenericRequest& from) {
-  GenericRequest* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_messege().empty()) {
-    _this->_internal_set_messege(from._internal_messege());
+  if (from.messege().size() > 0) {
+    _internal_set_messege(from._internal_messege());
   }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GenericRequest::CopyFrom(const GenericRequest& from) {
@@ -357,13 +333,8 @@ bool GenericRequest::IsInitialized() const {
 
 void GenericRequest::InternalSwap(GenericRequest* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.messege_, lhs_arena,
-      &other->_impl_.messege_, rhs_arena
-  );
+  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  messege_.Swap(&other->messege_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 std::string GenericRequest::GetTypeName() const {
@@ -377,120 +348,104 @@ class GenericResponse::_Internal {
  public:
 };
 
-GenericResponse::GenericResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GenericResponse::GenericResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
 }
 GenericResponse::GenericResponse(const GenericResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GenericResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.messege_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.messege_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.messege_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_messege().empty()) {
-    _this->_impl_.messege_.Set(from._internal_messege(), 
-      _this->GetArenaForAllocation());
+    messege_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_messege(), 
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
 }
 
-inline void GenericResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.messege_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-  _impl_.messege_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.messege_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+void GenericResponse::SharedCtor() {
+messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 GenericResponse::~GenericResponse() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-inline void GenericResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.messege_.Destroy();
+void GenericResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  messege_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void GenericResponse::ArenaDtor(void* object) {
+  GenericResponse* _this = reinterpret_cast< GenericResponse* >(object);
+  (void)_this;
+}
+void GenericResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void GenericResponse::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void GenericResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.messege_.ClearToEmpty();
+  messege_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GenericResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GenericResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string Messege = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_messege();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
+        } else goto handle_unusual;
         continue;
-      default:
-        goto handle_unusual;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<std::string>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
     }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
   }  // while
-message_done:
+success:
   return ptr;
 failure:
   ptr = nullptr;
-  goto message_done;
+  goto success;
 #undef CHK_
 }
 
-uint8_t* GenericResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* GenericResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Messege = 2;
-  if (!this->_internal_messege().empty()) {
+  if (this->messege().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_messege().data(), static_cast<int>(this->_internal_messege().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -511,12 +466,12 @@ size_t GenericResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
   size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string Messege = 2;
-  if (!this->_internal_messege().empty()) {
+  if (this->messege().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_messege());
@@ -525,28 +480,27 @@ size_t GenericResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GenericResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const GenericResponse*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericResponse*>(
       &from));
 }
 
 void GenericResponse::MergeFrom(const GenericResponse& from) {
-  GenericResponse* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_messege().empty()) {
-    _this->_internal_set_messege(from._internal_messege());
+  if (from.messege().size() > 0) {
+    _internal_set_messege(from._internal_messege());
   }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GenericResponse::CopyFrom(const GenericResponse& from) {
@@ -562,13 +516,8 @@ bool GenericResponse::IsInitialized() const {
 
 void GenericResponse::InternalSwap(GenericResponse* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.messege_, lhs_arena,
-      &other->_impl_.messege_, rhs_arena
-  );
+  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  messege_.Swap(&other->messege_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 std::string GenericResponse::GetTypeName() const {
@@ -582,120 +531,104 @@ class GenericErrorResponse::_Internal {
  public:
 };
 
-GenericErrorResponse::GenericErrorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
+GenericErrorResponse::GenericErrorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
 }
 GenericErrorResponse::GenericErrorResponse(const GenericErrorResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  GenericErrorResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  _impl_.error_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.error_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_error().empty()) {
-    _this->_impl_.error_.Set(from._internal_error(), 
-      _this->GetArenaForAllocation());
+    error_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error(), 
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
 }
 
-inline void GenericErrorResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.error_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-  _impl_.error_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.error_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+void GenericErrorResponse::SharedCtor() {
+error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 GenericErrorResponse::~GenericErrorResponse() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-inline void GenericErrorResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.error_.Destroy();
+void GenericErrorResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  error_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void GenericErrorResponse::ArenaDtor(void* object) {
+  GenericErrorResponse* _this = reinterpret_cast< GenericErrorResponse* >(object);
+  (void)_this;
+}
+void GenericErrorResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void GenericErrorResponse::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void GenericErrorResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.error_.ClearToEmpty();
+  error_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GenericErrorResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GenericErrorResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
     switch (tag >> 3) {
       // string Error = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_error();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, nullptr));
-        } else
-          goto handle_unusual;
+        } else goto handle_unusual;
         continue;
-      default:
-        goto handle_unusual;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<std::string>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
     }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
   }  // while
-message_done:
+success:
   return ptr;
 failure:
   ptr = nullptr;
-  goto message_done;
+  goto success;
 #undef CHK_
 }
 
-uint8_t* GenericErrorResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+::PROTOBUF_NAMESPACE_ID::uint8* GenericErrorResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Error = 1;
-  if (!this->_internal_error().empty()) {
+  if (this->error().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_error().data(), static_cast<int>(this->_internal_error().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -716,12 +649,12 @@ size_t GenericErrorResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
   size_t total_size = 0;
 
-  uint32_t cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string Error = 1;
-  if (!this->_internal_error().empty()) {
+  if (this->error().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_error());
@@ -730,28 +663,27 @@ size_t GenericErrorResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GenericErrorResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const GenericErrorResponse*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericErrorResponse*>(
       &from));
 }
 
 void GenericErrorResponse::MergeFrom(const GenericErrorResponse& from) {
-  GenericErrorResponse* const _this = this;
-  // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
+// @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_error().empty()) {
-    _this->_internal_set_error(from._internal_error());
+  if (from.error().size() > 0) {
+    _internal_set_error(from._internal_error());
   }
-  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GenericErrorResponse::CopyFrom(const GenericErrorResponse& from) {
@@ -767,13 +699,8 @@ bool GenericErrorResponse::IsInitialized() const {
 
 void GenericErrorResponse::InternalSwap(GenericErrorResponse* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.error_, lhs_arena,
-      &other->_impl_.error_, rhs_arena
-  );
+  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
+  error_.Swap(&other->error_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 std::string GenericErrorResponse::GetTypeName() const {
@@ -785,16 +712,13 @@ std::string GenericErrorResponse::GetTypeName() const {
 }  // namespace AsyncNetworkEngine
 }  // namespace GameWorkstore
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericRequest*
-Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericRequest* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericResponse*
-Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericResponse* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse*
-Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

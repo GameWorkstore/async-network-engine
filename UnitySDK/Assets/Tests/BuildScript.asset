@@ -14,16 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameName: AsyncNetworkEngine
   GameVersionWriterConfig:
-    Enabled: 1
+    Enabled: 0
     Path: Scripts/Version/
     Namespace: Unset.Namespace
   ViewBuildAndroid: 0
   BuildAndroid:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     UseKeystore: 0
+    UsePackageName: 0
+    PackageName: 
     BuildAPK: 0
     BuildAAB: 1
     ScriptingBackend: 1
@@ -35,60 +40,96 @@ MonoBehaviour:
   ViewBuildIOS: 1
   BuildIOS:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 1
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
+    UsePackageName: 0
+    PackageName: 
+    AdditionalFolders: []
   ViewBuildWindows: 0
   BuildWindows:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []
   ViewBuildMacOS: 0
   BuildMacOS:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []
   ViewBuildLinux: 0
   BuildLinux:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []
   ViewBuildUWP: 0
   BuildUWP:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
   ViewBuildWebGL: 0
   BuildWebGL:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
   ViewBuildGameServerWindows: 0
-  BuildGameServerWindows:
+  BuildServerWindows:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []
   ViewBuildGameServerLinux: 0
-  BuildGameServerLinux:
+  BuildServerLinux:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []
   ViewBuildGameServerMacOS: 0
-  BuildGameServerMacOS:
+  BuildServerMacOS:
     UseCustomScenes: 0
+    UseCustomScriptDefinitions: 0
     Development: 0
     Scenes:
       List: []
+    ScriptDefinitions:
+      Definitions: []
     ScriptingBackend: 1
+    AdditionalFolders: []

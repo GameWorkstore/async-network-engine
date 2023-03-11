@@ -1,10 +1,10 @@
 ﻿using Google.Protobuf;
 using System;
-using System.Collections;
 using System.Text;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace GameWorkstore.AsyncNetworkEngine
 {
@@ -76,20 +76,14 @@ namespace GameWorkstore.AsyncNetworkEngine
 
     public static class AsyncNetworkEngine
     {
-        private static Patterns.EventService _eventService;
-
         public static void Download(
             string url,
             Action<FileData> callback
         )
         {
-            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
-            _eventService.StartCoroutine(SendRequest(new[] { url },
-                (files) =>
-                {
-                    callback?.Invoke(files.Files.FirstOrDefault());
-                },
-                null)
+            Send(new[] { url },
+                (files) => callback?.Invoke(files.Files.FirstOrDefault()),
+                null
             );
         }
 
@@ -106,11 +100,10 @@ namespace GameWorkstore.AsyncNetworkEngine
             Action<ProgressData> onDownloadFinished,
             Action<ProgressData> onDownloadInProgress)
         {
-            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
-            _eventService.StartCoroutine(SendRequest(urls, onDownloadFinished, onDownloadInProgress));
+            Send(urls, onDownloadFinished, onDownloadInProgress);
         }
 
-        public static IEnumerator SendRequest(
+        public static void Send(
             string[] urls,
             Action<ProgressData> onDownloadFinished,
             Action<ProgressData> onDownloadInProgress
@@ -131,9 +124,9 @@ namespace GameWorkstore.AsyncNetworkEngine
             for (int i = 0; i < progress.Length; i++)
             {
                 var file = progress.Files[i];
-                using (var rqt = UnityWebRequest.Get(file.URL))
+                var rqt = UnityWebRequest.Get(file.URL);
+                rqt.SendWebRequest().completed += (op) =>
                 {
-                    yield return rqt.SendWebRequest();
                     switch (rqt.result)
                     {
                         case UnityWebRequest.Result.ConnectionError:
@@ -149,24 +142,27 @@ namespace GameWorkstore.AsyncNetworkEngine
                             file.Result = Transmission.Success;
                             file.Data = rqt.downloadHandler.data;
                             break;
+                        default:
+                            file.Result = Transmission.ErrorProtocol;
+                            break;
                     }
-                }
-                Return(progress, onDownloadInProgress);
+                    rqt.Dispose();
+                    Return(progress, onDownloadFinished, onDownloadInProgress);
+                };
             }
-            Return(progress, onDownloadFinished);
         }
 
-        private static void Return(ProgressData progressData, Action<ProgressData> callback)
+        private static bool NotSpecified(FileData file)
         {
-            if (callback == null) return;
+            return file.Result == Transmission.NotSpecified;
+        }
 
-            if (_eventService != null)
-            {
-                _eventService.QueueAction(() => callback.Invoke(progressData));
-                return;
-            }
-
+        private static void Return(
+            ProgressData progressData, Action<ProgressData> callbackFinal, Action<ProgressData> callback
+        ){
             callback?.Invoke(progressData);
+            if (progressData.Files.Any(NotSpecified)) return;
+            callbackFinal?.Invoke(progressData);
         }
     }
 
@@ -181,25 +177,17 @@ namespace GameWorkstore.AsyncNetworkEngine
     {
         private static readonly MessageParser<TResp> _tuParser = new MessageParser<TResp>(() => new TResp());
         private static readonly MessageParser<GenericErrorResponse> _tvParser = new MessageParser<GenericErrorResponse>(() => new GenericErrorResponse());
-        private static Patterns.EventService _eventService;
 
         public static void Send(string url, TRqt request, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
-            if (_eventService == null) _eventService = Patterns.ServiceProvider.GetService<Patterns.EventService>();
-            _eventService.StartCoroutine(SendRequest(url, request, callback));
-        }
-
-        public static IEnumerator SendRequest(string url, TRqt request, Action<Transmission, TResp, GenericErrorResponse> callback)
-        {
             //Notice: APIGateway automatically converts binary data into base64 strings
-            using (var rqt = new UnityWebRequest(url, "POST")
+            var rqt = new UnityWebRequest(url, "POST")
             {
                 uploadHandler = new UploadHandlerRaw(request.ToByteArray()),
                 downloadHandler = new DownloadHandlerBuffer()
-            })
+            };
+            rqt.SendWebRequest().completed += _ =>
             {
-                yield return rqt.SendWebRequest();
-
                 switch (rqt.result)
                 {
                     case UnityWebRequest.Result.ConnectionError:
@@ -209,11 +197,12 @@ namespace GameWorkstore.AsyncNetworkEngine
                         HandleError(GetCloudProvider(ref url), rqt, callback);
                         break;
                     case UnityWebRequest.Result.Success:
-                        while (!rqt.downloadHandler.isDone) yield return null;
+                        while (!rqt.downloadHandler.isDone);
                         HandleSuccess(GetCloudProvider(ref url), rqt, callback);
                         break;
                 }
-            }
+                rqt.Dispose();
+            };
         }
 
         private static CloudProvider GetCloudProvider(ref string url)
@@ -301,15 +290,7 @@ namespace GameWorkstore.AsyncNetworkEngine
 
         private static void Return(Transmission result, TResp data, GenericErrorResponse error, Action<Transmission, TResp, GenericErrorResponse> callback)
         {
-            if (callback == null) return;
-            if (_eventService != null)
-            {
-                _eventService.QueueAction(() => callback.Invoke(result, data, error));
-            }
-            else
-            {
-                callback.Invoke(result, data, error);
-            }
+            callback?.Invoke(result, data, error);
         }
     }
 }
