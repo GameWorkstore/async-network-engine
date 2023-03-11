@@ -1,11 +1,11 @@
 {
   "name": "com.gameworkstore.asyncnetworkengine",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "displayName": "GameWorkstore Async Network Engine",
   "description": "Unity http requests made easy to interoperability with Go Lang + Google Protobuf functions!",
-  "unity": "2020.3",
+  "unity": "2021.3",
   "icon": ".icon.png",
-  "keywords": ["patterns", "list", "oop", "structures"],
+  "keywords": ["async", "http", "aws", "gcp", "webrequest"],
   "author": {
     "name": "Game Workstore",
     "email": "contact@gameworkstore.com",
@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "com.gameworkstore.googleprotobufunity": "3.15.2010",
-    "com.gameworkstore.patterns": "1.2.0"
+    "com.gameworkstore.patterns": "1.3.3"
   }
 }
