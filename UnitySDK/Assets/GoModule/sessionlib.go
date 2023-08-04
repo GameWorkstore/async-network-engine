@@ -2,29 +2,30 @@ package asyncnetworkengine
 
 import (
 	"errors"
-	"strings"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 	"google.golang.org/protobuf/proto"
 )
 
 var jwtEnabled = false
 var jwtMethod jwt.SigningMethod
-var jwtIssuer = "asyncnetworkengine"
-var jwtHeader = ""
-var jwtKey = []byte("null")
+var jwtIssuer = ""
+var jwtKey interface{} = nil
 var jwtMaxAge time.Duration
 
 // SetupToken setup function to emit and validate tokens on behalf of the user
 // in doubt about maxAge, use time.Hour
-func SetupToken(issuer string, key string, maxAge time.Duration) {
+func SetupToken(method jwt.SigningMethod, issuer string, key interface{}, maxAge time.Duration) {
 	jwtIssuer = issuer
-	jwtKey = []byte(key)
-	jwtMethod = jwt.SigningMethodHS256
-	jwtHeader = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+	jwtKey = key
+	jwtMethod = method
 	jwtMaxAge = maxAge
 	jwtEnabled = true
+}
+
+func SetupHS256Token(issuer string, key string, maxAge time.Duration) {
+	SetupToken(jwt.SigningMethodHS256, issuer, []byte(key), maxAge)
 }
 
 // CreateToken creates a token for an given user
@@ -39,17 +40,17 @@ func CreateToken(pb proto.Message) (string, error) {
 		return "", err
 	}
 
-	var claims jwt.StandardClaims
+	var claims jwt.RegisteredClaims
 	claims.Issuer = jwtIssuer
-	claims.Id = string(user)
-	claims.IssuedAt = jwt.TimeFunc().Unix()
-	claims.ExpiresAt = jwt.TimeFunc().Add(jwtMaxAge).Unix()
-	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtKey)
+	claims.ID = string(user)
+	claims.IssuedAt = jwt.NewNumericDate(time.Now())
+	claims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(jwtMaxAge))
+	token, err := jwt.NewWithClaims(jwtMethod, claims).SignedString(jwtKey)
 	if err != nil {
 		return "", err
 	}
 
-	return strings.TrimPrefix(token, jwtHeader), nil
+	return token, nil
 }
 
 // ValidateToken validates a token return the user structure
@@ -58,17 +59,17 @@ func ValidateToken(sessionToken string, pb proto.Message) error {
 		return errors.New("required to SetupToken once before use it")
 	}
 
-	token, err := jwt.ParseWithClaims(jwtHeader+sessionToken, &jwt.StandardClaims{}, jwtKeyFunction)
+	token, err := jwt.ParseWithClaims(sessionToken, &jwt.RegisteredClaims{}, jwtKeyFunction)
 	if err != nil || !token.Valid {
 		return err
 	}
 
-	claims, castSuccess := token.Claims.(*jwt.StandardClaims)
+	claims, castSuccess := token.Claims.(*jwt.RegisteredClaims)
 	if !castSuccess {
 		return errors.New("cast to StandardClaims failed")
 	}
 
-	err = proto.Unmarshal([]byte(claims.Id), pb)
+	err = proto.Unmarshal([]byte(claims.ID), pb)
 	if err != nil {
 		return err
 	}
