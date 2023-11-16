@@ -28,3 +28,4 @@ UnrealSDK/Saved/*
 UnrealSDK/DerivedDataCache/
 
 UnrealSDK/Plugins/GoogleProtobuf/Intermediate/
+UnrealSDK/.vsconfig

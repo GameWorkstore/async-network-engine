@@ -8,7 +8,8 @@ public class UnrealSDKEditorTarget : TargetRules
 	public UnrealSDKEditorTarget( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "UnrealSDK" } );
+		DefaultBuildSettings = BuildSettingsVersion.V4;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
+		ExtraModuleNames.Add("UnrealSDK");
 	}
 }

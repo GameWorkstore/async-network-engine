@@ -1,0 +1,40 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+option go_package = "github.com/GameWorkstore/async-network-engine-go;asyncnetworkengine";
+
+package GameWorkstore.AsyncNetworkEngine;
+
+enum Transmission
+{
+   NotSpecified = 0;
+   ErrorConnection = 1;
+   ErrorProtocol = 2;
+   ErrorParser = 3;
+
+   Success = 200; // StatusOK
+   ErrorNoData = 204; //StatusNoContent
+   ErrorDecode = 400; //StatusBadRequest
+   ErrorUnauthorized = 401; //Unauthorized
+   ErrorForbidden = 403; //Forbidden
+   ErrorMethodNotAllowed = 405; //StatusMethodNotAllowed
+   ErrorRequestTimeout = 408; //StatusRequestTimeout
+   ErrorEncode = 421; //Misdirected Request
+   ErrorInternalServer = 500; //StatusInternalServerError
+   ErrorNotImplemented = 501; //StatusNotImplemented
+   ErrorNetworkAuthenticationRequired = 511; //NetworkAuthenticationRequired
+}
+
+message GenericRequest
+{
+   string Messege = 1;
+}
+
+message GenericResponse
+{
+   string Messege = 2;
+}
+
+message GenericErrorResponse
+{
+   string Error = 1;
+}

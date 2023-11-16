@@ -108,5 +108,6 @@
     },
     "gtest-adapter.debugConfig": [
         "UnitTests"
-    ]
+    ],
+    "cmake.options.statusBarVisibility": "hidden"
 }
