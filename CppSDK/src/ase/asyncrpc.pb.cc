@@ -5,54 +5,101 @@
 
 #include <algorithm>
 
+#include <google/protobuf/stubs/common.h>
+#include <google/protobuf/stubs/port.h>
+#include <google/protobuf/stubs/once.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite.h>
+#include <google/protobuf/wire_format_lite_inl.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
+// This is a temporary google only hack
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+#include "third_party/protobuf/version.h"
+#endif
 // @@protoc_insertion_point(includes)
-#include <google/protobuf/port_def.inc>
-
-PROTOBUF_PRAGMA_INIT_SEG
 namespace GameWorkstore {
 namespace AsyncNetworkEngine {
-constexpr GenericRequest::GenericRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : messege_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct GenericRequestDefaultTypeInternal {
-  constexpr GenericRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~GenericRequestDefaultTypeInternal() {}
-  union {
-    GenericRequest _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericRequestDefaultTypeInternal _GenericRequest_default_instance_;
-constexpr GenericResponse::GenericResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : messege_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct GenericResponseDefaultTypeInternal {
-  constexpr GenericResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~GenericResponseDefaultTypeInternal() {}
-  union {
-    GenericResponse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericResponseDefaultTypeInternal _GenericResponse_default_instance_;
-constexpr GenericErrorResponse::GenericErrorResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct GenericErrorResponseDefaultTypeInternal {
-  constexpr GenericErrorResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~GenericErrorResponseDefaultTypeInternal() {}
-  union {
-    GenericErrorResponse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GenericErrorResponseDefaultTypeInternal _GenericErrorResponse_default_instance_;
+class GenericRequestDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<GenericRequest>
+      _instance;
+} _GenericRequest_default_instance_;
+class GenericResponseDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<GenericResponse>
+      _instance;
+} _GenericResponse_default_instance_;
+class GenericErrorResponseDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<GenericErrorResponse>
+      _instance;
+} _GenericErrorResponse_default_instance_;
 }  // namespace AsyncNetworkEngine
 }  // namespace GameWorkstore
+namespace protobuf_asyncrpc_2eproto {
+void InitDefaultsGenericRequestImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::GameWorkstore::AsyncNetworkEngine::_GenericRequest_default_instance_;
+    new (ptr) ::GameWorkstore::AsyncNetworkEngine::GenericRequest();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::GameWorkstore::AsyncNetworkEngine::GenericRequest::InitAsDefaultInstance();
+}
+
+void InitDefaultsGenericRequest() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsGenericRequestImpl);
+}
+
+void InitDefaultsGenericResponseImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::GameWorkstore::AsyncNetworkEngine::_GenericResponse_default_instance_;
+    new (ptr) ::GameWorkstore::AsyncNetworkEngine::GenericResponse();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::GameWorkstore::AsyncNetworkEngine::GenericResponse::InitAsDefaultInstance();
+}
+
+void InitDefaultsGenericResponse() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsGenericResponseImpl);
+}
+
+void InitDefaultsGenericErrorResponseImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::GameWorkstore::AsyncNetworkEngine::_GenericErrorResponse_default_instance_;
+    new (ptr) ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse::InitAsDefaultInstance();
+}
+
+void InitDefaultsGenericErrorResponse() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsGenericErrorResponseImpl);
+}
+
+}  // namespace protobuf_asyncrpc_2eproto
 namespace GameWorkstore {
 namespace AsyncNetworkEngine {
 bool Transmission_IsValid(int value) {
@@ -78,245 +125,185 @@ bool Transmission_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Transmission_strings[15] = {};
-
-static const char Transmission_names[] =
-  "ErrorConnection"
-  "ErrorDecode"
-  "ErrorEncode"
-  "ErrorForbidden"
-  "ErrorInternalServer"
-  "ErrorMethodNotAllowed"
-  "ErrorNetworkAuthenticationRequired"
-  "ErrorNoData"
-  "ErrorNotImplemented"
-  "ErrorParser"
-  "ErrorProtocol"
-  "ErrorRequestTimeout"
-  "ErrorUnauthorized"
-  "NotSpecified"
-  "Success";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Transmission_entries[] = {
-  { {Transmission_names + 0, 15}, 1 },
-  { {Transmission_names + 15, 11}, 400 },
-  { {Transmission_names + 26, 11}, 421 },
-  { {Transmission_names + 37, 14}, 403 },
-  { {Transmission_names + 51, 19}, 500 },
-  { {Transmission_names + 70, 21}, 405 },
-  { {Transmission_names + 91, 34}, 511 },
-  { {Transmission_names + 125, 11}, 204 },
-  { {Transmission_names + 136, 19}, 501 },
-  { {Transmission_names + 155, 11}, 3 },
-  { {Transmission_names + 166, 13}, 2 },
-  { {Transmission_names + 179, 19}, 408 },
-  { {Transmission_names + 198, 17}, 401 },
-  { {Transmission_names + 215, 12}, 0 },
-  { {Transmission_names + 227, 7}, 200 },
-};
-
-static const int Transmission_entries_by_number[] = {
-  13, // 0 -> NotSpecified
-  0, // 1 -> ErrorConnection
-  10, // 2 -> ErrorProtocol
-  9, // 3 -> ErrorParser
-  14, // 200 -> Success
-  7, // 204 -> ErrorNoData
-  1, // 400 -> ErrorDecode
-  12, // 401 -> ErrorUnauthorized
-  3, // 403 -> ErrorForbidden
-  5, // 405 -> ErrorMethodNotAllowed
-  11, // 408 -> ErrorRequestTimeout
-  2, // 421 -> ErrorEncode
-  4, // 500 -> ErrorInternalServer
-  8, // 501 -> ErrorNotImplemented
-  6, // 511 -> ErrorNetworkAuthenticationRequired
-};
-
-const std::string& Transmission_Name(
-    Transmission value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          Transmission_entries,
-          Transmission_entries_by_number,
-          15, Transmission_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      Transmission_entries,
-      Transmission_entries_by_number,
-      15, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     Transmission_strings[idx].get();
-}
-bool Transmission_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Transmission* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Transmission_entries, 15, name, &int_value);
-  if (success) {
-    *value = static_cast<Transmission>(int_value);
-  }
-  return success;
-}
 
 // ===================================================================
 
-class GenericRequest::_Internal {
- public:
-};
+void GenericRequest::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int GenericRequest::kMessegeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-GenericRequest::GenericRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+GenericRequest::GenericRequest()
+  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_asyncrpc_2eproto::InitDefaultsGenericRequest();
+  }
   SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  // @@protoc_insertion_point(constructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
 }
 GenericRequest::GenericRequest(const GenericRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_messege().empty()) {
-    messege_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_messege(), 
-      GetArena());
+  : ::google::protobuf::MessageLite(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  messege_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.messege().size() > 0) {
+    messege_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messege_);
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
 }
 
 void GenericRequest::SharedCtor() {
-messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  messege_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
 }
 
 GenericRequest::~GenericRequest() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericRequest)
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 void GenericRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  messege_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  messege_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void GenericRequest::ArenaDtor(void* object) {
-  GenericRequest* _this = reinterpret_cast< GenericRequest* >(object);
-  (void)_this;
-}
-void GenericRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GenericRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const GenericRequest& GenericRequest::default_instance() {
+  ::protobuf_asyncrpc_2eproto::InitDefaultsGenericRequest();
+  return *internal_default_instance();
+}
+
+GenericRequest* GenericRequest::New(::google::protobuf::Arena* arena) const {
+  GenericRequest* n = new GenericRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void GenericRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  messege_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
+  messege_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
 }
 
-const char* GenericRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
+bool GenericRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
+      &_internal_metadata_);
+  ::google::protobuf::io::StringOutputStream unknown_fields_output(
+      unknown_fields_setter.buffer());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_output, false);
+  // @@protoc_insertion_point(parse_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // string Messege = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_messege();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_messege()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->messege().data(), static_cast<int>(this->messege().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "GameWorkstore.AsyncNetworkEngine.GenericRequest.Messege"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
+        if (tag == 0) {
           goto success;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
       }
-    }  // switch
-  }  // while
+    }
+  }
 success:
-  return ptr;
+  // @@protoc_insertion_point(parse_success:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  return true;
 failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
+  // @@protoc_insertion_point(parse_failure:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  return false;
+#undef DO_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* GenericRequest::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void GenericRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Messege = 1;
   if (this->messege().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_messege().data(), static_cast<int>(this->_internal_messege().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->messege().data(), static_cast<int>(this->messege().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "GameWorkstore.AsyncNetworkEngine.GenericRequest.Messege");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_messege(), target);
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->messege(), output);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:GameWorkstore.AsyncNetworkEngine.GenericRequest)
-  return target;
+  output->WriteRaw((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).data(),
+                   static_cast<int>((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size()));
+  // @@protoc_insertion_point(serialize_end:GameWorkstore.AsyncNetworkEngine.GenericRequest)
 }
 
 size_t GenericRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
+  total_size += (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size();
 
   // string Messege = 1;
   if (this->messege().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_messege());
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->messege());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void GenericRequest::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericRequest*>(
-      &from));
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const GenericRequest*>(&from));
 }
 
 void GenericRequest::MergeFrom(const GenericRequest& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.messege().size() > 0) {
-    _internal_set_messege(from._internal_messege());
+
+    messege_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messege_);
   }
 }
 
@@ -331,175 +318,200 @@ bool GenericRequest::IsInitialized() const {
   return true;
 }
 
+void GenericRequest::Swap(GenericRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
 void GenericRequest::InternalSwap(GenericRequest* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
-  messege_.Swap(&other->messege_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  messege_.Swap(&other->messege_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
-std::string GenericRequest::GetTypeName() const {
+::std::string GenericRequest::GetTypeName() const {
   return "GameWorkstore.AsyncNetworkEngine.GenericRequest";
 }
 
 
 // ===================================================================
 
-class GenericResponse::_Internal {
- public:
-};
+void GenericResponse::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int GenericResponse::kMessegeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-GenericResponse::GenericResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+GenericResponse::GenericResponse()
+  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_asyncrpc_2eproto::InitDefaultsGenericResponse();
+  }
   SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  // @@protoc_insertion_point(constructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
 }
 GenericResponse::GenericResponse(const GenericResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_messege().empty()) {
-    messege_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_messege(), 
-      GetArena());
+  : ::google::protobuf::MessageLite(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  messege_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.messege().size() > 0) {
+    messege_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messege_);
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
 }
 
 void GenericResponse::SharedCtor() {
-messege_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  messege_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
 }
 
 GenericResponse::~GenericResponse() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericResponse)
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 void GenericResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  messege_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  messege_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void GenericResponse::ArenaDtor(void* object) {
-  GenericResponse* _this = reinterpret_cast< GenericResponse* >(object);
-  (void)_this;
-}
-void GenericResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GenericResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const GenericResponse& GenericResponse::default_instance() {
+  ::protobuf_asyncrpc_2eproto::InitDefaultsGenericResponse();
+  return *internal_default_instance();
+}
+
+GenericResponse* GenericResponse::New(::google::protobuf::Arena* arena) const {
+  GenericResponse* n = new GenericResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void GenericResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  messege_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
+  messege_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
 }
 
-const char* GenericResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
+bool GenericResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
+      &_internal_metadata_);
+  ::google::protobuf::io::StringOutputStream unknown_fields_output(
+      unknown_fields_setter.buffer());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_output, false);
+  // @@protoc_insertion_point(parse_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // string Messege = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_messege();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_messege()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->messege().data(), static_cast<int>(this->messege().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "GameWorkstore.AsyncNetworkEngine.GenericResponse.Messege"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
+        if (tag == 0) {
           goto success;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
       }
-    }  // switch
-  }  // while
+    }
+  }
 success:
-  return ptr;
+  // @@protoc_insertion_point(parse_success:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  return true;
 failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
+  // @@protoc_insertion_point(parse_failure:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  return false;
+#undef DO_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* GenericResponse::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void GenericResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Messege = 2;
   if (this->messege().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_messege().data(), static_cast<int>(this->_internal_messege().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->messege().data(), static_cast<int>(this->messege().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "GameWorkstore.AsyncNetworkEngine.GenericResponse.Messege");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_messege(), target);
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->messege(), output);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:GameWorkstore.AsyncNetworkEngine.GenericResponse)
-  return target;
+  output->WriteRaw((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).data(),
+                   static_cast<int>((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size()));
+  // @@protoc_insertion_point(serialize_end:GameWorkstore.AsyncNetworkEngine.GenericResponse)
 }
 
 size_t GenericResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
+  total_size += (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size();
 
   // string Messege = 2;
   if (this->messege().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_messege());
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->messege());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void GenericResponse::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericResponse*>(
-      &from));
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const GenericResponse*>(&from));
 }
 
 void GenericResponse::MergeFrom(const GenericResponse& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.messege().size() > 0) {
-    _internal_set_messege(from._internal_messege());
+
+    messege_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messege_);
   }
 }
 
@@ -514,175 +526,200 @@ bool GenericResponse::IsInitialized() const {
   return true;
 }
 
+void GenericResponse::Swap(GenericResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
 void GenericResponse::InternalSwap(GenericResponse* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
-  messege_.Swap(&other->messege_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  messege_.Swap(&other->messege_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
-std::string GenericResponse::GetTypeName() const {
+::std::string GenericResponse::GetTypeName() const {
   return "GameWorkstore.AsyncNetworkEngine.GenericResponse";
 }
 
 
 // ===================================================================
 
-class GenericErrorResponse::_Internal {
- public:
-};
+void GenericErrorResponse::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int GenericErrorResponse::kErrorFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-GenericErrorResponse::GenericErrorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+GenericErrorResponse::GenericErrorResponse()
+  : ::google::protobuf::MessageLite(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_asyncrpc_2eproto::InitDefaultsGenericErrorResponse();
+  }
   SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  // @@protoc_insertion_point(constructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
 }
 GenericErrorResponse::GenericErrorResponse(const GenericErrorResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_error().empty()) {
-    error_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error(), 
-      GetArena());
+  : ::google::protobuf::MessageLite(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.error().size() > 0) {
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
   }
   // @@protoc_insertion_point(copy_constructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
 }
 
 void GenericErrorResponse::SharedCtor() {
-error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  error_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
 }
 
 GenericErrorResponse::~GenericErrorResponse() {
   // @@protoc_insertion_point(destructor:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 void GenericErrorResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  error_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  error_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void GenericErrorResponse::ArenaDtor(void* object) {
-  GenericErrorResponse* _this = reinterpret_cast< GenericErrorResponse* >(object);
-  (void)_this;
-}
-void GenericErrorResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GenericErrorResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const GenericErrorResponse& GenericErrorResponse::default_instance() {
+  ::protobuf_asyncrpc_2eproto::InitDefaultsGenericErrorResponse();
+  return *internal_default_instance();
+}
+
+GenericErrorResponse* GenericErrorResponse::New(::google::protobuf::Arena* arena) const {
+  GenericErrorResponse* n = new GenericErrorResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
 }
 
 void GenericErrorResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_.ClearToEmpty();
-  _internal_metadata_.Clear<std::string>();
+  error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
 }
 
-const char* GenericErrorResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
+bool GenericErrorResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::LiteUnknownFieldSetter unknown_fields_setter(
+      &_internal_metadata_);
+  ::google::protobuf::io::StringOutputStream unknown_fields_output(
+      unknown_fields_setter.buffer());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_output, false);
+  // @@protoc_insertion_point(parse_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // string Error = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_error();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_error()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->error().data(), static_cast<int>(this->error().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "GameWorkstore.AsyncNetworkEngine.GenericErrorResponse.Error"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
+        if (tag == 0) {
           goto success;
         }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<std::string>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
       }
-    }  // switch
-  }  // while
+    }
+  }
 success:
-  return ptr;
+  // @@protoc_insertion_point(parse_success:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  return true;
 failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
+  // @@protoc_insertion_point(parse_failure:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  return false;
+#undef DO_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* GenericErrorResponse::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+void GenericErrorResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string Error = 1;
   if (this->error().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_error().data(), static_cast<int>(this->_internal_error().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->error().data(), static_cast<int>(this->error().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "GameWorkstore.AsyncNetworkEngine.GenericErrorResponse.Error");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_error(), target);
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->error(), output);
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
-  return target;
+  output->WriteRaw((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).data(),
+                   static_cast<int>((::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size()));
+  // @@protoc_insertion_point(serialize_end:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
 }
 
 size_t GenericErrorResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
+  total_size += (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()).size();
 
   // string Error = 1;
   if (this->error().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_error());
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->error());
   }
 
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void GenericErrorResponse::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GenericErrorResponse*>(
-      &from));
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const GenericErrorResponse*>(&from));
 }
 
 void GenericErrorResponse::MergeFrom(const GenericErrorResponse& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:GameWorkstore.AsyncNetworkEngine.GenericErrorResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.error().size() > 0) {
-    _internal_set_error(from._internal_error());
+
+    error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
   }
 }
 
@@ -697,13 +734,18 @@ bool GenericErrorResponse::IsInitialized() const {
   return true;
 }
 
+void GenericErrorResponse::Swap(GenericErrorResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
 void GenericErrorResponse::InternalSwap(GenericErrorResponse* other) {
   using std::swap;
-  _internal_metadata_.Swap<std::string>(&other->_internal_metadata_);
-  error_.Swap(&other->error_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  error_.Swap(&other->error_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
 }
 
-std::string GenericErrorResponse::GetTypeName() const {
+::std::string GenericErrorResponse::GetTypeName() const {
   return "GameWorkstore.AsyncNetworkEngine.GenericErrorResponse";
 }
 
@@ -711,17 +753,5 @@ std::string GenericErrorResponse::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace AsyncNetworkEngine
 }  // namespace GameWorkstore
-PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericRequest* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericResponse* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericResponse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse* Arena::CreateMaybeMessage< ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::GameWorkstore::AsyncNetworkEngine::GenericErrorResponse >(arena);
-}
-PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
-#include <google/protobuf/port_undef.inc>
