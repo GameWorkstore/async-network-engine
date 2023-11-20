@@ -14,7 +14,8 @@ public class UnrealSDK : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "InputCore",
-                "Protobuf"
+                "Protobuf",
+                "HTTP"
             }
         );
 

@@ -26,7 +26,8 @@ public class AsyncNetworkEngine : ModuleRules
 			new string[]
 			{
 				"Core",
-				"Protobuf",
+                "HTTP",
+                "Protobuf",
 			}
 		);
 		

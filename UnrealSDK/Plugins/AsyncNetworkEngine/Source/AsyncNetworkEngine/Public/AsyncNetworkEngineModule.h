@@ -1,5 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -8,8 +6,11 @@
 class FAsyncNetworkEngineModule : public IModuleInterface
 {
 public:
+    /** IModuleInterface implementation */
+    virtual void StartupModule() override;
+    virtual void ShutdownModule() override;
 
-	/** IModuleInterface implementation */
-	virtual void StartupModule() override;
-	virtual void ShutdownModule() override;
+    //template<typename TRqt, typename TResp>
+   // void Send(const FString& Endpoint, const TRqt& Request);
 };
+
