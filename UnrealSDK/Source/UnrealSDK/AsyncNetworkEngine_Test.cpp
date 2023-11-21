@@ -11,9 +11,9 @@ bool FASEGoogleProtobufTest::RunTest(const FString& Parameters)
 {
 	// init
 	GameWorkstore::AsyncNetworkEngine::GenericRequest rqt;
-	AsyncNetworkEngine<GameWorkstore::AsyncNetworkEngine::GenericRequest, GameWorkstore::AsyncNetworkEngine::GenericRequest> MyAsyncNetworkEngineInstance;
+	//AsyncNetworkEngine<GameWorkstore::AsyncNetworkEngine::GenericRequest, GameWorkstore::AsyncNetworkEngine::GenericRequest> MyAsyncNetworkEngineInstance;
 	
-	MyAsyncNetworkEngineInstance.Send(rqt);
+	AsyncNetworkEngine<GameWorkstore::AsyncNetworkEngine::GenericRequest, GameWorkstore::AsyncNetworkEngine::GenericRequest>().Send("https://phy-dev-api.phyengine.com/phy-dev-gettest", rqt, NULL);
 
 	return true;
 }
