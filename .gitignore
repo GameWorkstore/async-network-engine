@@ -27,5 +27,8 @@ UnrealSDK/Build/
 UnrealSDK/Saved/*
 UnrealSDK/DerivedDataCache/
 
-UnrealSDK/Plugins/GoogleProtobuf/Intermediate/
 UnrealSDK/.vsconfig
+UnrealSDK/Plugins/**/.vsconfig
+UnrealSDK/Plugins/**/.vs/
+UnrealSDK/Plugins/**/Intermediate/
+UnrealSDK/Plugins/**/CMakeOutput/*

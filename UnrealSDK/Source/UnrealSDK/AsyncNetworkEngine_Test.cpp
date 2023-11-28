@@ -3,8 +3,8 @@
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
 #include "Proto/asyncrpc.pb.h"
-#include "../../Plugins/AsyncNetworkEngine/Source/AsyncNetworkEngine/Public/AsyncNetworkEngineTest.h"
-#include "../../Plugins/AsyncNetworkEngine/Source/AsyncNetworkEngine/Public/AsyncNetworkEngine.h"
+#include "AsyncNetworkEngineTest.h"
+#include "AsyncNetworkEngine.h"
 
 
 

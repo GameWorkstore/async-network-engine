@@ -1,33 +1,26 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
-
+using System.IO;
 using UnrealBuildTool;
 
 public class AsyncNetworkEngine : ModuleRules
 {
 	public AsyncNetworkEngine(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
 		PublicIncludePaths.AddRange(
-			new string[] {
-				// ... add public include paths required here ...
-			}
-			);
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[] {
-				// ... add other private include paths required here ...
-			}
-			);
-			
-		
+			new string[]
+			{
+				Path.Combine(ModuleDirectory,"CppSDK"),
+                Path.Combine(ModuleDirectory,"UnrealSDK"),
+            }
+		);
+
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
 				"Core",
-                "HTTP",
-                "Protobuf",
+				"Protobuf",
 			}
 		);
 		
@@ -40,13 +33,5 @@ public class AsyncNetworkEngine : ModuleRules
 				"SlateCore",
 			}
 		);
-		
-		
-		DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-				// ... add any modules that your module loads dynamically here ...
-			}
-			);
 	}
 }

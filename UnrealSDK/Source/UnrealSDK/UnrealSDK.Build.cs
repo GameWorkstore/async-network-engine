@@ -15,7 +15,8 @@ public class UnrealSDK : ModuleRules
                 "Engine",
                 "InputCore",
                 "Protobuf",
-                "HTTP"
+                "HTTP",
+                "AsyncNetworkEngine"
             }
         );
 

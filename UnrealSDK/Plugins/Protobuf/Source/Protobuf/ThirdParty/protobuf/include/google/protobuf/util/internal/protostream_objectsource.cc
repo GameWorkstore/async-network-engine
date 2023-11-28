@@ -280,16 +280,16 @@ StatusOr<uint32> ProtoStreamObjectSource::RenderMap(
     int old_limit = stream_->PushLimit(buffer32);
     string map_key;
     for (uint32 tag = stream_->ReadTag(); tag != 0; tag = stream_->ReadTag()) {
-      const google::protobuf::Field* field =
+      const google::protobuf::Field* field_2 =
           FindAndVerifyField(*field_type, tag);
-      if (field == NULL) {
+      if (field_2 == NULL) {
         WireFormat::SkipField(stream_, tag, NULL);
         continue;
       }
       // Map field numbers are key = 1 and value = 2
-      if (field->number() == 1) {
-        map_key = ReadFieldValueAsString(*field);
-      } else if (field->number() == 2) {
+      if (field_2->number() == 1) {
+        map_key = ReadFieldValueAsString(*field_2);
+      } else if (field_2->number() == 2) {
         if (map_key.empty()) {
           // An absent map key is treated as the default.
           const google::protobuf::Field* key_field =
@@ -303,7 +303,7 @@ StatusOr<uint32> ProtoStreamObjectSource::RenderMap(
           // Key is empty, force it to render as empty (for string values).
           ow->empty_name_ok_for_next_key();
         }
-        RETURN_IF_ERROR(RenderField(field, map_key, ow));
+        RETURN_IF_ERROR(RenderField(field_2, map_key, ow));
       } else {
         // The Type info for this map entry is incorrect. It should contain
         // exactly two fields with field number 1 and 2.
