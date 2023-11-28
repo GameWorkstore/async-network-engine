@@ -2,7 +2,7 @@
 #include "AsyncNetworkEngineGameMode.h"
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
-#include "Proto/asyncrpc.pb.h"
+#include "ase/asyncrpc.pb.h"
 #include "AsyncNetworkEngineTest.h"
 #include "AsyncNetworkEngine.h"
 

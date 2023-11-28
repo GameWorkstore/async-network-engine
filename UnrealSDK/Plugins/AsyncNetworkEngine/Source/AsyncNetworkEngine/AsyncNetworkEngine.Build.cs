@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 using System.IO;
 using UnrealBuildTool;
-
 public class AsyncNetworkEngine : ModuleRules
 {
 	public AsyncNetworkEngine(ReadOnlyTargetRules Target) : base(Target)
@@ -11,7 +10,7 @@ public class AsyncNetworkEngine : ModuleRules
 		PublicIncludePaths.AddRange(
 			new string[]
 			{
-				Path.Combine(ModuleDirectory,"CppSDK"),
+				Path.Combine(ModuleDirectory,"CppSDK/src"),
                 Path.Combine(ModuleDirectory,"UnrealSDK"),
             }
 		);
