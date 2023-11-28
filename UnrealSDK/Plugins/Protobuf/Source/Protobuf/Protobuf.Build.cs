@@ -58,7 +58,8 @@ public class Protobuf : ModuleRules
         PublicSystemIncludePaths.AddRange(
             new string[]
             {
-                Path.Combine(ThirdPartyPath,"protobuf/include")
+                Path.Combine(ThirdPartyPath,"protobuf/include"),
+                Path.Combine(ThirdPartyPath,"abseil/include")
             }
         );
 
