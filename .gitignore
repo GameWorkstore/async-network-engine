@@ -26,9 +26,9 @@ UnrealSDK/Plugins/*/Binaries/*
 UnrealSDK/Build/
 UnrealSDK/Saved/*
 UnrealSDK/DerivedDataCache/
-
 UnrealSDK/.vsconfig
 UnrealSDK/Plugins/**/.vsconfig
 UnrealSDK/Plugins/**/.vs/
 UnrealSDK/Plugins/**/Intermediate/
-UnrealSDK/Plugins/**/CMakeOutput/*
+UnrealSDK/Plugins/**/CMakeOutput/
+UnrealSDK/*.sln
