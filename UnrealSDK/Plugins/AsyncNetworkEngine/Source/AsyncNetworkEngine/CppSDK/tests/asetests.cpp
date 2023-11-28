@@ -1,6 +1,6 @@
 #if !defined(__UNREAL__)
 #include <gtest/gtest.h>
-#include <ase/asyncnetworkengine.hpp>
+#include <ase/asyncnetworkengine.h>
 #include <ase/asyncrpc.pb.h>
 #include <fstream>
 
@@ -41,10 +41,11 @@ TEST(AseTest, downloadFiles)
     });
 }
 
-const std::string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
-const std::string gcp_success = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
+//const std::string gcp_notauthorized = "https://us-central1-game-workstore.cloudfunctions.net/gcptest-notauthorized";
+//const std::string gcp_success = "https://us-central1-game-workstore.cloudfunctions.net/gcptest";
+const std::string phyengine_dev_gettest = "https://phy-dev-api.phyengine.com/phy-dev-gettest";
 
-TEST(AseTest, GCP_NotAuthorized)
+/*TEST(AseTest, GCP_NotAuthorized)
 {
     GenericRequest rqt;
     rqt.set_messege("anything");
@@ -67,5 +68,27 @@ TEST(AseTest, GCP_Success)
         std::string expected = "received-success";
         ASSERT_EQ(messege, expected);
     });
+}*/
+
+TEST(AseTest, PhyEngine_Success)
+{
+    GenericRequest rqt;
+    rqt.set_messege("message test");
+
+    std::vector<uint8_t> buffer;
+    GenericResponse rp;
+    rp.set_messege("test");
+    buffer.resize(rp.ByteSizeLong());
+    rp.SerializeToArray(buffer.data(), rp.ByteSizeLong());
+
+    AsyncNetworkEngine<GenericRequest, GenericResponse>::Send(phyengine_dev_gettest, rqt,
+        [](Transmission result, GenericResponse resp, GenericErrorResponse error)
+        {
+            ASSERT_EQ(result, Transmission::Success);
+            std::string messege = resp.messege();
+            std::string expected = "test";
+            ASSERT_EQ(messege, expected);
+        }
+    );
 }
 #endif

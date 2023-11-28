@@ -42,6 +42,7 @@ include_directories(src)
 set(SOURCES
     src/ase/asyncnetworkengine.cpp
     src/ase/asyncrpc.pb.cc
+    src/ase/base64.cpp
 )
 set(TESTS
     tests/asetests.cpp

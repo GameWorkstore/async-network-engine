@@ -8,6 +8,7 @@
 #if !defined(__UNREAL__)
 #include <curl/curl.h>
 #endif
+#include "base64.h"
 #include "asyncrpc.pb.h"
 
 #define CURL_LONG_ON 1L
@@ -90,18 +91,21 @@ namespace GameWorkstore
                 switch (result)
                 {
                 case CURLE_OK:
-                    if(receiverBuffer.size() <= 0)
+                {
+                    if (receiverBuffer.size() <= 0)
                     {
                         callback(Transmission::ErrorNoData, resp, error);
                         return;
                     }
-                    if(!respb->ParseFromArray(receiverBuffer.data(),(int)receiverBuffer.size()))
+                    std::vector<uint8_t> decoded = base64_decode(receiverBuffer);
+                    if (!respb->ParseFromArray(decoded.data(), (int)decoded.size()))
                     {
-                        callback(Transmission::ErrorParser, resp, error);                        
+                        callback(Transmission::ErrorParser, resp, error);
                         return;
                     }
                     callback(Transmission::Success, resp, error);
                     return;
+                }
                 default:
                     callback(Transmission::ErrorConnection, resp, error);
                     break;
