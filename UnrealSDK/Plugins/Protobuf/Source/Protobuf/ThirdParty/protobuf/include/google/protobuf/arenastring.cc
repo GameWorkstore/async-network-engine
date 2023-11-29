@@ -116,7 +116,7 @@ TaggedStringPtr CreateArenaString(Arena& arena, absl::string_view s) {
 }  // namespace
 
 void ArenaStringPtr::Set(absl::string_view value, Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (IsDefault()) {
     // If we're not on an arena, skip straight to a true string to avoid
     // possible copy cost later.
@@ -141,7 +141,7 @@ void ArenaStringPtr::Set(absl::string_view value, Arena* arena) {
 
 template <>
 void ArenaStringPtr::Set(const std::string& value, Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (IsDefault()) {
     // If we're not on an arena, skip straight to a true string to avoid
     // possible copy cost later.
@@ -165,7 +165,7 @@ void ArenaStringPtr::Set(const std::string& value, Arena* arena) {
 }
 
 void ArenaStringPtr::Set(std::string&& value, Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (IsDefault()) {
     NewString(arena, std::move(value));
   } else if (IsFixedSizeArena()) {
@@ -179,7 +179,7 @@ void ArenaStringPtr::Set(std::string&& value, Arena* arena) {
 }
 
 std::string* ArenaStringPtr::Mutable(Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (tagged_ptr_.IsMutable()) {
     return tagged_ptr_.Get();
   } else {
@@ -189,7 +189,7 @@ std::string* ArenaStringPtr::Mutable(Arena* arena) {
 
 std::string* ArenaStringPtr::Mutable(const LazyString& default_value,
                                      Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (tagged_ptr_.IsMutable()) {
     return tagged_ptr_.Get();
   } else {
@@ -198,7 +198,7 @@ std::string* ArenaStringPtr::Mutable(const LazyString& default_value,
 }
 
 std::string* ArenaStringPtr::MutableNoCopy(Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (tagged_ptr_.IsMutable()) {
     return tagged_ptr_.Get();
   } else {
@@ -220,7 +220,7 @@ std::string* ArenaStringPtr::MutableSlow(::google::protobuf::Arena* arena,
 }
 
 std::string* ArenaStringPtr::Release() {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (IsDefault()) return nullptr;
 
   std::string* released = tagged_ptr_.Get();
@@ -233,7 +233,7 @@ std::string* ArenaStringPtr::Release() {
 }
 
 void ArenaStringPtr::SetAllocated(std::string* value, Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   // Release what we have first.
   Destroy();
 
@@ -257,7 +257,7 @@ void ArenaStringPtr::Destroy() {
 }
 
 void ArenaStringPtr::ClearToEmpty() {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   if (IsDefault()) {
     // Already set to default -- do nothing.
   } else {
@@ -272,7 +272,7 @@ void ArenaStringPtr::ClearToEmpty() {
 
 void ArenaStringPtr::ClearToDefault(const LazyString& default_value,
                                     ::google::protobuf::Arena* arena) {
-  ScopedCheckPtrInvariants check(&tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&tagged_ptr_);
   (void)arena;
   if (IsDefault()) {
     // Already set to default -- do nothing.
@@ -284,7 +284,7 @@ void ArenaStringPtr::ClearToDefault(const LazyString& default_value,
 const char* EpsCopyInputStream::ReadArenaString(const char* ptr,
                                                 ArenaStringPtr* s,
                                                 Arena* arena) {
-  ScopedCheckPtrInvariants check(&s->tagged_ptr_);
+  auto check = ScopedCheckPtrInvariants(&s->tagged_ptr_);
   ABSL_DCHECK(arena != nullptr);
 
   int size = ReadSize(&ptr);

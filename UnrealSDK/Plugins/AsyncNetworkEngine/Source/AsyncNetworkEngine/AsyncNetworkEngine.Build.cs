@@ -32,5 +32,7 @@ public class AsyncNetworkEngine : ModuleRules
 				"SlateCore",
 			}
 		);
-	}
+
+        PrivateDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
+    }
 }

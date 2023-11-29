@@ -36,26 +36,29 @@ public class Protobuf : ModuleRules
         if (Target.bForceEnableRTTI)
         {
             bUseRTTI = true;
-            PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=0");
+            PrivateDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=0");
         }
         else
         {
             bUseRTTI = false;
-            PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=1");
+            PrivateDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=1");
         }
-        PublicDefinitions.Add("HAVE_ZLIB=0");
-        PublicDefinitions.Add("__cpluscplus=199711L");
-        PublicDefinitions.Add("__SIZEOF_INT128__=0");
+        PrivateDefinitions.Add("HAVE_ZLIB=0");
+        PrivateDefinitions.Add("__cpluscplus=199711L");
+        PrivateDefinitions.Add("__SIZEOF_INT128__=0");
+        //PublicDefinitions.Add("PROTOBUF_USE_DLLS=0");
 
         //PublicDefinitions.Add("__GNUC__=0");
         //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Win64 ? "HAVE_PTHREAD=0" : "HAVE_PTHREAD=1");
         //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Linux ? "__clang__=1" : "__clang__=0");
-        PublicDefinitions.Add("_CRT_SECURE_NO_WARNINGS");
+        PrivateDefinitions.Add("_CRT_SECURE_NO_WARNINGS");
+        //PublicDefinitions.Add("MSVC_STATIC_RUNTIME=0");
+        //PublicDefinitions.Add("BUILD_SHARED_LIBS=0");
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;
 
         //ABSEIL
-        PublicDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
+        PrivateDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
     }
 }
