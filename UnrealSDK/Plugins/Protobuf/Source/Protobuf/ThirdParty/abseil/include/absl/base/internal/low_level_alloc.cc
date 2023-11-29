@@ -40,6 +40,7 @@
 #include <unistd.h>
 #else
 #include <windows.h>
+#undef max
 #endif
 
 #include <string.h>

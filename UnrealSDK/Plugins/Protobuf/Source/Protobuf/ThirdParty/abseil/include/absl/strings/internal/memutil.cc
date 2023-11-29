@@ -95,17 +95,19 @@ const char* memmatch(const char* phaystack, size_t haylen, const char* pneedle,
   }
   if (haylen < neelen) return nullptr;
 
-  const char* match;
   const char* hayend = phaystack + haylen - neelen + 1;
+  const char* match = static_cast<const char*>(memchr(phaystack, pneedle[0], static_cast<size_t>(hayend - phaystack)));
   // A static cast is used here to work around the fact that memchr returns
   // a void* on Posix-compliant systems and const void* on Windows.
-  while (
-      (match = static_cast<const char*>(memchr(
-           phaystack, pneedle[0], static_cast<size_t>(hayend - phaystack))))) {
-    if (memcmp(match, pneedle, neelen) == 0)
-      return match;
-    else
-      phaystack = match + 1;
+  while (match)
+  {
+      if (memcmp(match, pneedle, neelen) == 0) {
+          return match;
+      }
+      else {
+          phaystack = match + 1;
+      }
+      match = static_cast<const char*>(memchr(phaystack, pneedle[0], static_cast<size_t>(hayend - phaystack)));
   }
   return nullptr;
 }

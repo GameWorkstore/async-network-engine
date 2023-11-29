@@ -42,6 +42,10 @@
 // pointing to the item just after the one that was erased (or end() if none
 // exists).
 
+#ifdef __UNREAL__
+#undef verify
+#endif
+
 #ifndef ABSL_CONTAINER_INTERNAL_BTREE_H_
 #define ABSL_CONTAINER_INTERNAL_BTREE_H_
 

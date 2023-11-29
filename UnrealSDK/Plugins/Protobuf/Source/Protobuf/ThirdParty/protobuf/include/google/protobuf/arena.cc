@@ -227,7 +227,7 @@ void* SerialArena::AllocateFromStringBlockFallback() {
   }
 
   void* ptr;
-  size_t size = StringBlock::NextSize(string_block_);
+  long size = StringBlock::NextSize(string_block_);
   if (MaybeAllocateAligned(size, &ptr)) {
     // Correct space_used_ to avoid double counting
     AddSpaceUsed(-size);

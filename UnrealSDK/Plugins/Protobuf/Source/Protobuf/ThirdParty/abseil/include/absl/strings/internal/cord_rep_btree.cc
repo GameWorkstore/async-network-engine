@@ -1040,8 +1040,8 @@ CordRepBtree* CordRepBtree::CreateSlow(CordRep* rep) {
   if (rep->IsBtree()) return rep->btree();
 
   CordRepBtree* node = nullptr;
-  auto consume = [&node](CordRep* r, size_t offset, size_t length) {
-    r = MakeSubstring(r, offset, length);
+  auto consume = [&node](CordRep* r, size_t offset, size_t length2) {
+    r = MakeSubstring(r, offset, length2);
     if (node == nullptr) {
       node = New(r);
     } else {
@@ -1056,8 +1056,8 @@ CordRepBtree* CordRepBtree::AppendSlow(CordRepBtree* tree, CordRep* rep) {
   if (ABSL_PREDICT_TRUE(rep->IsBtree())) {
     return MergeTrees(tree, rep->btree());
   }
-  auto consume = [&tree](CordRep* r, size_t offset, size_t length) {
-    r = MakeSubstring(r, offset, length);
+  auto consume = [&tree](CordRep* r, size_t offset, size_t length2) {
+    r = MakeSubstring(r, offset, length2);
     tree = CordRepBtree::AddCordRep<kBack>(tree, r);
   };
   Consume(rep, consume);
@@ -1068,8 +1068,8 @@ CordRepBtree* CordRepBtree::PrependSlow(CordRepBtree* tree, CordRep* rep) {
   if (ABSL_PREDICT_TRUE(rep->IsBtree())) {
     return MergeTrees(rep->btree(), tree);
   }
-  auto consume = [&tree](CordRep* r, size_t offset, size_t length) {
-    r = MakeSubstring(r, offset, length);
+  auto consume = [&tree](CordRep* r, size_t offset, size_t length2) {
+    r = MakeSubstring(r, offset, length2);
     tree = CordRepBtree::AddCordRep<kFront>(tree, r);
   };
   ReverseConsume(rep, consume);

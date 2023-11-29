@@ -15,63 +15,25 @@ public class Protobuf : ModuleRules
     }
 
     public Protobuf(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PublicIncludePaths.AddRange(
-			new string[] {
-                Path.Combine(ThirdPartyPath,"protobuf/include"),
-                Path.Combine(ThirdPartyPath,"abseil/include")
-            }
-		);
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[] {
-                Path.Combine(ThirdPartyPath,"protobuf/include"),
-                Path.Combine(ThirdPartyPath,"abseil/include")
-            }
-		);
-			
-		
-		PublicDependencyModuleNames.AddRange(
-			new string[]
-			{
-				"Core",
-				// ... add other public dependencies that you statically link with here ...
-			}
-		);
-		
-		PrivateDependencyModuleNames.AddRange(
-			new string[]
-			{
-				// ... add private dependencies that you statically link with here ...	
-			}
-		);
-		
-		
-		DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-				// ... add any modules that your module loads dynamically here ...
-			}
-		);
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicSystemIncludePaths.AddRange(
-            new string[]
-            {
+        PublicIncludePaths.AddRange(
+            new string[] {
                 Path.Combine(ThirdPartyPath,"protobuf/include"),
-                Path.Combine(ThirdPartyPath,"abseil/include")
+                Path.Combine(ThirdPartyPath,"abseil/include"),
+                Path.Combine(ThirdPartyPath,"utf8_range/include")
             }
         );
 
-        PublicAdditionalLibraries.AddRange(
+        PrivateDependencyModuleNames.AddRange(
             new string[]
             {
+                "Core"
             }
         );
 
-        if(Target.bForceEnableRTTI)
+        if (Target.bForceEnableRTTI)
         {
             bUseRTTI = true;
             PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=0");
@@ -81,20 +43,19 @@ public class Protobuf : ModuleRules
             bUseRTTI = false;
             PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=1");
         }
-		PublicDefinitions.Add("HAVE_ZLIB=0");
+        PublicDefinitions.Add("HAVE_ZLIB=0");
         PublicDefinitions.Add("__cpluscplus=199711L");
+        PublicDefinitions.Add("__SIZEOF_INT128__=0");
 
-        if (Target.Platform != UnrealTargetPlatform.Win64)
-        {
-            PublicDefinitions.Add("HAVE_PTHREAD");	
-        }
-
+        //PublicDefinitions.Add("__GNUC__=0");
+        //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Win64 ? "HAVE_PTHREAD=0" : "HAVE_PTHREAD=1");
+        //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Linux ? "__clang__=1" : "__clang__=0");
         PublicDefinitions.Add("_CRT_SECURE_NO_WARNINGS");
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;
 
         //ABSEIL
-        PublicDefinitions.Add("ABSL_OPTION_USE_INLINE_NAMESPACE=0");
+        PublicDefinitions.Add("PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII=0");
     }
 }

@@ -157,6 +157,8 @@
 // Portable check for gcc-style atomic built-ins
 #if __has_builtin(__atomic_load_n)
 #define PROTOBUF_BUILTIN_ATOMIC 1
+#else
+#define PROTOBUF_BUILTIN_ATOMIC 0
 #endif
 
 // Portable check for GCC minimum version:
@@ -1070,6 +1072,16 @@ static_assert(PROTOBUF_ABSL_MIN(20230125, 3),
 #pragma warning(disable: 4127)
 // decimal digit terminates octal escape sequence
 #pragma warning(disable: 4125)
+// unreferenced formal parameter
+#pragma warning(disable: 4100)
+// conversion from 'size_t' to 'uint32_t', possible loss of data
+#pragma warning(disable: 4267)
+// conditional expression is constant
+#pragma warning(disable: 4127)
+// implicit conversion from 'int64_t' to bool. possible information loss
+#pragma warning(disable: 4800)
+// this function or variable may be unsafe. Consider using strerror_s instead. to disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+#pragma warning(disable: 4996)
 #endif
 
 #if PROTOBUF_ENABLE_DEBUG_LOGGING_MAY_LEAK_PII

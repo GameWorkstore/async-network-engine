@@ -16,6 +16,8 @@
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms680578(v=vs.85).aspx
 
 #include <windows.h>
+#undef min
+#undef max
 
 // MSVC header dbghelp.h has a warning for an ignored typedef.
 #pragma warning(push)
