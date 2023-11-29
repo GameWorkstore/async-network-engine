@@ -15,6 +15,8 @@
 #if !defined(HAS_STRPTIME)
 #if !defined(_MSC_VER) && !defined(__MINGW32__)
 #define HAS_STRPTIME 1  // assume everyone has strptime() except windows
+#else
+#define HAS_STRPTIME 0
 #endif
 #endif
 
