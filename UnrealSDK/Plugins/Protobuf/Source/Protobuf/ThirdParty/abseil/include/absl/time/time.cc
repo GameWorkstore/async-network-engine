@@ -35,6 +35,8 @@
 
 #if defined(_MSC_VER)
 #include <winsock2.h>  // for timeval
+#undef min
+#undef max
 #endif
 
 #include <cstring>
