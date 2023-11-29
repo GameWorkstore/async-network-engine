@@ -86,8 +86,7 @@ const std::string& LazyString::Init() const {
 namespace {
 
 
-//#if defined(NDEBUG) || !defined(GOOGLE_PROTOBUF_INTERNAL_DONATE_STEAL)
-#if false
+#if defined(NDEBUG) || !defined(GOOGLE_PROTOBUF_INTERNAL_DONATE_STEAL)
 
 class ScopedCheckPtrInvariants {
  public:
