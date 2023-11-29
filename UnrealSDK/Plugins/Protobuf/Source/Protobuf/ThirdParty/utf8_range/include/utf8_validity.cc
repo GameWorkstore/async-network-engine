@@ -448,7 +448,7 @@ size_t ValidUTF8(const char* data, size_t len) {
 }  // namespace
 
 bool IsStructurallyValid(absl::string_view str) {
-  return ValidUTF8</*ReturnPosition=*/false>(str.data(), str.size());
+  return static_cast<bool>(ValidUTF8</*ReturnPosition=*/false>(str.data(), str.size()));
 }
 
 size_t SpanStructurallyValid(absl::string_view str) {

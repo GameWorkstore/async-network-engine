@@ -51,6 +51,7 @@ public class Protobuf : ModuleRules
         //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Win64 ? "HAVE_PTHREAD=0" : "HAVE_PTHREAD=1");
         //PublicDefinitions.Add(Target.Platform != UnrealTargetPlatform.Linux ? "__clang__=1" : "__clang__=0");
         PublicDefinitions.Add("_CRT_SECURE_NO_WARNINGS");
+        PublicDefinitions.Add("NDEBUG=0");
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;

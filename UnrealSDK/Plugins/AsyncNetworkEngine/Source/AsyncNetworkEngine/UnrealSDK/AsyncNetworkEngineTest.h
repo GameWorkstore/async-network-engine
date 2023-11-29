@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../../../../Source/UnrealSDK/Proto/asyncrpc.pb.h"
-#include "../../../../Protobuf/Source/Protobuf/Public/Protobuf.h"
+#include "../CppSDK/src/ase/asyncrpc.pb.h"
 #include "Http.h"
 
 class AsyncNetworkEngineTest

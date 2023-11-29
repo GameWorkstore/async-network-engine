@@ -212,7 +212,7 @@ const TcParseTableBase::FieldEntry* TcParser::FindFieldEntry(
       if (PROTOBUF_PREDICT_FALSE(skipmap & skipbit)) return nullptr;
       skipmap &= skipbit - 1;
       adj_fnum += se.field_entry_offset;
-#if (__GNUC__ || __clang__) && __POPCNT__
+#if (defined(__GNUC__) || defined(__clang__)) && __POPCNT__
       adj_fnum -= __builtin_popcount(skipmap);
 #else
       while (skipmap) {
@@ -1438,7 +1438,7 @@ namespace {
 // Here are overloads of ReadStringIntoArena, ReadStringNoArena and IsValidUTF8
 // for every string class for which we provide fast-table parser support.
 
-PROTOBUF_ALWAYS_INLINE inline const char* ReadStringIntoArena(
+PROTOBUF_ALWAYS_INLINE const char* ReadStringIntoArena(
     MessageLite* /*msg*/, const char* ptr, ParseContext* ctx,
     uint32_t /*aux_idx*/, const TcParseTableBase* /*table*/,
     ArenaStringPtr& field, Arena* arena) {
@@ -1455,7 +1455,7 @@ const char* ReadStringNoArena(MessageLite* /*msg*/, const char* ptr,
   return ctx->ReadString(ptr, size, field.MutableNoCopy(nullptr));
 }
 
-PROTOBUF_ALWAYS_INLINE inline bool IsValidUTF8(ArenaStringPtr& field) {
+PROTOBUF_ALWAYS_INLINE bool IsValidUTF8(ArenaStringPtr& field) {
   return utf8_range::IsStructurallyValid(field.Get());
 }
 
@@ -2445,7 +2445,7 @@ void TcParser::WriteMapEntryAsUnknown(MessageLite* msg,
   GetUnknownFieldOps(table).write_length_delimited(msg, tag >> 3, serialized);
 }
 
-PROTOBUF_ALWAYS_INLINE inline void TcParser::InitializeMapNodeEntry(
+PROTOBUF_ALWAYS_INLINE void TcParser::InitializeMapNodeEntry(
     void* obj, MapTypeCard type_card, UntypedMapBase& map,
     const TcParseTableBase::FieldAux* aux, bool is_key) {
   (void)is_key;
