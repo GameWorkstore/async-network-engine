@@ -87,12 +87,12 @@ struct CharTraits {
 
 template <>
 struct CharTraits<char> {
-  static bool is_alpha(char ch) { return isalpha(ch); }
+  static bool is_alpha(char ch) { return static_cast<bool>(isalpha(ch)); }
 };
 
 template <>
 struct CharTraits<wchar_t> {
-  static bool is_alpha(wchar_t ch) { return iswalpha(ch); }
+  static bool is_alpha(wchar_t ch) { return static_cast<bool>(iswalpha(ch)); }
 };
 
 template <typename char_type>

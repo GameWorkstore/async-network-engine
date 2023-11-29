@@ -20,15 +20,17 @@ public class Protobuf : ModuleRules
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
-				// ... add public include paths required here ...
-			}
+                Path.Combine(ThirdPartyPath,"protobuf/include"),
+                Path.Combine(ThirdPartyPath,"abseil/include")
+            }
 		);
 				
 		
 		PrivateIncludePaths.AddRange(
 			new string[] {
-				// ... add other private include paths required here ...
-			}
+                Path.Combine(ThirdPartyPath,"protobuf/include"),
+                Path.Combine(ThirdPartyPath,"abseil/include")
+            }
 		);
 			
 		
@@ -91,5 +93,8 @@ public class Protobuf : ModuleRules
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;
+
+        //ABSEIL
+        PublicDefinitions.Add("ABSL_OPTION_USE_INLINE_NAMESPACE=0");
     }
 }
