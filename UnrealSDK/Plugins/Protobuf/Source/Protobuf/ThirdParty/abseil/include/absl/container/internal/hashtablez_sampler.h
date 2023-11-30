@@ -258,7 +258,7 @@ void SetHashtablezMaxSamplesInternal(size_t max);
 // initialization of static storage duration objects.
 // The definition of this constant is weak, which allows us to inject a
 // different value for it at link time.
-extern "C" bool ABSL_INTERNAL_C_SYMBOL(AbslContainerInternalSampleEverything)();
+// extern "C" bool ABSL_INTERNAL_C_SYMBOL(AbslContainerInternalSampleEverything)();
 
 }  // namespace container_internal
 ABSL_NAMESPACE_END

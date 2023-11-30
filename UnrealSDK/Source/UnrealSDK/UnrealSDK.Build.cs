@@ -14,8 +14,8 @@ public class UnrealSDK : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "InputCore",
-                "Protobuf",
                 "HTTP",
+                "Protobuf",
                 "AsyncNetworkEngine"
             }
         );
@@ -24,12 +24,10 @@ public class UnrealSDK : ModuleRules
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;
-        // Uncomment if you are using Slate UI
-        // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 
-        // Uncomment if you are using online features
-        // PrivateDependencyModuleNames.Add("OnlineSubsystem");
-
-        // To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+        if (Target.Platform == UnrealTargetPlatform.Win64)
+        {
+            PublicDefinitions.Add("PROTOBUF_USE_DLLS");
+        }
     }
 }

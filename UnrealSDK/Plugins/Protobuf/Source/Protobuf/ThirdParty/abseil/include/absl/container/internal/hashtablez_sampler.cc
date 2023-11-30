@@ -104,9 +104,10 @@ static bool ShouldForceSampling() {
   if (ABSL_PREDICT_TRUE(state == kDontForce)) return false;
 
   if (state == kUninitialized) {
-    state = ABSL_INTERNAL_C_SYMBOL(AbslContainerInternalSampleEverything)()
+    /*state = ABSL_INTERNAL_C_SYMBOL(AbslContainerInternalSampleEverything)()
                 ? kForce
-                : kDontForce;
+                : kDontForce;*/
+    state = kDontForce;
     global_state.store(state, std::memory_order_relaxed);
   }
   return state == kForce;

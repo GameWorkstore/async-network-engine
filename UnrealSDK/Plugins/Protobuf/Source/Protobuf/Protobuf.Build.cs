@@ -33,16 +33,14 @@ public class Protobuf : ModuleRules
             }
         );
 
-        if (Target.bForceEnableRTTI)
+        bUseRTTI = Target.bForceEnableRTTI;
+        PrivateDefinitions.Add(Target.bForceEnableRTTI ? "GOOGLE_PROTOBUF_NO_RTTI=1" : "GOOGLE_PROTOBUF_NO_RTTI=0");
+        if(Target.Platform == UnrealTargetPlatform.Win64)
         {
-            bUseRTTI = true;
-            PrivateDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=0");
+            PublicDefinitions.Add("PROTOBUF_USE_DLLS");
+            PrivateDefinitions.Add("LIBPROTOBUF_EXPORTS");
         }
-        else
-        {
-            bUseRTTI = false;
-            PrivateDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI=1");
-        }
+
         PrivateDefinitions.Add("HAVE_ZLIB=0");
         PrivateDefinitions.Add("__cpluscplus=199711L");
 
