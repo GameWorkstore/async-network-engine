@@ -52,11 +52,11 @@ namespace GameWorkstore
 					{
 					case (int)Transmission::ErrorInternalServer:
 						error.set_error("ErrorInternalServer");
-						//callback.Execute(Transmission::ErrorInternalServer, resp, error);
+						callback.Execute(Transmission::ErrorInternalServer, resp, error);
 						return;
 					default:
 						error.set_error("NotSpecified");
-						//callback.ExecuteIfBound(Transmission::NotSpecified, resp, error);
+						callback.Execute(Transmission::NotSpecified, resp, error);
 						return;
 					}
 				}
@@ -64,7 +64,7 @@ namespace GameWorkstore
 				if (!resp.ParseFromArray(decoded.GetData(), (int)decoded.Num()))
 				{
 					error.set_error("ErrorParser");
-					//callback.ExecuteIfBound(Transmission::ErrorParser, resp, error);
+					callback.Execute(Transmission::ErrorParser, resp, error);
 					return;
 				}
 
