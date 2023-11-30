@@ -68,7 +68,7 @@ namespace GameWorkstore
 					return;
 				}
 
-				//callback.ExecuteIfBound(Transmission::Success, resp, error);
+				callback.Execute(Transmission::Success, resp, error);
 			}
 
 			static void Send(FString url, T rqt, FAsyncNetworkCallback callback)
