@@ -24,10 +24,5 @@ public class UnrealSDK : ModuleRules
 
         bEnableUndefinedIdentifierWarnings = false;
         bEnableExceptions = true;
-
-        if (Target.Platform == UnrealTargetPlatform.Win64)
-        {
-            PublicDefinitions.Add("PROTOBUF_USE_DLLS");
-        }
     }
 }
