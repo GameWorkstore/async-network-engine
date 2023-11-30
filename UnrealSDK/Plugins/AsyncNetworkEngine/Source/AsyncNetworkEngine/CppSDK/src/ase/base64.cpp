@@ -7,7 +7,8 @@ static const std::string base64_chars =
 "0123456789+/";
 
 
-static inline bool is_base64(uint8_t c) {
+static inline bool is_base64(uint8_t c)
+{
 	return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
@@ -61,15 +62,26 @@ std::string base64_encode(const uint8_t* buffer, uint32_t bufferLength)
 
 	return ret;
 }
-
+#if defined(__UNREAL__)
+const TArray<uint8_t> base64_decode(const TArray<uint8_t>& encoded_string)
+#else
 std::vector<uint8_t> base64_decode(const std::vector<char>& encoded_string)
+#endif
 {
+#if defined(__UNREAL__)
+	int in_len = encoded_string.Num();
+#else
 	int in_len = encoded_string.size();
+#endif
 	int i = 0;
 	int j = 0;
 	int in_ = 0;
 	uint8_t char_array_4[4], char_array_3[3];
+#if defined(__UNREAL__)
+	TArray<uint8_t> ret;
+#else
 	std::vector<uint8_t> ret;
+#endif
 
 	while (in_len-- && (encoded_string[in_] != '=') && is_base64(encoded_string[in_]))
 	{
@@ -87,7 +99,11 @@ std::vector<uint8_t> base64_decode(const std::vector<char>& encoded_string)
 
 			for (i = 0; (i < 3); i++)
 			{
+#if defined(__UNREAL__)
+				ret.Add(char_array_3[i]);
+#else
 				ret.push_back(char_array_3[i]);
+#endif
 			}
 			i = 0;
 		}
@@ -111,7 +127,11 @@ std::vector<uint8_t> base64_decode(const std::vector<char>& encoded_string)
 
 		for (j = 0; (j < i - 1); j++)
 		{
+#if defined(__UNREAL__)
+			ret.Add(char_array_3[j]);
+#else
 			ret.push_back(char_array_3[j]);
+#endif
 		}
 	}
 
