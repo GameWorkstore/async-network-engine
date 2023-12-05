@@ -1,0 +1,32 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "AsyncNetworkEngine",
+	"Description": "Async Network Engine for Unreal",
+	"Category": "Other",
+	"CreatedBy": "GameWorkstore",
+	"CreatedByURL": "https://github.com/GameWorkstore",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "AsyncNetworkEngine",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "Protobuf",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault",
+			"Enabled": true
+		}
+	]
+}

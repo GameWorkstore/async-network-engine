@@ -12,7 +12,7 @@ jobs:
         run: |
           git config --local user.email "contact@gameworkstore.com"
           git config --local user.name "game-workstore-bot"
-      
+
       - name: Update README
         run: |
           if ! cmp --silent "README.md" "UnitySDK/Assets/Package/README.md"; then
@@ -36,7 +36,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: upm
           force: true
-  
+
   build-golang:
     runs-on: ubuntu-latest
     steps:
@@ -66,7 +66,7 @@ jobs:
         uses: NxtLvLSoftware/git-subtree-action@1.1
         with:
           repo: GameWorkstore/async-network-engine-cpp
-          path: CppSDK/
+          path: UnrealSDK/Plugins/AsyncNetworkEngine/Source/AsyncNetworkEngine/CppSDK
           deploy_key: ${{ secrets.ASYNC_ENGINE_CPP_DEPLOY_KEY }}
           force: true
           branch: main
@@ -82,7 +82,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICEACCOUNT_KEY }}
           export_default_credentials: true
-      
+
       - name: Deploy GCP test function
         run: |
           cd Assets/Tests/GCP/
@@ -112,7 +112,7 @@ jobs:
         with:
           name: aws-test-builds
           template: Assets/Tests/AWS/Cloud/cf_builds.yaml
-          parameter-overrides: 'BackendBucket=${{ env.BACKEND_BUCKET }}'
+          parameter-overrides: "BackendBucket=${{ env.BACKEND_BUCKET }}"
           no-fail-on-empty-changeset: "1"
 
       - uses: shallwefootball/s3-upload-action@master
@@ -122,7 +122,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
           aws_bucket: ${{ env.BACKEND_BUCKET }}
           source_dir: Assets/Tests/AWS/Cloud/Templates
-          destination_dir: ''
+          destination_dir: ""
 
       - name: Install Go
         uses: actions/setup-go@v2
@@ -137,19 +137,19 @@ jobs:
           go get -d ./...
           GOOS=linux GOARCH=amd64 go build -o main .
           zip ../../../../Staging/${{ steps.codeversion.outputs.zipname }} main
-      
+
       - uses: shallwefootball/s3-upload-action@master
         name: Upload Lambda to S3
         with:
           aws_key_id: ${{ secrets.AWS_SERVICE_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SERVICE_SECRET_KEY }}
           aws_bucket: ${{ env.BACKEND_BUCKET }}
-          source_dir: 'Staging'
-          destination_dir: ''
-      
+          source_dir: "Staging"
+          destination_dir: ""
+
       - name: Deploy CloudFormation Stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
         with:
           name: aws-test-serverless
           template: Assets/Tests/AWS/Cloud/cf_serverless.yaml
-          parameter-overrides: "BackendBucket=${{ env.BACKEND_BUCKET }},FunctionBuild=${{ steps.codeversion.outputs.zipname }}"        
+          parameter-overrides: "BackendBucket=${{ env.BACKEND_BUCKET }},FunctionBuild=${{ steps.codeversion.outputs.zipname }}"

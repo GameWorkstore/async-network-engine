@@ -14,10 +14,6 @@ UnitySDK/*.sln.DotSettings.user
 UnitySDK/.vsconfig
 UnitySDK/.vscode/
 
-# CppSDK
-CppSDK/.vs/
-CppSDK/build/
-
 # UnrealSDK
 UnrealSDK/.vs/
 UnrealSDK/Binaries/
@@ -26,5 +22,3 @@ UnrealSDK/Plugins/*/Binaries/*
 UnrealSDK/Build/
 UnrealSDK/Saved/*
 UnrealSDK/DerivedDataCache/
-
-UnrealSDK/Plugins/GoogleProtobuf/Intermediate/
