@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.21)
+# PROJECT config
+project(asyncnetworkengine VERSION 0.4.0)
 set(CMAKE_CXX_STANDARD 20)
-
-project(AsyncNetworkEngine)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+option(asyncnetworkengine_BUILD_TESTS "Should build tests?" ON)
+if(NOT DEFINED asyncnetworkengine_BUILD_TESTS)
+    set(asyncnetworkengine_BUILD_TESTS ON)
+endif()
 
 # CURL dependency config
 if(WIN32)
@@ -38,7 +43,6 @@ set(LIB_DEPENDENCIES
     protobuf::libprotobuf-lite
 )
 
-include_directories(src)
 set(SOURCES
     src/ase/asyncnetworkengine.cpp
     src/ase/asyncrpc.pb.cc
@@ -48,11 +52,14 @@ set(TESTS
     tests/asetests.cpp
 )
 
-add_library(asyncnetworkengine ${SOURCES})
+add_library(asyncnetworkengine STATIC ${SOURCES})
+target_include_directories(asyncnetworkengine PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
 target_link_libraries(asyncnetworkengine ${LIB_DEPENDENCIES})
 
 # Test Environment
-enable_testing()
-add_executable(AsyncNetworkEngineTests ${TESTS})
-target_link_libraries(AsyncNetworkEngineTests PRIVATE ${LIB_DEPENDENCIES} asyncnetworkengine gtest_main)
-add_test(NAME AsyncNetworkEngineTests COMMAND AsyncNetworkEngineTests)
+if(asyncnetworkengine_BUILD_TESTS)
+    enable_testing()
+    add_executable(AsyncNetworkEngineTests ${TESTS})
+    target_link_libraries(AsyncNetworkEngineTests PRIVATE ${LIB_DEPENDENCIES} asyncnetworkengine gtest_main)
+    add_test(NAME AsyncNetworkEngineTests COMMAND AsyncNetworkEngineTests)
+endif()

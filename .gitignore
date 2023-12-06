@@ -18,7 +18,8 @@ UnitySDK/.vscode/
 UnrealSDK/.vs/
 UnrealSDK/Binaries/
 UnrealSDK/Intermediate/
-UnrealSDK/Plugins/*/Binaries/*
 UnrealSDK/Build/
 UnrealSDK/Saved/*
 UnrealSDK/DerivedDataCache/
+UnrealSDK/Plugins/**/Binaries/
+UnrealSDK/Plugins/**/.vs/
