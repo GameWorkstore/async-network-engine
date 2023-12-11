@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <google/protobuf/message_lite.h>
 #if defined(__UNREAL__)
+#include "Logging/StructuredLog.h"
 #include "CoreMinimal.h"
 #include "Http.h"
 #else
@@ -39,10 +40,32 @@ namespace GameWorkstore
 			static_assert(std::is_base_of<google::protobuf::MessageLite, T>::value, "T must derive from google::protobuf::MessageLite");
 			static_assert(std::is_base_of<google::protobuf::MessageLite, U>::value, "U must derive from google::protobuf::MessageLite");
 		public:
+			static Transmission  GetTransmissionResult(int result)
+			{
+				switch (result)
+				{
+				case (int)Transmission::ErrorInternalServer:
+					return Transmission::ErrorInternalServer;
+				case (int)Transmission::ErrorConnection:
+					return Transmission::ErrorConnection;
+				case (int)Transmission::ErrorUnauthorized:
+					return Transmission::ErrorUnauthorized;
+				case (int)Transmission::ErrorForbidden:
+					return Transmission::ErrorForbidden;
+				case (int)Transmission::ErrorMethodNotAllowed:
+					return Transmission::ErrorMethodNotAllowed;
+				case (int)Transmission::ErrorNoData:
+					return Transmission::ErrorNoData;
+				case (int)Transmission::ErrorProtocol:
+					return Transmission::ErrorProtocol;
+				case (int)Transmission::Success:
+					return Transmission::Success;
+				default:
+					return Transmission::NotSpecified;
+				}
+			}
 #if defined(__UNREAL__)
-			DECLARE_DELEGATE_ThreeParams(FAsyncNetworkCallback, Transmission, U, GenericErrorResponse)
-
-			static void ProcessRequestComplete(FHttpRequestPtr httpRequest, FHttpResponsePtr httpResponse, bool bWasSuccessful, FAsyncNetworkCallback callback)
+			static void ProcessRequestComplete(FHttpRequestPtr httpRequest, FHttpResponsePtr httpResponse, bool bWasSuccessful, std::function<void(Transmission, U, GenericErrorResponse)> callback)
 			{
 				U resp;
 				GenericErrorResponse error;
@@ -52,26 +75,29 @@ namespace GameWorkstore
 					{
 					case (int)Transmission::ErrorInternalServer:
 						error.set_error("ErrorInternalServer");
-						callback.Execute(Transmission::ErrorInternalServer, resp, error);
+						callback(Transmission::ErrorInternalServer, resp, error);
 						return;
 					default:
 						error.set_error("NotSpecified");
-						callback.Execute(Transmission::NotSpecified, resp, error);
+						callback(Transmission::NotSpecified, resp, error);
 						return;
 					}
 				}
+
 				auto decoded = base64_decode(httpResponse->GetContent());
 				if (!resp.ParseFromArray(decoded.GetData(), (int)decoded.Num()))
 				{
 					error.set_error("ErrorParser");
-					callback.Execute(Transmission::ErrorParser, resp, error);
+					callback(Transmission::ErrorParser, resp, error);
 					return;
+
 				}
 
-				callback.Execute(Transmission::Success, resp, error);
+				auto transmission = GetTransmissionResult(httpResponse->GetResponseCode());
+				callback(transmission, resp, error);
 			}
 
-			static void Send(FString url, T rqt, FAsyncNetworkCallback callback)
+			static void Send(FString url, T rqt, std::function<void(Transmission, U, GenericErrorResponse)> callback)
 #else
 			static void Send(std::string url, T rqt, std::function<void(Transmission, U, GenericErrorResponse)> callback)
 #endif
@@ -143,26 +169,43 @@ namespace GameWorkstore
 				{
 				case CURLE_OK:
 				{
+					auto transmission = GetTransmissionResult(http_code);
+
 					if (receiverBuffer.size() <= 0)
 					{
 						callback(Transmission::ErrorNoData, resp, error);
 						return;
 					}
+
 					std::vector<uint8_t> decoded = base64_decode(receiverBuffer);
+
+					if (transmission != Transmission::Success)
+					{
+						if (!error.ParseFromArray(decoded.data(), (int)decoded.size()))
+						{
+							callback(Transmission::ErrorParser, resp, error);
+							return;
+						}
+
+						callback(transmission, resp, error);
+						return;
+					}
+
 					if (!respb->ParseFromArray(decoded.data(), (int)decoded.size()))
 					{
 						callback(Transmission::ErrorParser, resp, error);
 						return;
 					}
+
 					callback(Transmission::Success, resp, error);
 					return;
 				}
 				default:
 					callback(Transmission::ErrorConnection, resp, error);
 					break;
-			}
+				}
 #endif
-		}
-	};
-}
+			}
+		};
+	}
 }
